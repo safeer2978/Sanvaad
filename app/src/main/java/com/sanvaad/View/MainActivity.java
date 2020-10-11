@@ -1,8 +1,10 @@
-package com.sanvaad;
+package com.sanvaad.View;
 // nachiket
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.sanvaad.R;
 
 public class MainActivity extends AppCompatActivity {
 

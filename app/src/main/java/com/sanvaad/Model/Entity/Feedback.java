@@ -15,8 +15,7 @@ public class Feedback {
 
     private Date fdate;
 
-    public Feedback(long userID, String comment, Date fdate) {
-        this.userID = userID;
+    public Feedback(String comment, Date fdate) {
         this.comment = comment;
         this.fdate = fdate;
     }

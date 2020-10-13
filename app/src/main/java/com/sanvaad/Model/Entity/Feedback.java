@@ -1,5 +1,4 @@
 package com.sanvaad.Model.Entity;
-import java.util.Date;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

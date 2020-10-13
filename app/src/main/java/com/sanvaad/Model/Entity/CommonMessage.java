@@ -9,6 +9,10 @@ public class CommonMessage {
     @PrimaryKey(autoGenerate = true)
     private long messageID;
 
+    private long cmcreatorID;
+
+    private long convoID;
+
     private String message;
 
     private long mdate;

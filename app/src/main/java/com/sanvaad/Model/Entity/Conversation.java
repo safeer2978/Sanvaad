@@ -12,6 +12,10 @@ public class Conversation {
 
     private long cdate;
 
+    private long convcreatorID;
+
+    private long messageID;
+
     public Conversation(long cdate) {
         this.cdate = cdate;
     }

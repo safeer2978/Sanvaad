@@ -1,12 +1,16 @@
-package com.sanvaad.Model.Entity;
+package com.sanvaad.Model.Relation;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.User;
+
 import java.util.List;
 
 public class UserWithFeedback {
-    @Embedded User user;
+    @Embedded
+    User user;
 
     @Relation(
             parentColumn = "userID",

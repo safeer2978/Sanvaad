@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "contact")
 public class Contact {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long conID;
 
     private String name;
 
@@ -17,12 +17,12 @@ public class Contact {
         this.imglink = imglink;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long conID) {
+        this.conID = conID;
     }
 
     public long getId() {
-        return id;
+        return conID;
     }
 
     public String getName() {

@@ -1,4 +1,5 @@
 package com.sanvaad.Model.Entity;
+import java.util.Date;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,8 +15,7 @@ public class Feedback {
 
     private long fdate;
 
-    public Feedback(long userID, String comment, long fdate) {
-        this.userID = userID;
+    public Feedback(String comment, long fdate) {
         this.comment = comment;
         this.fdate = fdate;
     }

@@ -3,7 +3,6 @@ package com.sanvaad.Model.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
 
 @Entity(tableName = "commonmessage")
 public class CommonMessage {
@@ -12,9 +11,9 @@ public class CommonMessage {
 
     private String message;
 
-    private Date mdate;
+    private long mdate;
 
-    public CommonMessage(String message, Date mdate) {
+    public CommonMessage(String message, long mdate) {
         this.message = message;
         this.mdate = mdate;
     }
@@ -31,7 +30,7 @@ public class CommonMessage {
         return message;
     }
 
-    public Date getMdate() {
+    public long getMdate() {
         return mdate;
     }
 }

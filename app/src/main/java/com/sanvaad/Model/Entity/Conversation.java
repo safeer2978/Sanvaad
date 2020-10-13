@@ -3,16 +3,16 @@ package com.sanvaad.Model.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+
 
 @Entity(tableName = "conversation")
 public class Conversation {
     @PrimaryKey(autoGenerate = true)
     private long convoID;
 
-    private Date cdate;
+    private long cdate;
 
-    public Conversation(Date cdate) {
+    public Conversation(long cdate) {
         this.cdate = cdate;
     }
 
@@ -24,7 +24,7 @@ public class Conversation {
         return convoID;
     }
 
-    public Date getCdate() {
+    public long getCdate() {
         return cdate;
     }
 }

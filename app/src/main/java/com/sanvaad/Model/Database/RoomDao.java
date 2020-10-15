@@ -1,4 +1,7 @@
 package com.sanvaad.Model.Database;
 
-public class RoomDao {
+import androidx.room.Dao;
+
+@Dao
+public interface RoomDao {
 }

@@ -1,5 +1,7 @@
 package com.sanvaad.Model.Firebase;
 
+import androidx.room.Entity;
+
 import java.io.Serializable;
 
 public class User implements Serializable {

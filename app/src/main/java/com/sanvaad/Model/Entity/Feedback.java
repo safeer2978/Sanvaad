@@ -8,6 +8,18 @@ public class Feedback {
     @PrimaryKey(autoGenerate = true)
     private long fid;
 
+    public void setUserID(long userID) {
+        this.userID = userID;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setFdate(long fdate) {
+        this.fdate = fdate;
+    }
+
     private long userID;
 
     private String comment;

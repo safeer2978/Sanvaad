@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase;
 
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
-import com.sanvaad.Model.Firebase.CommonMessage;
-import com.sanvaad.Model.Firebase.Feedback;
-import com.sanvaad.Model.Firebase.User;
+import com.sanvaad.Model.Entity.CommonMessage;
+import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.User;
+
 @androidx.room.Database(entities = {User.class, CommonMessage.class, Feedback.class, Contact.class, Conversation.class}, version = 1, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 

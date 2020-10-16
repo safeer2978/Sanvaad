@@ -10,6 +10,22 @@ public class Contact {
 
     private String name;
 
+    public long getConID() {
+        return conID;
+    }
+
+    public void setConID(long conID) {
+        this.conID = conID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImglink(String imglink) {
+        this.imglink = imglink;
+    }
+
     private String imglink;
 
     public Contact(String name, String imglink) {

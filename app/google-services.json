@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "66501075452",
+    "firebase_url": "https://sanvaad.firebaseio.com",
+    "project_id": "sanvaad",
+    "storage_bucket": "sanvaad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66501075452:android:b0869f0b3416aaf8fd9279",
+        "android_client_info": {
+          "package_name": "com.sanvaad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66501075452-a8qn771smiu8e9a3sl0v8kjik646j85i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAssb_vu-MxB_wh9PG6mc0iXs3cJWImEYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66501075452-a8qn771smiu8e9a3sl0v8kjik646j85i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -46,8 +46,8 @@ public class TextToSpeech {
         this.voiceName=voiceName;
     }
 
-    public TextToSpeech() throws IOException {
-        final InputStream stream = Resources.getSystem().openRawResource(R.raw.credentials);
+/*    public TextToSpeech() throws IOException {
+        final InputStream stream;//TODO: add credential file = Resources.getSystem().openRawResource(R.raw.credentials);
         final GoogleCredentials credentials = GoogleCredentials.fromStream(stream)
                 .createScoped(SCOPE);
         FixedCredentialsProvider credentialsProvider = FixedCredentialsProvider.create(credentials);
@@ -57,7 +57,7 @@ public class TextToSpeech {
                 .build();
         Log.w(TAG,"REached:"+51);
         textToSpeechClient = TextToSpeechClient.create(speechSettings);
-    }
+    }*/
 
     public void playText(String text){
         if(textToSpeechClient==null){

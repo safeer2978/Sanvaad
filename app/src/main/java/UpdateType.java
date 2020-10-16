@@ -1,0 +1,5 @@
+public enum UpdateType {
+    TRANSCRIPT_UPDATED,
+    TRANSCRIPT_FINALIZED,
+    TRANSCRIPT_CLEARED,
+}

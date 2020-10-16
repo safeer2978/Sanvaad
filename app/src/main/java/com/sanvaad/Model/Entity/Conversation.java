@@ -21,6 +21,26 @@ public class Conversation {
         this.convcreatorID = convcreatorID;
     }
 
+    public void setCdate(long cdate) {
+        this.cdate = cdate;
+    }
+
+    public long getConvcreatorID() {
+        return convcreatorID;
+    }
+
+    public void setConvcreatorID(long convcreatorID) {
+        this.convcreatorID = convcreatorID;
+    }
+
+    public long getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(long messageID) {
+        this.messageID = messageID;
+    }
+
     public void setConvoID(long convoID) {
         this.convoID = convoID;
     }

@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -22,7 +24,16 @@ android {
         }
     }
 
-
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            proto {
+                srcDir 'src/main/proto'
+            }
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,17 +47,60 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
+    flavorDimensions 'abi'
+    productFlavors {
+        arm7 {
+            ndk {
+                abiFilter 'armeabi-v7a'
+            }
+        }
+        arm8 {
+            ndk {
+                abiFilter 'arm64-v8a'
+            }
+        }
+        x86 {
+            ndk {
+                abiFilter 'x86'
+            }
+        }
+        x86_64 {
+            ndk {
+                abiFilter 'x86_64'
+            }
+        }
+    }
+
+}
+
+protobuf {
+    // Configure the protoc executable
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.8.0'
+
+        generateProtoTasks {
+            all().each { task ->
+                task.builtins {
+                    remove java
+                }
+                task.builtins {
+                    java {}
+                }
+            }
+        }
+    }
 }
 
 dependencies {
+    def room_version = "2.2.5"
     implementation 'android.arch.persistence.room:runtime:1.1.1'
-
+    implementation 'com.google.firebase:firebase-database:19.5.0'
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -56,14 +110,28 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.firebase:firebase-database:19.5.0'
     implementation 'com.google.firebase:firebase-auth:19.4.0'
-    def room_version = "2.2.4"
 
     //---text to speech
     // https://mvnrepository.com/artifact/com.google.cloud/libraries-bom
-    compile group: 'com.google.cloud', name: 'libraries-bom', version: '1.0.0', ext: 'pom'
+    implementation group: 'com.google.cloud', name: 'libraries-bom', version: '1.0.0', ext: 'pom'
     // https://mvnrepository.com/artifact/com.google.cloud/google-cloud-texttospeech
-    compile group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '1.2.1'
-    compile group: 'io.grpc', name: 'grpc-okhttp', version: '1.32.1'
+    implementation group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '1.2.1'
+    implementation group: 'io.grpc', name: 'grpc-okhttp', version: '1.32.1'
 
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //Speech to Text
+    implementation 'com.google.api.grpc:grpc-google-cloud-speech-v1p1beta1:0.63.0'
+    implementation 'com.google.flogger:flogger:0.4'
+    implementation 'com.google.flogger:flogger-system-backend:0.4'
+    implementation 'com.google.protobuf:protobuf-java:3.8.0'
+    implementation 'com.google.protobuf:protobuf-java-util:3.8.0'
+    implementation 'joda-time:joda-time:2.9.2'
+    implementation 'io.grpc:grpc-okhttp:1.21.0'
 }
+
+

@@ -2,6 +2,8 @@ package com.sanvaad.Model.Firebase;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sanvaad.Model.Database.Database;
@@ -56,5 +58,13 @@ public class DatabaseRef {
     public void addConversation(Conversation conversation){
         Conversation roomConversation = new Conversation(conversation.getCdate(),conversation.getConvcreatorID());
         Dao.insertConversation(roomConversation);
+    }
+
+    User getUser(){
+        return Dao.getUser().get(0);
+    }
+
+    LiveData<List<Contact>> getContact(){
+        return Dao.getContact();
     }
 }

@@ -9,10 +9,11 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
-        classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.cloud:google-cloud-speech:0.84.0-beta'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.9'
+        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.google.gms:google-services:4.3.4'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

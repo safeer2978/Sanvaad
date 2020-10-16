@@ -16,8 +16,9 @@ public class Conversation {
 
     private long messageID;
 
-    public Conversation(long cdate) {
+    public Conversation(long cdate, long convcreatorID) {
         this.cdate = cdate;
+        this.convcreatorID = convcreatorID;
     }
 
     public void setConvoID(long convoID) {
@@ -30,5 +31,13 @@ public class Conversation {
 
     public long getCdate() {
         return cdate;
+    }
+
+    public long getConvcreatorID() {
+        return convcreatorID;
+    }
+
+    public long getMessageID() {
+        return messageID;
     }
 }

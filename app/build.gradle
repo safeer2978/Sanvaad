@@ -45,12 +45,8 @@ android {
 }
 
 dependencies {
-    def room_version = "2.2.4"
-
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation 'com.google.firebase:firebase-database:19.5.0'
-    implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -58,6 +54,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.firebase:firebase-database:19.5.0'
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
+    def room_version = "2.2.4"
 
     //---text to speech
     // https://mvnrepository.com/artifact/com.google.cloud/libraries-bom
@@ -66,4 +65,5 @@ dependencies {
     compile group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '1.2.1'
     compile group: 'io.grpc', name: 'grpc-okhttp', version: '1.32.1'
 
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }

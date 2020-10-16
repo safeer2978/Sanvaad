@@ -27,4 +27,7 @@ public interface RoomDao {
     @Insert
     void insertConversation(Conversation conversation);
 
+    getUser(){
+        
+    }
 }

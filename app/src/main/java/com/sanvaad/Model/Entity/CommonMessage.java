@@ -9,15 +9,18 @@ public class CommonMessage {
     @PrimaryKey(autoGenerate = true)
     private long messageID;
 
-    private long cmcreatorID;
+    private long userID;
 
     private long convoID;
+
 
     private String message;
 
     private long mdate;
 
-    public CommonMessage(String message, long mdate) {
+    public CommonMessage(long userID, long convoID, String message, long mdate) {
+        this.userID = userID;
+        this.convoID = convoID;
         this.message = message;
         this.mdate = mdate;
     }
@@ -36,5 +39,13 @@ public class CommonMessage {
 
     public long getMdate() {
         return mdate;
+    }
+
+    public long getUserID() {
+        return userID;
+    }
+
+    public long getConvoID() {
+        return convoID;
     }
 }

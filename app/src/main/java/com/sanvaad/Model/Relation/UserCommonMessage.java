@@ -14,7 +14,7 @@ public class UserCommonMessage {
 
     @Relation(
             parentColumn = "userID",
-            entityColumn = "cmcreatorID"
+            entityColumn = "userID"
     )
     List<CommonMessage> commonmessages;
 

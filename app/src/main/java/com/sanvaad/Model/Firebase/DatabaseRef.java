@@ -61,10 +61,27 @@ public class DatabaseRef {
     }
 
     User getUser(){
+
         return Dao.getUser().get(0);
     }
 
     LiveData<List<Contact>> getContact(){
         return Dao.getContact();
+    }
+
+    LiveData<List<CommonMessage>> getCommonmessage(){
+        return Dao.getCommonmessage(long userID);
+    }
+
+    public void upContact(Contact contact){
+        Dao.updateContact(contact);
+    }
+    public void updateUser(User user){
+        Dao.updateUser(user);
+    }
+    public void updateAdminmessages(List<CommonMessage> adminmessage){
+        Dao.delAdminmessages(long Admin_ID);
+        Dao.insertAdminmessages(adminmessage);
+
     }
 }

@@ -53,11 +53,4 @@ public class Conversation {
         return cdate;
     }
 
-    public long getConvcreatorID() {
-        return convcreatorID;
-    }
-
-    public long getMessageID() {
-        return messageID;
-    }
 }

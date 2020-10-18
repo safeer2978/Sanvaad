@@ -12,6 +12,7 @@ import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 
 import java.util.List;
@@ -59,6 +60,10 @@ public class DatabaseRef {
         Conversation roomConversation = new Conversation(conversation.getCdate(),conversation.getConvcreatorID());
         Dao.insertConversation(roomConversation);
     }
+    public void addMessage(Message message){
+        Message roomMessage = new Message(message.getID(),message.getPosition(),message.getMessage(),message.getID());
+        Dao.insertMessage(roomMessage);
+    }
 
     User getUser(){
 
@@ -66,6 +71,7 @@ public class DatabaseRef {
     }
 
     LiveData<List<Contact>> getContact(){
+
         return Dao.getContact();
     }
 
@@ -73,7 +79,12 @@ public class DatabaseRef {
         return Dao.getCommonmessage(long userID);
     }
 
+    LiveData<List<Message>> getMessages(){
+        return Dao.getMessages(long ConID);
+    }
+
     public void upContact(Contact contact){
+
         Dao.updateContact(contact);
     }
     public void updateUser(User user){

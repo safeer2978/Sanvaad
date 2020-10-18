@@ -10,6 +10,7 @@ import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 
 import java.util.List;
@@ -32,6 +33,9 @@ public interface RoomDao {
     @Insert
     void insertConversation(Conversation conversation);
 
+    @Insert
+    void insertMessage(Message message);
+
     @Query("select * from user")
     List<User> getUser();
 
@@ -46,6 +50,9 @@ public interface RoomDao {
 
     @Query("delete * from commonmessage where userID like:"+ Constants.Admin_ID)
     LiveData<List<CommonMessage>> delAdminmessages(long userID);
+
+    @Query("select * from message where ConID like '%' || :ConID ||'%'")
+    LiveData<List<Message>> getMessages(long ConID);
 
     @Insert
     void insertAdminmessages(List<CommonMessage> adminmessages);

@@ -12,18 +12,19 @@ import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 
 import java.util.List;
 
 
-public class DatabaseRef {
+public class UserDataStore {
     RoomDao Dao;
     DatabaseReference databaseUsers;
     DatabaseReference databaseFeedbacks;
     DatabaseReference databaseCommonmessages;
 
-    public DatabaseRef(Application application) {
+    public UserDataStore(Application application) {
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
         databaseFeedbacks = FirebaseDatabase.getInstance().getReference("Feedbacks");
         databaseCommonmessages = FirebaseDatabase.getInstance().getReference("Commonmessages");
@@ -59,12 +60,39 @@ public class DatabaseRef {
         Conversation roomConversation = new Conversation(conversation.getCdate(),conversation.getConvcreatorID());
         Dao.insertConversation(roomConversation);
     }
+    public void addMessage(Message message){
+        Message roomMessage = new Message(message.getID(),message.getPosition(),message.getMessage(),message.getID());
+        Dao.insertMessage(roomMessage);
+    }
 
     User getUser(){
+
         return Dao.getUser().get(0);
     }
 
     LiveData<List<Contact>> getContact(){
+
         return Dao.getContact();
+    }
+
+    LiveData<List<CommonMessage>> getCommonmessage(){
+        return Dao.getCommonmessage(long userID);
+    }
+
+    LiveData<List<Message>> getMessages(){
+        return Dao.getMessages(long ConID);
+    }
+
+    public void upContact(Contact contact){
+
+        Dao.updateContact(contact);
+    }
+    public void updateUser(User user){
+        Dao.updateUser(user);
+    }
+    public void updateAdminmessages(List<CommonMessage> adminmessage){
+        Dao.delAdminmessages(long Admin_ID);
+        Dao.insertAdminmessages(adminmessage);
+
     }
 }

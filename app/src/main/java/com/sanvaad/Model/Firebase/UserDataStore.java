@@ -18,13 +18,13 @@ import com.sanvaad.Model.Entity.User;
 import java.util.List;
 
 
-public class DatabaseRef {
+public class UserDataStore {
     RoomDao Dao;
     DatabaseReference databaseUsers;
     DatabaseReference databaseFeedbacks;
     DatabaseReference databaseCommonmessages;
 
-    public DatabaseRef(Application application) {
+    public UserDataStore(Application application) {
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
         databaseFeedbacks = FirebaseDatabase.getInstance().getReference("Feedbacks");
         databaseCommonmessages = FirebaseDatabase.getInstance().getReference("Commonmessages");

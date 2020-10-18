@@ -46,23 +46,29 @@ public class TextToSpeech {
         this.voiceName=voiceName;
     }
 
-/*    public TextToSpeech() throws IOException {
-        final InputStream stream;//TODO: add credential file = Resources.getSystem().openRawResource(R.raw.credentials);
-        final GoogleCredentials credentials = GoogleCredentials.fromStream(stream)
-                .createScoped(SCOPE);
+    public TextToSpeech(Context context){
+        final InputStream stream = context.getResources().openRawResource(R.raw.credentials);
+        final GoogleCredentials credentials;
+        try {
+            credentials = GoogleCredentials.fromStream(stream)
+                    .createScoped(SCOPE);
         FixedCredentialsProvider credentialsProvider = FixedCredentialsProvider.create(credentials);
-        TextToSpeechSettings speechSettings = TextToSpeechSettings
-                .newBuilder()
-                .setCredentialsProvider(credentialsProvider)
-                .build();
+        TextToSpeechSettings speechSettings = null;
+            speechSettings = TextToSpeechSettings
+                    .newBuilder()
+                    .setCredentialsProvider(credentialsProvider)
+                    .build();
         Log.w(TAG,"REached:"+51);
-        textToSpeechClient = TextToSpeechClient.create(speechSettings);
-    }*/
+            textToSpeechClient = TextToSpeechClient.create(speechSettings);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void playText(String text){
+    public boolean playText(String text){
         if(textToSpeechClient==null){
             Log.w(TAG,"client not ready yet");
-            return;
+            return false;
         }
         SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
         VoiceSelectionParams voice =
@@ -92,11 +98,14 @@ public class TextToSpeech {
             mediaPlayer.setDataSource(fis.getFD());
             mediaPlayer.prepare();
             mediaPlayer.start();
+            while (mediaPlayer.isPlaying())
+            {}
+            return true;
     } catch (IOException ex) {
             String s = ex.toString();
             ex.printStackTrace();
         }
-
+        return true;
     }
 
 

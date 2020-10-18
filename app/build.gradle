@@ -51,8 +51,8 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
-    flavorDimensions 'abi'
-    productFlavors {
+    //flavorDimensions 'abi'
+    /*productFlavors {
         arm7 {
             ndk {
                 abiFilter 'armeabi-v7a'
@@ -74,7 +74,7 @@ android {
             }
         }
     }
-
+*/
 }
 
 protobuf {
@@ -131,6 +131,10 @@ dependencies {
     implementation 'io.grpc:grpc-okhttp:1.21.0'
     implementation 'com.google.protobuf:protobuf-java:3.8.0'
     implementation 'com.google.protobuf:protobuf-java-util:3.8.0'
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+
 }
 
 

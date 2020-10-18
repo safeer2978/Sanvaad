@@ -36,6 +36,7 @@ import androidx.lifecycle.Observer;
 import com.google.audio.NetworkState;
 import com.google.common.base.Preconditions;
 import com.google.common.flogger.FluentLogger;
+import com.google.firebase.database.annotations.NotNull;
 
 /**
  * Checks whether or not there is currently a connection and if that connection is Wifi. Need to

@@ -6,6 +6,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.text.Spanned;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -31,10 +32,13 @@ public class SpeechToText {
 
     public SpeechToText(Context context) {
         this.context = context;
+        initLanguageLocale();
+        constructRepeatingRecognitionSession();
     }
 
     Context context;
 
+    private static final String TAG = "SPEECH TO TEXT";
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
     private static final int MIC_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
@@ -56,7 +60,7 @@ public class SpeechToText {
 
     TextData textData;
 
-    MutableLiveData<TextData> textDataMutableLiveData;
+    MutableLiveData<TextData> textDataMutableLiveData = new MutableLiveData<>();
 
 
     private final TranscriptionResultUpdatePublisher transcriptUpdater = new TranscriptionResultUpdatePublisher() {
@@ -70,14 +74,14 @@ public class SpeechToText {
         int type=1;
          if(updateType!=TranscriptionResultUpdatePublisher.UpdateType.TRANSCRIPT_FINALIZED)
                 type=0;
-
-        textDataMutableLiveData.setValue(new TextData(text,type));
+        getTextData();
+        textDataMutableLiveData.postValue(new TextData(text,type));
     }
 
 
     public LiveData<TextData> getTextData(){
         if(textDataMutableLiveData==null){
-            return new MutableLiveData<>();
+            return new MutableLiveData<TextData>();
         }
         return textDataMutableLiveData;
     }
@@ -96,9 +100,22 @@ public class SpeechToText {
             };
 
     public void onStart() {
-        //Request Permissions Here
-        constructRepeatingRecognitionSession();
+        //Request Permissions Here\
+
         startRecording();
+    }
+
+
+    public void onPause(){
+        if (audioRecord != null) {
+            audioRecord.stop();
+        }
+    }
+
+    public void onResume(){
+        if (audioRecord != null) {
+            audioRecord.startRecording();
+        }
     }
 
 
@@ -169,8 +186,8 @@ public class SpeechToText {
                             MIC_CHANNELS,
                             MIC_CHANNEL_ENCODING,
                             CHUNK_SIZE_SAMPLES * BYTES_PER_SAMPLE);
+            Log.d(TAG, "startRecording: audioRecord Initialized");
         }
-
         audioRecord.startRecording();
         new Thread(readMicData).start();
     }

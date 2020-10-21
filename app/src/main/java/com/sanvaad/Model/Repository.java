@@ -4,7 +4,13 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.sanvaad.Model.Entity.Contact;
+import com.sanvaad.Model.Entity.Message;
+import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
+
+import java.util.List;
+import java.util.Objects;
 
 
 public class Repository {
@@ -12,7 +18,7 @@ public class Repository {
     SpeechFunctionDataStore speechFunctionDataStore;
 
     UserDataStore userDataStore;
-
+    User user;
 
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
@@ -48,4 +54,20 @@ public class Repository {
         speechFunctionDataStore.changeVoice(userGender);
     }
 
+
+    public User getUser(){
+        if(user == null)
+            user = userDataStore.getUser();
+        return user;
+    }
+
+    public void saveMessages(List<Message> messages) {
+
+
+        userDataStore.saveMessages(messages);
+    }
+
+    public Contact getUserAsContact() {
+        return Objects.requireNonNull(userDataStore.getContact().getValue()).get(0);
+    }
 }

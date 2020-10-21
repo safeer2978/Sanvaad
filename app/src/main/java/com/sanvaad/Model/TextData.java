@@ -4,7 +4,7 @@ import com.google.audio.asr.TranscriptionResultUpdatePublisher;
 
 public class TextData {
     String text;
-    int type;
+    boolean type;
 
     public String getText() {
         return text;
@@ -14,15 +14,15 @@ public class TextData {
         this.text = text;
     }
 
-    public int getType() {
+    public boolean isFinal() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(boolean type) {
         this.type = type;
     }
 
-    public TextData(String text, int type) {
+    public TextData(String text, boolean type) {
         this.text = text;
         this.type = type;
     }

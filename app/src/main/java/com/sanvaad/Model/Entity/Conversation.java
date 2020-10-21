@@ -3,6 +3,7 @@ package com.sanvaad.Model.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
 
 
 @Entity(tableName = "conversation")
@@ -16,10 +17,21 @@ public class Conversation {
 
     private long messageID;
 
-    public Conversation(long cdate, long convcreatorID) {
-        this.cdate = cdate;
-        this.convcreatorID = convcreatorID;
+    public int getTop() {
+        return top;
     }
+
+    public void setTop(int top) {
+        this.top = top;
+    }
+
+    private int top=0;
+
+    public Conversation(User user) {
+        this.cdate = Calendar.getInstance().getTimeInMillis();
+        this.convcreatorID = user.getUserID();
+    }
+
 
     public void setCdate(long cdate) {
         this.cdate = cdate;
@@ -53,4 +65,7 @@ public class Conversation {
         return cdate;
     }
 
+    public void incrementMessageCount() {
+        this.top+=1;
+    }
 }

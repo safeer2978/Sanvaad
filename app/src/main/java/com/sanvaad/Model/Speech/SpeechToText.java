@@ -71,9 +71,9 @@ public class SpeechToText {
     };
 
     private void setTextData(String text, TranscriptionResultUpdatePublisher.UpdateType updateType){
-        int type=1;
+        boolean type=true;
          if(updateType!=TranscriptionResultUpdatePublisher.UpdateType.TRANSCRIPT_FINALIZED)
-                type=0;
+                type=false;
         getTextData();
         textDataMutableLiveData.postValue(new TextData(text,type));
     }

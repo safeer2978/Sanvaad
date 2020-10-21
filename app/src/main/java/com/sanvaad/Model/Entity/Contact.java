@@ -3,6 +3,8 @@ package com.sanvaad.Model.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.sanvaad.Model.Constants;
+
 @Entity(tableName = "contact")
 public class Contact {
     @PrimaryKey(autoGenerate = true)
@@ -31,6 +33,12 @@ public class Contact {
     public Contact(String name, String imglink) {
         this.name = name;
         this.imglink = imglink;
+    }
+
+    public Contact(String name){
+        this.name = name;
+        this.imglink= Constants.DUMMY_CONTACT_IMAGE_LINK;
+
     }
 
     public void setId(long conID) {

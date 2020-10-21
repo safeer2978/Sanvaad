@@ -45,6 +45,7 @@ public class UserDataStore {
 
     public void createUser(User user, String token){
         //TODO: Logic for user creation.
+        //TODO: Also add User as a contact
             com.sanvaad.Model.Entity.User roomUser=new com.sanvaad.Model.Entity.User(user.getName(),user.getEmail(),user.getAge(),user.getPhoneNo(),user.getStatus());
             Dao.insertUser(roomUser);
             databaseUsers.child(String.valueOf(user.getUserID())).setValue(user);
@@ -130,5 +131,10 @@ public class UserDataStore {
 
     public LiveData<List<CommonMessage>> getAdminCommonMessage(){
         return Dao.getAdminCommonMessageList();
+    }
+
+    public void saveMessages(List<Message> messages) {
+        for(Message message: messages)
+            Dao.insertMessage(message);
     }
 }

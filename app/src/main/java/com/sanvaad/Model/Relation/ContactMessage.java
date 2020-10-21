@@ -13,7 +13,7 @@ public class ContactMessage {
     Contact contact;
 
     @Relation(
-            parentColumn = "ConID",
+            parentColumn = "contactID",
             entityColumn = "ID"
     )
     List<Message> message;

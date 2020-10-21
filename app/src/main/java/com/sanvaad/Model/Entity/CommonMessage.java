@@ -4,6 +4,8 @@ package com.sanvaad.Model.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
+
 
 @Entity(tableName = "commonMessage")
 public class CommonMessage {
@@ -13,11 +15,6 @@ public class CommonMessage {
     public void setUserID(long userID) {
         this.userID = userID;
     }
-
-    public void setConvoID(long convoID) {
-        this.convoID = convoID;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -28,18 +25,16 @@ public class CommonMessage {
 
     private long userID;
 
-    private long convoID;
 
 
     private String message;
 
     private long mdate;
 
-    public CommonMessage(long userID, long convoID, String message, long mdate) {
-        this.userID = userID;
-        this.convoID = convoID;
+    public CommonMessage(String message, User user) {
+        this.userID = user.getUserID();
         this.message = message;
-        this.mdate = mdate;
+        this.mdate = Calendar.getInstance().getTimeInMillis();
     }
 
     public CommonMessage(){
@@ -64,9 +59,5 @@ public class CommonMessage {
 
     public long getUserID() {
         return userID;
-    }
-
-    public long getConvoID() {
-        return convoID;
     }
 }

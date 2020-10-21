@@ -1,11 +1,10 @@
 package com.sanvaad.Model.Entity;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
-
-import javax.annotation.Generated;
 
 @Entity(tableName = "message")
 public class Message {
@@ -18,22 +17,41 @@ public class Message {
 
     private int position;
 
-    private int convID;
+    private long convID;
 
-    public int getConvID() {
+    public long getContactID() {
+        return contactID;
+    }
+
+    public void setContactID(long contactID) {
+        this.contactID = contactID;
+    }
+
+    @Nullable
+    private long contactID;
+
+    public long getConvID() {
         return convID;
     }
 
-    public void setConvID(int convID) {
+    public void setConvID(long convID) {
         this.convID = convID;
     }
 
-    public Message( String message, int position, int convID) {
+    public Message( String message, Conversation conversation) {
         this.message = message;
         this.messageDate = Calendar.getInstance().getTimeInMillis();
-        this.position = position;
-        this.convID = convID;
+        this.position = conversation.getTop();
+        this.convID = conversation.getConvoID();
+        contactID=-1;
     }
+
+    public void setContact(Contact contact){
+        this.contactID = contact.getId();
+    }
+
+
+
 
     public String getMessage() {
         return message;

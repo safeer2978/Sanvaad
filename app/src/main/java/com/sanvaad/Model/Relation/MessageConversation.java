@@ -13,7 +13,7 @@ public class MessageConversation {
     Conversation conversation;
 
     @Relation(
-            parentColumn = "convoId",
+            parentColumn = "convID",
             entityColumn = "ID"
     )
     List<Message> messages;

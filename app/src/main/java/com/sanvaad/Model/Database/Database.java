@@ -9,9 +9,11 @@ import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Feedback;
+import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 
-@androidx.room.Database(entities = {User.class, CommonMessage.class, Feedback.class, Contact.class, Conversation.class}, version = 1, exportSchema = false)
+
+@androidx.room.Database(entities = {Message.class,User.class, CommonMessage.class, Feedback.class, Contact.class, Conversation.class}, version = 1, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
     public abstract RoomDao dao();

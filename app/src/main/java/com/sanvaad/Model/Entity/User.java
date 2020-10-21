@@ -8,21 +8,45 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private long userID;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setPhoneNo(long phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     private String name;
 
     private String email;
 
     private int age;
 
-    private long phoneno;
+    private long phoneNo;
 
     private String status;
 
-    public User(String name, String email, int age, long phoneno, String status) {
+    public User(){
+
+    }
+
+    public User(String name, String email, int age, long phoneNo, String status) {
         this.name = name;
         this.email = email;
         this.age = age;
-        this.phoneno = phoneno;
+        this.phoneNo = phoneNo;
         this.status = status;
     }
 
@@ -46,8 +70,8 @@ public class User {
         return age;
     }
 
-    public long getPhoneno() {
-        return phoneno;
+    public long getPhoneNo() {
+        return phoneNo;
     }
 
     public String getStatus() {

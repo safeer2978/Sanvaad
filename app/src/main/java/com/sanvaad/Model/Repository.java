@@ -4,19 +4,19 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.google.firebase.database.DatabaseReference;
-import com.sanvaad.Model.Firebase.DatabaseRef;
 import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
 
 
 public class Repository {
 
     SpeechFunctionDataStore speechFunctionDataStore;
-    DatabaseRef databaseRef;
+
+    UserDataStore userDataStore;
 
 
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
+        userDataStore = new UserDataStore(application);
     }
 
     private static Repository INSTANCE;
@@ -44,5 +44,8 @@ public class Repository {
         speechFunctionDataStore.playTextToSpeech(s);
     }
 
+    public void changeUserSpeechVoice(String userGender){
+        speechFunctionDataStore.changeVoice(userGender);
+    }
 
 }

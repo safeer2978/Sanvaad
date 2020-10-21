@@ -1,19 +1,38 @@
 package com.sanvaad.Model.Entity;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Calendar;
+
+import javax.annotation.Generated;
+
+@Entity(tableName = "message")
 public class Message {
     private String message;
 
+    @PrimaryKey(autoGenerate = true)
     private long ID;
 
     private long messageDate;
 
     private int position;
 
-    public Message(String message, long ID, long messageDate, int position) {
+    private int convID;
+
+    public int getConvID() {
+        return convID;
+    }
+
+    public void setConvID(int convID) {
+        this.convID = convID;
+    }
+
+    public Message( String message, int position, int convID) {
         this.message = message;
-        this.ID = ID;
-        this.messageDate = messageDate;
+        this.messageDate = Calendar.getInstance().getTimeInMillis();
         this.position = position;
+        this.convID = convID;
     }
 
     public String getMessage() {

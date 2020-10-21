@@ -31,8 +31,9 @@ public class SpeechFunctionDataStore {
     void changeLanguage(){
     }
 
-    void changeVoice(){
-
+    public void changeVoice(String gender)
+    {
+        textToSpeech.setVoiceGender(gender);
     }
 
 

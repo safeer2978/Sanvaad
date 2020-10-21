@@ -108,6 +108,17 @@ public class TextToSpeech {
         return true;
     }
 
+    /**Accepts string
+     *  first character is compared, f or not
+     *  not case sensitive
+     * */
+    public void setVoiceGender(String gender){
+        if(gender.toLowerCase().charAt(0) == 'f')
+            voiceName = "en-IN-Standard-D";
+        else
+            voiceName = "en-IN-Standard-C";
+
+    }
 
 
 }

@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
@@ -25,7 +26,7 @@ public interface RoomDao {
     void insertFeedback(Feedback feedback);
 
     @Insert
-    void insertCommonmessage(CommonMessage commonMessage);
+    void insertCommonMessage(CommonMessage commonMessage);
 
     @Insert
     void insertContact(Contact contact);
@@ -42,20 +43,26 @@ public interface RoomDao {
     @Query("select * from contact")
     LiveData<List<Contact>> getContact();
 
-    @Query("select * from commonmessage where userID like '%' || :userID || '%'")
-    LiveData<List<CommonMessage>> getCommonmessage(long userID);
+    @Query("select * from commonMessage where userID like '%' || :userID || '%'")
+    LiveData<List<CommonMessage>> getCommonMessageList(long userID);
 
-    @Query("select * from conversation where userID like '%' || :userID || '%'")
+
+
+    @Query("select * from conversation where convcreatorID like '%' || :userID || '%'")
     LiveData<List<Conversation>> getConversation(long userID);
 
-    @Query("delete * from commonmessage where userID like:"+ Constants.Admin_ID)
-    LiveData<List<CommonMessage>> delAdminmessages(long userID);
 
-    @Query("select * from message where ConID like '%' || :ConID ||'%'")
-    LiveData<List<Message>> getMessages(long ConID);
+    @Query("select * from commonMessage where userID like '%' || "+Constants.ADMIN_ID+"|| '%'")
+    LiveData<List<CommonMessage>> getAdminCommonMessageList();
+
+    @Query("delete from commonMessage where userID like '%' || "+Constants.ADMIN_ID+"|| '%' ")
+    void deleteAllAdminMessages();
+
+    @Query("select * from message where convID like '%' || :convID ||'%'")
+    LiveData<List<Message>> getMessages(long convID);
 
     @Insert
-    void insertAdminmessages(List<CommonMessage> adminmessages);
+    void insertAdminMessages(List<CommonMessage> adminMessages);
 
     @Update
     void updateUser(User user);

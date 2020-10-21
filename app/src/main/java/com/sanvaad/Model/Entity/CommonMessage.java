@@ -5,10 +5,26 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "commonmessage")
+@Entity(tableName = "commonMessage")
 public class CommonMessage {
     @PrimaryKey(autoGenerate = true)
     private long messageID;
+
+    public void setUserID(long userID) {
+        this.userID = userID;
+    }
+
+    public void setConvoID(long convoID) {
+        this.convoID = convoID;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setMdate(long mdate) {
+        this.mdate = mdate;
+    }
 
     private long userID;
 
@@ -24,6 +40,10 @@ public class CommonMessage {
         this.convoID = convoID;
         this.message = message;
         this.mdate = mdate;
+    }
+
+    public CommonMessage(){
+
     }
 
     public void setMessageID(long messageID) {

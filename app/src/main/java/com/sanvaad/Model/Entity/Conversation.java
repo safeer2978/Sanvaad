@@ -32,6 +32,10 @@ public class Conversation {
         this.convcreatorID = user.getUserID();
     }
 
+    public Conversation(){
+
+    }
+
 
     public void setCdate(long cdate) {
         this.cdate = cdate;

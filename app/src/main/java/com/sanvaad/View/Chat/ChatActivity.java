@@ -1,9 +1,11 @@
 package com.sanvaad.View.Chat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -22,8 +24,8 @@ public class ChatActivity extends AppCompatActivity {
     EditText editText;
     Button speakBtn, triggerBtn;
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
-
-    ChatActivityViewModel viewModel;
+Toolbar toolbar;
+ChatActivityViewModel viewModel;
 
     @Override
     protected void onStart() {
@@ -36,39 +38,24 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    RecyclerView recyclerView;
+    TextView textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        viewModel = new ViewModelProvider(this).get(ChatActivityViewModel.class);
-        textView = findViewById(R.id.textView);
-        editText = findViewById(R.id.editTextTextPersonName);
-        speakBtn = findViewById(R.id.speak);
-        triggerBtn = findViewById(R.id.triggerBtn);
-
-
-
-        viewModel.getTextData().observe(this,textData -> {
-            textView.setText(textData.getText());
-        });
-        triggerBtn.setOnClickListener(new View.OnClickListener() {
+        toolbar=findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.message_rv);
+        textView=findViewById(R.id.toggle_rv);
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.triggerListening();
-                triggerBtn.setText(viewModel.gettriggerListeningState()?"Listening":"not Listening");
+                if(recyclerView.getVisibility()==View.GONE)
+                    recyclerView.setVisibility(View.VISIBLE);
+                else
+                    recyclerView.setVisibility(View.GONE);
             }
         });
-
-        speakBtn.setText("Speak");
-        speakBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.speakText(editText.getText().toString());
-            }
-        });
-
-
-
 
     }
 }

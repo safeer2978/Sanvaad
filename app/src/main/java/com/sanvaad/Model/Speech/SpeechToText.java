@@ -7,6 +7,8 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -37,6 +39,10 @@ public class SpeechToText {
     }
 
     Context context;
+
+    TextView textView;
+
+
 
     private static final String TAG = "SPEECH TO TEXT";
 

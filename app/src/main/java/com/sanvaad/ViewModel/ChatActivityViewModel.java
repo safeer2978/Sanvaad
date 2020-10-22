@@ -2,6 +2,7 @@ package com.sanvaad.ViewModel;
 
 import android.app.Application;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,10 +21,15 @@ import java.util.List;
 
 public class ChatActivityViewModel extends AndroidViewModel {
     Repository repository;
+
     boolean triggerState = false;
     private final Conversation conversation;
     List<Message> messages = new ArrayList<>();
     List<Contact> participants = new ArrayList<>();
+
+    ConstraintLayout constraintLayout;
+
+
     User user;
     int index=0;
 

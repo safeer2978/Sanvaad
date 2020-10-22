@@ -41,6 +41,8 @@ public class Contact {
 
     }
 
+    public Contact(){}
+
     public void setId(long conID) {
         this.conID = conID;
     }

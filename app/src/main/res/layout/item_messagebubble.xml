@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/messagebubble_contstraint_layout">
+
+    <Button
+        android:id="@+id/messagebubble_speak_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@id/messagebubble_linearLayout"
+        app:layout_constraintEnd_toStartOf="@id/messagebubble_linearLayout"
+        app:layout_constraintTop_toTopOf="@id/messagebubble_linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/messagebubble_linearLayout"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/messagebubble_speaker_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Speaker"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messagebubble_speaker_recyclerview"
+                android:layout_width="84dp"
+                android:layout_height="23dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/messagebubble_message_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is some message" />
+
+        <TextView
+            android:id="@+id/messagebubble_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="3:05 pm"
+            android:textSize="8sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

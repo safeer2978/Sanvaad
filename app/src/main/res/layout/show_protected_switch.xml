@@ -7,6 +7,9 @@
         android:id="@+id/switch_show_protected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="2dp"
         android:textOff=""
         android:textOn=""/>
 </RelativeLayout>

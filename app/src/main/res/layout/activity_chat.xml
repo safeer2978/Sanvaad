@@ -10,15 +10,17 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="456dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:layout_height="65dp"
+        android:background="@color/background"
         android:minHeight="?attr/actionBarSize"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/chat_activity_toolbar_menu">
-    </androidx.appcompat.widget.Toolbar>
+        app:menu="@menu/chat_activity_toolbar_menu"></androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -31,15 +33,19 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
+            android:background="@drawable/text_input"
+            android:layout_margin="10dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="363dp"
+                android:layout_width="337dp"
                 android:layout_height="match_parent"
                 android:scrollbars="horizontal">
 
@@ -47,9 +53,10 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+" />
+                android:layout_width="33.25dp"
+                android:layout_height="33.25dp"
+                android:background="@drawable/icon_ionic_ios_add_circle_outline"
+                android:paddingRight="17dp" />
 
         </LinearLayout>
 
@@ -69,6 +76,7 @@
             android:layout_weight="1"
             android:gravity="bottom"
             android:orientation="vertical"
+            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -94,26 +102,42 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="2dp">
 
                 <EditText
                     android:id="@+id/editTextTextPersonName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="337dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
+                    android:background="@drawable/text_input"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:text="Name"
+                    android:textColor="#fff" />
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Button" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/send_button" />
             </LinearLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/icon_ionic_md_arrow_round_back"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

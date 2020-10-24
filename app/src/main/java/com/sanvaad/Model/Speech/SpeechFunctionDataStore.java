@@ -44,6 +44,6 @@ public class SpeechFunctionDataStore {
     public void playTextToSpeech(String text){
         speechToText.onPause();
         textToSpeech.playText(text);
-        speechToText.onStart();
+//        speechToText.onStart();
     }
 }

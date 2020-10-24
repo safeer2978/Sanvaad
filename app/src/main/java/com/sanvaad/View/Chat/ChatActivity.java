@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,12 +25,15 @@ import android.widget.TextView;
 
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
+import com.sanvaad.Model.TextData;
 import com.sanvaad.R;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
+import com.sanvaad.messageListener;
+
 
 import java.util.List;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements messageListener {
 
     TextView textView;
     EditText editText;
@@ -76,6 +80,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.setListener(this);
+
         addParticipantButton = findViewById(R.id.ca_addparticipant_btn);
         commonMessageRecyclerView = findViewById(R.id.ca_common_message_rv);
         chatRecyclerView = findViewById(R.id.ca_chat_rv);
@@ -96,22 +102,10 @@ public class ChatActivity extends AppCompatActivity {
         contactsRecyclerViews.setAdapter(contactAdapter);
 
 
-        participantsRecyclerViews.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-        participantsAdapter = new ParticipantsAdapter(this,viewModel);
-        participantsRecyclerViews.setAdapter(participantsAdapter);
-        viewModel.getParticipantsLiveData().observe(this, new Observer<List<Contact>>() {
-            @Override
-            public void onChanged(List<Contact> contacts) {
-                participantsAdapter.setList(contacts);
-                participantsAdapter.notifyDataSetChanged();
-                participantsRecyclerViews.setAdapter(participantsAdapter);
-            }
-        });
-
 
         chatRecyclerView = findViewById(R.id.ca_chat_rv);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-         messagesAdapter= new ChatMessagesAdapter(this, viewModel);
+        messagesAdapter= new ChatMessagesAdapter(this, viewModel);
         chatRecyclerView.setAdapter(messagesAdapter);
         viewModel.getMessagesLiveData().observe(this, new Observer<List<Message>>() {
             @Override
@@ -123,6 +117,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
+
+        participantsRecyclerViews.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        participantsAdapter = new ParticipantsAdapter(this,viewModel);
+        participantsRecyclerViews.setAdapter(participantsAdapter);
+        viewModel.getParticipantsLiveData().observe(this, new Observer<List<Contact>>() {
+            @Override
+            public void onChanged(List<Contact> contacts) {
+                participantsAdapter.setList(contacts);
+                participantsAdapter.notifyDataSetChanged();
+                participantsRecyclerViews.setAdapter(participantsAdapter);
+
+                messagesAdapter.setContactList(contacts);
+                messagesAdapter.notifyDataSetChanged();
+
+            }
+        });
 
         addParticipantButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +164,14 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+        viewModel.getTextLiveData().observe(this, new Observer<TextData>() {
+            @Override
+            public void onChanged(TextData textData) {
+                viewModel.handleSpeakerMessages(textData);
+                messagesAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -206,5 +224,10 @@ public class ChatActivity extends AppCompatActivity {
         participantsAdapter.notifyDataSetChanged();
         messagesAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void refreshMessage() {
+        messagesAdapter.notifyDataSetChanged();
     }
 }

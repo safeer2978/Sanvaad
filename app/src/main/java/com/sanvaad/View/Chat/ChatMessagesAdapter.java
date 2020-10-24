@@ -14,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sanvaad.Model.Constants;
+import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.R;
@@ -38,7 +41,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
         this.viewModel = viewModel;
     }
 
-    public void setUserList(LiveData<List<Contact>> contacts) {
+    public void setContactList(List<Contact> contacts) {
         this.contactList = contacts;
     }
     public void setMessageList(List<Message> messages){
@@ -46,7 +49,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
     }
 
     List<Message> messageList;
-    LiveData<List<Contact>> contactList;
+    List<Contact> contactList;
 
 
     @NonNull
@@ -73,8 +76,18 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
                 }
             });
             layoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
-        }else{
+        }else {
             holder.textViewSpeaker.setText("Speaker");
+            List<Contact> contacts = viewModel.getParticipantsList();
+            for (Contact c : contacts) {
+                if (message.getContactID() == c.getId()) {
+                    holder.textViewSpeaker.setText(c.getName());
+                    holder.textViewSpeaker.setTextColor(viewModel.getColorInteger(c));
+                    holder.recyclerView.setVisibility(View.GONE);
+                    break;
+                }
+
+            }
             layoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
         }
         holder.linearLayout.setLayoutParams(layoutParams);
@@ -82,6 +95,13 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
         Date date = new Date(message.getMessageDate());
         holder.textViewTime.setText(date.getHours()+":"+date.getMinutes());
 
+
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,true));
+        AssignParticipantAdapter adapter = new AssignParticipantAdapter(context,viewModel);
+        adapter.setMessagePosition(position);
+        holder.recyclerView.setAdapter(adapter);
+        adapter.setList(contactList);
+        adapter.notifyDataSetChanged();
     }
 
 /*
@@ -119,6 +139,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
         ConstraintLayout constraintLayout;
         ImageView imageView;
         LinearLayout speakerLinerLayout;
+        RecyclerView recyclerView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             speakerLinerLayout = itemView.findViewById(R.id.item_speakername_ll);
@@ -129,6 +150,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
             textViewMessage = itemView.findViewById(R.id.messagebubble_message_textview);
             button = itemView.findViewById(R.id.messagebubble_speak_btn);
             imageView = itemView.findViewById(R.id.imageView_chooseContact);
+            recyclerView = itemView.findViewById(R.id.messagebubble_speaker_recyclerview);
         }
     }
 }

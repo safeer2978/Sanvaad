@@ -78,10 +78,10 @@ public class SpeechToText {
 
     private void setTextData(String text, TranscriptionResultUpdatePublisher.UpdateType updateType){
         boolean type=true;
-         if(updateType!=TranscriptionResultUpdatePublisher.UpdateType.TRANSCRIPT_FINALIZED)
-                type=false;
-        getTextData();
-        textDataMutableLiveData.postValue(new TextData(text,type));
+         if(updateType==TranscriptionResultUpdatePublisher.UpdateType.TRANSCRIPT_FINALIZED){
+             getTextData();
+             textDataMutableLiveData.postValue(new TextData(text,type)); ///TODO put this on UI thread!!!
+         }
     }
 
 
@@ -180,7 +180,7 @@ public class SpeechToText {
                         .setSpeechRecognitionModelOptions(options)
                         .setNetworkConnectionChecker(networkChecker);
         recognizer = recognizerBuilder.build();
-        recognizer.registerCallback(transcriptUpdater, TranscriptionResultUpdatePublisher.ResultSource.WHOLE_RESULT);
+        recognizer.registerCallback(transcriptUpdater, TranscriptionResultUpdatePublisher.ResultSource.MOST_RECENT_SEGMENT);
     }
 
     private void startRecording() {
@@ -194,6 +194,8 @@ public class SpeechToText {
                             CHUNK_SIZE_SAMPLES * BYTES_PER_SAMPLE);
             Log.d(TAG, "startRecording: audioRecord Initialized");
         }
+        if(audioRecord==null)
+            return;
         audioRecord.startRecording();
         new Thread(readMicData).start();
     }

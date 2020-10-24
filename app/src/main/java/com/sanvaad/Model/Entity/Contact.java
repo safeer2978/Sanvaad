@@ -41,6 +41,12 @@ public class Contact {
 
     }
 
+    public Contact(String name, long id){
+        this.name = name;
+        this.imglink= Constants.DUMMY_CONTACT_IMAGE_LINK;
+this.conID=id;
+    }
+
     public Contact(){}
 
     public void setId(long conID) {

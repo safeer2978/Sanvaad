@@ -2,9 +2,12 @@ package com.sanvaad.Model;
 
 import com.google.audio.asr.TranscriptionResultUpdatePublisher;
 
+import java.util.Queue;
+
 public class TextData {
     String text;
     boolean type;
+
 
     public String getText() {
         return text;
@@ -25,5 +28,6 @@ public class TextData {
     public TextData(String text, boolean type) {
         this.text = text;
         this.type = type;
+
     }
 }

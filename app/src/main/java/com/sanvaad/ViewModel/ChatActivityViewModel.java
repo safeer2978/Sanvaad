@@ -2,6 +2,7 @@ package com.sanvaad.ViewModel;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.util.Log;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,6 +17,7 @@ import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
 import com.sanvaad.Model.TextData;
+import com.sanvaad.messageListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +35,11 @@ public class ChatActivityViewModel extends AndroidViewModel {
 
     ConstraintLayout constraintLayout;
 
+    messageListener listener;
+
+    public void setListener(messageListener listener) {
+        this.listener = listener;
+    }
 
     User user;
     int index=0;
@@ -54,8 +61,9 @@ public class ChatActivityViewModel extends AndroidViewModel {
     }
 
     private boolean textToSpeechToggle=false;
-
-
+public LiveData<TextData> getTextLiveData(){
+    return repository.getTextData();
+}
 
     public ChatActivityViewModel(Application application) {
         super(application);
@@ -63,22 +71,18 @@ public class ChatActivityViewModel extends AndroidViewModel {
         conversation = new Conversation(repository.getUser());
         participantsLiveData.postValue(participants);
         messagesLiveData.postValue(messages);
-        handleSpeakerMessages();
+        handleSpeakerMessages(new TextData("Listening to Speaker...",false));
     }
 
     Message speakerMessage;
-    private void handleSpeakerMessages(){
-        LiveData<TextData> textDataLiveData = repository.getTextData();
+    public void handleSpeakerMessages(TextData textData){
         speakerMessage = new Message("Listening to Speaker...",conversation);
-        messages.add(0,speakerMessage);
-        /*LiveData somthing = Transformations.map(textDataLiveData, textData -> {
-            if(textdata.isFinal()) {
+        messages.add(speakerMessage);
+            /*if(textData.isFinal()) {
                 speakerMessage=new Message("",conversation);
                 messages.add(0,speakerMessage);
-            }
-            messages.get(0).setMessage(textData.getText());
-
-        });*/
+            }*/
+        messages.get(messages.size()-1).setMessage(textData.getText());
 /*        textDataLiveData.observe(this, new Observer<TextData>() {
             @Override
             public void onChanged(TextData textData) {
@@ -111,30 +115,32 @@ public class ChatActivityViewModel extends AndroidViewModel {
     }
 
 
-    public void assignContactToMessage(Message message, Contact contact){
-        int i=0;
+    public void assignContactToMessage(int pos, Contact contact){
+      /*  int i=0;
         for(Message m:messages){
             if(m.getID()==message.getID())
                 break;
             i++;
-        }
-        messages.get(i).setContact(contact);
+        }*/
+        Log.w("CHAT_VIEWMODEL","Message found at:"+pos);
+
+        messages.get(pos).setContact(contact);
     }
 
     /** DUMMY DATA //TODO Change this later
      * */
     public List<Contact> getContactList(){
         List<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact("Safeer"));
-        contacts.add(new Contact("Priyanshu"));
-        contacts.add(new Contact("Nachi"));
-        contacts.add(new Contact("Ritvik"));
-        contacts.add(new Contact("Daryl"));
-        contacts.add(new Contact("Shreyum"));
-        contacts.add(new Contact("Daksh"));
-        contacts.add(new Contact("Madhul"));
-        contacts.add(new Contact("Karthik"));
-        contacts.add(new Contact("Usman"));
+        contacts.add(new Contact("Safeer",2));
+        contacts.add(new Contact("Priyanshu",3));
+        contacts.add(new Contact("Nachi",4));
+        contacts.add(new Contact("Ritvik",5));
+        contacts.add(new Contact("Daryl",6));
+        contacts.add(new Contact("Shreyum",7));
+        contacts.add(new Contact("Daksh",8));
+        contacts.add(new Contact("Madhul",9));
+        contacts.add(new Contact("Karthik",10));
+        contacts.add(new Contact("Usman",11));
         return contacts;
 
     }
@@ -187,4 +193,14 @@ public class ChatActivityViewModel extends AndroidViewModel {
         }
         return colorMap.get(contact);
     }
+
+    public List<Contact> getParticipantsList() {
+        return participants;
+    }
+
+    public void updateMessageBubble() {
+        listener.refreshMessage();
+    }
+
+
 }

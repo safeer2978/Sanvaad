@@ -549,7 +549,7 @@ public class RepeatingRecognitionSession implements SampleProcessorInterface {
 
   private boolean isNetworkAvailable() {
     if (networkCheck != null) {
-      return networkCheck.isConnected();
+      return true;//TODO changenetworkCheck.isConnected();
     } else if (hadNetworkConnectionError) {
       return isNetworkReconnectionTimeout();
     } else {

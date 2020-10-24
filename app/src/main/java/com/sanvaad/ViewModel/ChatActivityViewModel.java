@@ -1,13 +1,14 @@
 package com.sanvaad.ViewModel;
 
 import android.app.Application;
+import android.graphics.Color;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
+import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
@@ -17,12 +18,15 @@ import com.sanvaad.Model.Repository;
 import com.sanvaad.Model.TextData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class ChatActivityViewModel extends AndroidViewModel {
     Repository repository;
 
-    boolean triggerState = false;
+    boolean triggerState = true;
     private final Conversation conversation;
     List<Message> messages = new ArrayList<>();
     List<Contact> participants = new ArrayList<>();
@@ -35,13 +39,13 @@ public class ChatActivityViewModel extends AndroidViewModel {
 
     MutableLiveData<List<Contact>> participantsLiveData = new MutableLiveData<>();
 
-    public MutableLiveData<List<Message>> getMessageMutableLiveData() {
-        return messageMutableLiveData;
+    public MutableLiveData<List<Message>> getMessagesLiveData() {
+        return messagesLiveData;
     }
 
-    MutableLiveData<List<Message>> messageMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<List<Message>> messagesLiveData = new MutableLiveData<>();
 
-    public boolean isTextToSpeechToggle() {
+    public boolean getTextToSpeechToggle() {
         return textToSpeechToggle;
     }
 
@@ -58,25 +62,29 @@ public class ChatActivityViewModel extends AndroidViewModel {
         this.repository = Repository.getInstance(application);
         conversation = new Conversation(repository.getUser());
         participantsLiveData.postValue(participants);
-        messageMutableLiveData.postValue(messages);
+        messagesLiveData.postValue(messages);
         handleSpeakerMessages();
     }
 
     Message speakerMessage;
     private void handleSpeakerMessages(){
-        LiveData<TextData> textData = repository.getTextData();
-        speakerMessage = new Message("",conversation);
+        LiveData<TextData> textDataLiveData = repository.getTextData();
+        speakerMessage = new Message("Listening to Speaker...",conversation);
         messages.add(0,speakerMessage);
-        textData.observe(getApplication(), new Observer<TextData>() {
+        /*LiveData somthing = Transformations.map(textDataLiveData, textData -> {
+            if(textdata.isFinal()) {
+                speakerMessage=new Message("",conversation);
+                messages.add(0,speakerMessage);
+            }
+            messages.get(0).setMessage(textData.getText());
+
+        });*/
+/*        textDataLiveData.observe(this, new Observer<TextData>() {
             @Override
             public void onChanged(TextData textData) {
-                if(textData.isFinal()) {
-                    speakerMessage=new Message("",conversation);
-                    messages.add(0,speakerMessage);
-                }
-                    messages.get(0).setMessage(textData.getText());
+
             }
-        });
+        });*/
     }
 
     public LiveData<List<Contact>> getParticipantsLiveData(){
@@ -84,6 +92,8 @@ public class ChatActivityViewModel extends AndroidViewModel {
     }
 
     public void addParticipant(Contact contact){
+        if(participants.contains(contact))
+            return;
         this.participants.add(contact);
     }
 
@@ -146,7 +156,11 @@ public class ChatActivityViewModel extends AndroidViewModel {
 
     public void onUserText(String messageText){
         Message message = new Message(messageText,conversation);
-        message.setContact(repository.getUserAsContact());
+        //message.setContact(repository.getUserAsContact());
+        Contact contact = new Contact();
+        contact.setId(Constants.USER_ID);
+        message.setContact(contact);
+        message.setMessage(messageText);
         messages.add(message);
         if(textToSpeechToggle)
             speakText(messageText);
@@ -158,5 +172,19 @@ public class ChatActivityViewModel extends AndroidViewModel {
         super.onCleared();
         repository.saveMessages(messages);
 
+    }
+
+
+
+
+    Map<Contact,Integer> colorMap = new HashMap<>();
+
+    public int getColorInteger(Contact contact) {
+        if(colorMap.get(contact)==null){
+        Random rnd = new Random();
+        int newColor = Color.argb(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+        colorMap.put(contact,newColor);
+        }
+        return colorMap.get(contact);
     }
 }

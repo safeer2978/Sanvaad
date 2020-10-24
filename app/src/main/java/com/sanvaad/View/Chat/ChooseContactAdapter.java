@@ -10,9 +10,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sanvaad.CircleTransform;
+import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
+import com.sanvaad.ViewModel.ChatActivityViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +26,19 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<com.sanvaad.View.
 
     Context context;
 
-    public ChooseContactAdapter(Context context) {
+    ChatActivityViewModel viewModel;
+
+    public ChooseContactAdapter(Context context, ChatActivityViewModel viewModel) {
         this.list = new ArrayList<>();
         this.context = context;
+        this.viewModel=viewModel;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<Contact> list) {
         this.list = list;
     }
 
-    List<String> list;
+    List<Contact> list;
 
     @NonNull
     @Override
@@ -43,15 +51,22 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<com.sanvaad.View.
 
     @Override
     public void onBindViewHolder(@NonNull com.sanvaad.View.Chat.ChooseContactAdapter.ViewHolder holder, int position) {
-        String string= list.get(position);
+        Contact contact= list.get(position);
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
+                viewModel.addParticipant(contact);
             }
         });
-        holder.textView.setText(string);
+        holder.textView.setText(contact.getName());
+        Picasso.get()
+                .load(contact.getImglink())
+                //.resize(30,30)
+                .transform(new CircleTransform())
+                .into(holder.imageView);
+
 
 
     }

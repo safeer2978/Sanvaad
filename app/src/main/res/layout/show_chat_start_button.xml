@@ -4,8 +4,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/switch_show_protected"
-        android:background="@drawable/rec_start_button"
+        android:id="@+id/speech_button"
         android:layout_height="38dp"
         android:layout_width="38dp" />
 </RelativeLayout>

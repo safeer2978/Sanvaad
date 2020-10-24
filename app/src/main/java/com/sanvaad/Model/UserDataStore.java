@@ -76,7 +76,7 @@ public class UserDataStore {
 
     public User getUser(){
 
-        return Dao.getUser().get(0);
+        return new User();//TODO remove this Dao.getUser().get(0);
     }
 
     public LiveData<List<Contact>> getContact(){

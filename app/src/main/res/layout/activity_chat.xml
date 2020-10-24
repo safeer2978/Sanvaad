@@ -5,63 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/ChatActivityTheme"
-    tools:context=".View.Chat.ChatActivity">
+    tools:context=".View.Chat.ChatActivity"
+    android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="456dp"
-        android:layout_height="65dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/background"
         android:minHeight="?attr/actionBarSize"
-        android:paddingStart="14dp"
         android:paddingEnd="14dp"
         android:paddingTop="4dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/chat_activity_toolbar_menu"></androidx.appcompat.widget.Toolbar>
+        app:menu="@menu/chat_activity_toolbar_menu"
+
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ca_mainchatcontainer_cl"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:visibility="visible"
+        android:animateLayoutChanges="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:visibility="visible">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
-            android:background="@drawable/text_input"
-            android:layout_margin="10dp"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/text_input"
             android:orientation="horizontal"
-            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="337dp"
-                android:layout_height="match_parent"
-                android:scrollbars="horizontal">
+                android:id="@+id/ca_participants_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/ca_addparticipant_btn"
+                app:layout_constraintEnd_toStartOf="@+id/ca_addparticipant_btn"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ca_addparticipant_btn">
 
             </androidx.recyclerview.widget.RecyclerView>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/ca_addparticipant_btn"
                 android:layout_width="33.25dp"
                 android:layout_height="33.25dp"
                 android:background="@drawable/icon_ionic_ios_add_circle_outline"
-                android:paddingRight="17dp" />
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView4"
+            android:id="@+id/ca_chat_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -79,6 +96,7 @@
             android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:animateLayoutChanges="true"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
@@ -86,14 +104,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text="TextView" />
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="Common Messages" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/message_rv"
+                android:id="@+id/ca_common_message_rv"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="150dp"
                 android:layout_weight="1"
-                android:visibility="visible">
+                android:visibility="gone">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -104,8 +125,8 @@
                 android:gravity="bottom"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:paddingBottom="8dp">
 
                 <EditText
                     android:id="@+id/editTextTextPersonName"
@@ -118,11 +139,12 @@
                     android:inputType="textPersonName"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:text="Name"
+                    android:hint="Type a message"
+                    android:textColorHint="#9FFFFFFF"
                     android:textColor="#fff" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/ca_send_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="0"
@@ -132,12 +154,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/icon_ionic_md_arrow_round_back"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ca_contact_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:visibility="gone"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

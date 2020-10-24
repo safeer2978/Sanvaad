@@ -7,5 +7,8 @@
         android:id="@+id/participant_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"
         android:text="TextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

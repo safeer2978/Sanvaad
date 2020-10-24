@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/show_secure"
+        android:id="@+id/toggle_switch"
         android:enabled="true"
         android:title=""
         android:visible="true"

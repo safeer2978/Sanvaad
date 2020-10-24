@@ -2,6 +2,7 @@
 package com.sanvaad.View.Chat;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +12,30 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
+import com.sanvaad.ViewModel.ChatActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapter.ViewHolder> {
 
     Context context;
 
-    public ParticipantsAdapter(Context context) {
+    ChatActivityViewModel chatActivityViewModel;
+    public ParticipantsAdapter(Context context, ChatActivityViewModel viewModel) {
         this.list = new ArrayList<>();
         this.context = context;
+        this.chatActivityViewModel = viewModel;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<Contact> list) {
         this.list = list;
     }
 
-    List<String> list;
+    List<Contact> list;
 
     @NonNull
     @Override
@@ -42,8 +48,12 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String string= list.get(position);
-        holder.textView.setText(string);
+        Contact contact= list.get(position);
+        holder.textView.setText(contact.getName());
+
+         int color =chatActivityViewModel.getColorInteger(contact);
+        //int color = Color.argb(255, rnd.nextInt(128), rnd.nextInt(128), rnd.nextInt(128));
+        holder.textView.setTextColor(color);
 
     }
 

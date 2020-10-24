@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.R;
+import com.sanvaad.ViewModel.ChatActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +22,18 @@ import java.util.List;
 public class CommonMessageAdapter extends RecyclerView.Adapter<CommonMessageAdapter.ViewHolder> {
 
     Context context;
-
-    public CommonMessageAdapter(Context context) {
+ChatActivityViewModel viewModel;
+    public CommonMessageAdapter(Context context, ChatActivityViewModel viewModel) {
         this.list = new ArrayList<>();
         this.context = context;
+        this.viewModel = viewModel;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<CommonMessage> list) {
         this.list = list;
     }
 
-    List<String> list;
+    List<CommonMessage> list;
 
     @NonNull
     @Override
@@ -43,15 +46,15 @@ public class CommonMessageAdapter extends RecyclerView.Adapter<CommonMessageAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String string= list.get(position);
+        CommonMessage commonMessage= list.get(position);
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
+                        viewModel.onUserText(commonMessage.getMessage());
             }
         });
-        holder.textView.setText(string);
+        holder.textView.setText(commonMessage.getMessage());
 
 
     }

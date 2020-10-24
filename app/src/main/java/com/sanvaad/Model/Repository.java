@@ -23,6 +23,9 @@ public class Repository {
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
         userDataStore = new UserDataStore(application);
+
+        //TODO Remove this
+        this.user = new User();
     }
 
     private static Repository INSTANCE;

@@ -5,6 +5,7 @@
 
     <Button
         android:id="@+id/speech_button"
+        android:background="@drawable/rec_start_button"
         android:layout_height="38dp"
         android:layout_width="38dp" />
 </RelativeLayout>

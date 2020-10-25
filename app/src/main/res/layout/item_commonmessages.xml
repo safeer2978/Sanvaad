@@ -4,11 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/commonMessage_constraint"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp">
 
     <TextView
         android:id="@+id/commonMessage_textview"
-        android:layout_width="wrap_content"
+        android:background="@drawable/comn_msg_individual"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="TextView"
+        android:textColor="@color/darkgrey"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

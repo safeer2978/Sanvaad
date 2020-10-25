@@ -5,7 +5,18 @@
     android:id="@+id/constraintLayout_chooseContact"
     android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+
+    android:background="@drawable/cintact_individual"
+    >
 
     <ImageView
         android:id="@+id/imageView_chooseContact"
@@ -17,9 +28,10 @@
 
     <TextView
         android:id="@+id/textView_chooseContact"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="12dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/imageView_chooseContact"
-        tools:layout_editor_absoluteY="29dp" />
+        tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,13 +9,14 @@
 
     <Button
         android:id="@+id/messagebubble_speak_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-android:layout_marginEnd="15dp"
-        android:background="@drawable/rec_start_button"
+        android:layout_width="31dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/speaker_button"
         app:layout_constraintBottom_toBottomOf="@id/messagebubble_linearLayout"
         app:layout_constraintEnd_toStartOf="@id/messagebubble_linearLayout"
-        app:layout_constraintTop_toTopOf="@id/messagebubble_linearLayout" />
+        app:layout_constraintTop_toTopOf="@id/messagebubble_linearLayout"
+        app:layout_constraintVertical_bias="0.461" />
 
     <LinearLayout
         android:id="@+id/messagebubble_linearLayout"
@@ -27,7 +28,7 @@ android:layout_marginEnd="15dp"
         app:layout_constraintStart_toStartOf="parent"
         android:padding="10dp"
         android:layout_margin="5dp"
-        android:background="#99AAFF"
+        android:background="@color/grey1"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -46,6 +47,7 @@ android:layout_marginEnd="15dp"
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/messagebubble_speaker_recyclerview"
+                android:background="@drawable/participant_add_button"
                 android:layout_width="84dp"
                 android:layout_height="23dp" />
         </LinearLayout>

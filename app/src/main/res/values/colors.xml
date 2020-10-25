@@ -7,4 +7,9 @@
     <color name="red">#FF3B5D</color>
     <color name="green">#45CE88</color>
     <color name="beige">#FFCD95</color>
+    <color name="grey1">#D9D9D9</color>
+    <color name="grey2">#9E9E9E</color>
+    <color name="grey3">#ABABAB</color>
+    <color name="darkgrey">#545454</color>
+
 </resources>

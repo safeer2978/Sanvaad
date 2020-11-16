@@ -38,6 +38,16 @@ public class User {
 
     private String status;
 
+    private String firebaseId;
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
+    }
+
     public User(){
 
     }

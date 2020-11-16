@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.sanvaad.ViewModel.ChatActivityViewModel;
 import com.sanvaad.messageListener;
 
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements messageListener {
@@ -173,6 +175,12 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             }
         });
 
+
+        toolbar.setTitle("New Conversation");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+        toolbar.setSubtitle("On "+ Calendar.getInstance().getTime().toString());
+        toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
+
     }
 
     @Override
@@ -197,10 +205,10 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             @Override
             public void onClick(View v) {
                 if(viewModel.getTriggerListeningState()){
-                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.icon_ionic_ios_add_circle_outline));
+                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
                     //TODO Recording animation here...
                 }else{
-                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
+                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.group_57));
                 }
                 viewModel.triggerListening();
             }
@@ -229,5 +237,11 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
     @Override
     public void refreshMessage() {
         messagesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void hideContactScreen() {
+        toggleContactRecyclerView();
+        participantsAdapter.notifyDataSetChanged();
     }
 }

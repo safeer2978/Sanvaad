@@ -43,14 +43,36 @@ public class UserDataStore {
     }
 
 
-    public void createUser(User user, String token){
-        //TODO: Logic for user creation.
-        //TODO: Also add User as a contact
-            com.sanvaad.Model.Entity.User roomUser=new com.sanvaad.Model.Entity.User(user.getName(),user.getEmail(),user.getAge(),user.getPhoneNo(),user.getStatus());
-            Dao.insertUser(roomUser);
-            databaseUsers.child(String.valueOf(user.getUserID())).setValue(user);
-
+    public void createUser(User user){
+        databaseUsers.child(String.valueOf(user.getFirebaseId())).setValue(user);
+        setCurrentUser(user);
     }
+
+    boolean isUserSet=false;
+
+    public void setCurrentUser(User user){
+        isUserSet=true;
+        Dao.deleteAllUser();
+        Dao.insertUser(user);
+        this.user = user;
+    }
+
+    public boolean userExists(String uid){
+        isUserSet=false;
+        databaseUsers.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = (User) snapshot.getValue();
+                setCurrentUser(user);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return isUserSet;
+    }
+
 
     public void createFeedback(Feedback feedback){
         //com.sanvaad.Model.Entity.Feedback roomFeedback = new com.sanvaad.Model.Entity.Feedback(feedback.getFdate(),feedback.getUserID(),feedback.getComment());
@@ -75,8 +97,7 @@ public class UserDataStore {
     }
 
     public User getUser(){
-
-        return new User();//TODO remove this Dao.getUser().get(0);
+        return user==null?Dao.getUser().get(0):user;
     }
 
     public LiveData<List<Contact>> getContact(){

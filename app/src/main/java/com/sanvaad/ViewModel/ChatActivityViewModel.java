@@ -2,8 +2,10 @@ package com.sanvaad.ViewModel;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.util.Log;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -20,6 +22,7 @@ import com.sanvaad.Model.TextData;
 import com.sanvaad.messageListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +31,7 @@ import java.util.Random;
 public class ChatActivityViewModel extends AndroidViewModel {
     Repository repository;
 
-    boolean triggerState = true;
+    boolean triggerState = false;
     private final Conversation conversation;
     List<Message> messages = new ArrayList<>();
     List<Contact> participants = new ArrayList<>();
@@ -71,7 +74,6 @@ public LiveData<TextData> getTextLiveData(){
         conversation = new Conversation(repository.getUser());
         participantsLiveData.postValue(participants);
         messagesLiveData.postValue(messages);
-        handleSpeakerMessages(new TextData("Listening to Speaker...",false));
     }
 
     Message speakerMessage;
@@ -99,12 +101,24 @@ public LiveData<TextData> getTextLiveData(){
         if(participants.contains(contact))
             return;
         this.participants.add(contact);
+        listener.hideContactScreen();
     }
 
 
     public void triggerListening(){
         repository.triggerListening(triggerState);
         triggerState = !triggerState;
+
+        Message message = new Message();
+        message.setMessageDate(Calendar.getInstance().getTimeInMillis());
+        message.setContactID(Constants.USER_ID);
+        if(triggerState){
+            message.setMessage("Recording has Started!");
+        }else{
+            message.setMessage("Recording has stopped!");
+        }
+        messages.add(message);
+        listener.refreshMessage();
     }
 
     public void speakText(String text){

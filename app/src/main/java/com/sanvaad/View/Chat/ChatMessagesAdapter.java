@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.LiveData;
@@ -65,7 +66,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Message message = messageList.get(position);
 
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.linearLayout.getLayoutParams();
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
 
         if(message.getContactID() == Constants.USER_ID){
             holder.speakerLinerLayout.setVisibility(View.GONE);
@@ -90,7 +91,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
             }
             layoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
         }
-        holder.linearLayout.setLayoutParams(layoutParams);
+        holder.cardView.setLayoutParams(layoutParams);
         holder.textViewMessage.setText(message.getMessage());
         Date date = new Date(message.getMessageDate());
         holder.textViewTime.setText(date.getHours()+":"+date.getMinutes());
@@ -138,10 +139,12 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
         Button button;
         ConstraintLayout constraintLayout;
         ImageView imageView;
-        LinearLayout speakerLinerLayout;
+        ConstraintLayout speakerLinerLayout;
         RecyclerView recyclerView;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.messagebubble_card_view);
             speakerLinerLayout = itemView.findViewById(R.id.item_speakername_ll);
             constraintLayout=itemView.findViewById(R.id.messagebubble_contstraint_layout);
             linearLayout = itemView.findViewById(R.id.messagebubble_linearLayout);

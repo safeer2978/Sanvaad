@@ -13,60 +13,87 @@
         android:layout_height="25dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/speaker_button"
-        app:layout_constraintBottom_toBottomOf="@id/messagebubble_linearLayout"
-        app:layout_constraintEnd_toStartOf="@id/messagebubble_linearLayout"
-        app:layout_constraintTop_toTopOf="@id/messagebubble_linearLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/messagebubble_card_view"
+        app:layout_constraintEnd_toStartOf="@+id/messagebubble_card_view"
+        app:layout_constraintTop_toTopOf="@+id/messagebubble_card_view"
         app:layout_constraintVertical_bias="0.461" />
 
-    <LinearLayout
-        android:id="@+id/messagebubble_linearLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/messagebubble_card_view"
         android:layout_width="wrap_content"
-        android:maxWidth="200dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:minWidth="200dp"
+        android:maxWidth="300dp"
+        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="10dp"
-        android:layout_margin="5dp"
-        android:background="@color/grey1"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/item_speakername_ll"
+
+            android:id="@+id/messagebubble_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:minWidth="200dp"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_speakername_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="200dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/messagebubble_speaker_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Speaker"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/messagebubble_speaker_recyclerview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/participant_add_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/messagebubble_speaker_textview"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/messagebubble_speaker_textview"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/messagebubble_speaker_textview"
+                android:id="@+id/messagebubble_message_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="200dp"
+                android:maxWidth="300dp"
+                android:text="This is some message"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/messagebubble_time_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Speaker"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/messagebubble_speaker_recyclerview"
-                android:background="@drawable/participant_add_button"
-                android:layout_width="84dp"
-                android:layout_height="23dp" />
+                android:layout_gravity="right"
+                android:text="3:05 pm"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/messagebubble_message_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This is some message"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
-            />
 
-        <TextView
-            android:id="@+id/messagebubble_time_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="3:05 pm"
-            android:textSize="14sp" />
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

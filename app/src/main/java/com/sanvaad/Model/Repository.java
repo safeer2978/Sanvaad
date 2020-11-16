@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
@@ -72,5 +74,20 @@ public class Repository {
 
     public Contact getUserAsContact() {
         return Objects.requireNonNull(userDataStore.getContact().getValue()).get(0);
+    }
+
+    public void registerNewUser(User user){
+        userDataStore.createUser(user);
+        this.user = user;
+    }
+
+    public boolean isUserRegistered(@NotNull FirebaseUser firebaseUser){
+            if(userDataStore.userExists(firebaseUser.getUid())){
+                this.user = userDataStore.getUser();
+                return true;
+            }
+            else{
+                return  false;
+            }
     }
 }

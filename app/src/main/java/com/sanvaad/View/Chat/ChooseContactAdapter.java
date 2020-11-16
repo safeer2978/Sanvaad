@@ -17,6 +17,7 @@ import com.sanvaad.CircleTransform;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
+import com.sanvaad.messageListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ChooseContactAdapter extends RecyclerView.Adapter<com.sanvaad.View.Chat.ChooseContactAdapter.ViewHolder> {
 
     Context context;
+
 
     ChatActivityViewModel viewModel;
 
@@ -58,6 +60,7 @@ public class ChooseContactAdapter extends RecyclerView.Adapter<com.sanvaad.View.
             public void onClick(View v) {
                 //Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
                 viewModel.addParticipant(contact);
+
             }
         });
         holder.textView.setText(contact.getName());

@@ -51,8 +51,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ca_participants_rv"
-                android:layout_width="338dp"
-                android:layout_height="28dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
@@ -127,6 +127,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="1"
                 android:padding="6dp"
+                android:scrollbars="vertical"
                 android:background="@drawable/common_message_bubble"
                 tools:listitem="@layout/item_commonmessages"
                 android:visibility="visible">

@@ -2,6 +2,7 @@ package com.sanvaad.Model.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -69,5 +70,8 @@ public interface RoomDao {
 
     @Update
     void updateContact(Contact contact);
+
+    @Query("DELETE from user")
+    void deleteAllUser();
 
 }

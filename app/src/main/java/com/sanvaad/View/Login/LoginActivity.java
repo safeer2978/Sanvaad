@@ -13,7 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.R;
-import com.sanvaad.View.MainActivity;
+import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.ViewModel.LoginActivityViewModel;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener{
@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
     }
 
     public void updateUI(){
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         onDestroy();
     }
 

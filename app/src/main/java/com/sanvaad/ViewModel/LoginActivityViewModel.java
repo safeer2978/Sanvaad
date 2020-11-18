@@ -1,7 +1,9 @@
 package com.sanvaad.ViewModel;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
 import com.sanvaad.View.Login.LoginListener;
@@ -29,10 +32,17 @@ public class LoginActivityViewModel {
     LoginListener loginListener;
     Repository repository;
 
+    Application application;
+
     LoginActivityViewModel(LoginListener listener, Application application){
         firebaseUser = mAuth.getCurrentUser();
+        this.application=application;
         loginListener = listener;
         repository = Repository.getInstance(application);
+
+        SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false))
+            listener.updateUI();
     }
 
     public FirebaseUser getFireBaseUser(){
@@ -53,6 +63,8 @@ public class LoginActivityViewModel {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             assert firebaseUser != null;
+                            SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+                            sharedPreferences.edit().putBoolean(Constants.LOGIN_STATUS,false).apply();
                             //loginListener.updateUI(firebaseUser);
                             if(repository.isUserRegistered(firebaseUser)){
                                 loginListener.updateUI();

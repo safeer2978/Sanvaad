@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
+import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
@@ -101,5 +102,15 @@ public class Repository {
 
     public List<CommonMessage> getCommonMessages(User user) {
         return userDataStore.getCommonMessagesOfUser(user.getUserID());
+    }
+
+
+
+    public List<Message> getMessages(Conversation c){
+
+    }
+
+    public List<Contact> getParticipants(Conversation c){
+
     }
 }

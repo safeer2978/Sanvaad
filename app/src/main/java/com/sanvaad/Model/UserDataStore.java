@@ -100,12 +100,11 @@ public class UserDataStore {
         return user==null?Dao.getUser().get(0):user;
     }
 
-    public LiveData<List<Contact>> getContact(){
-
+    public List<Contact> getContact(){
         return Dao.getContact();
     }
 
-    public LiveData<List<CommonMessage>> getCommonMessagesOfUser(long userID){
+    public List<CommonMessage> getCommonMessagesOfUser(long userID){
         return Dao.getCommonMessageList(userID);
     }
 

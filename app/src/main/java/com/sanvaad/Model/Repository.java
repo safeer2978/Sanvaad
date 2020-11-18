@@ -1,11 +1,14 @@
 package com.sanvaad.Model;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.NotNull;
+import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
@@ -25,9 +28,10 @@ public class Repository {
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
         userDataStore = new UserDataStore(application);
-
-        //TODO Remove this
-        this.user = new User();
+        SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false);
+        if(isLoggedIn)
+            user=userDataStore.getUser();
     }
 
     private static Repository INSTANCE;
@@ -89,5 +93,13 @@ public class Repository {
             else{
                 return  false;
             }
+    }
+
+    public List<Contact> getContactList() {
+        userDataStore.getContact();
+    }
+
+    public List<CommonMessage> getCommonMessages(User user) {
+        return userDataStore.getCommonMessagesOfUser(user.getUserID());
     }
 }

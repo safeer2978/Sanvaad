@@ -42,10 +42,10 @@ public interface RoomDao {
     List<User> getUser();
 
     @Query("select * from contact")
-    LiveData<List<Contact>> getContact();
+   List<Contact> getContact();
 
     @Query("select * from commonMessage where userID like '%' || :userID || '%'")
-    LiveData<List<CommonMessage>> getCommonMessageList(long userID);
+    List<CommonMessage> getCommonMessageList(long userID);
 
 
 

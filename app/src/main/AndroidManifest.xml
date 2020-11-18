@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Home.HomeActivity"></activity>
+        <activity android:name=".View.MainActivity"></activity>
         <activity android:name=".View.Chat.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

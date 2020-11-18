@@ -207,6 +207,6 @@ public class SpeechToText {
     }
 
     private static String getApiKey() {
-        return "";
+        return "AIzaSyBALKVH6jkgstOFN5h03ur50c_DvHWhaTw";
     }
 }

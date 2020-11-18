@@ -1,4 +1,4 @@
-package com.sanvaad.View;
+package com.sanvaad.View.Home;
 // nachiket
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TooManyListenersException;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     UserDataStore userDataStore;
 
 

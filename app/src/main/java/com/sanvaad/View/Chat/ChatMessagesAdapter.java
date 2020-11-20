@@ -40,6 +40,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
     public ChatMessagesAdapter(Context context, ChatActivityViewModel viewModel) {
         this.context = context;
         this.viewModel = viewModel;
+        messageList = new ArrayList<>();
     }
 
     public void setContactList(List<Contact> contacts) {

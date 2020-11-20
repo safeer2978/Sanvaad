@@ -10,7 +10,7 @@ public interface LoginListener {
 
     void registerUser(User user);
 
-    void showRegistrationForm();
+    void showRegistrationForm(FirebaseUser firebaseUser);
 
     void loginFailed();
 }

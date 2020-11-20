@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.CommonMessage;
@@ -14,12 +15,13 @@ import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
+import com.sanvaad.View.Login.LoginListener;
 
 import java.util.List;
 import java.util.Objects;
 
 
-public class Repository {
+public class Repository implements RepositoryListener{
 
     SpeechFunctionDataStore speechFunctionDataStore;
 
@@ -29,6 +31,7 @@ public class Repository {
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
         userDataStore = new UserDataStore(application);
+        userDataStore.setListener(this);
         SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false);
         if(isLoggedIn)
@@ -72,13 +75,11 @@ public class Repository {
     }
 
     public void saveMessages(List<Message> messages) {
-
-
         userDataStore.saveMessages(messages);
     }
 
     public Contact getUserAsContact() {
-        return Objects.requireNonNull(userDataStore.getContact().getValue()).get(0);
+        return userDataStore.getContact().get(0);
     }
 
     public void registerNewUser(User user){
@@ -86,8 +87,8 @@ public class Repository {
         this.user = user;
     }
 
-    public boolean isUserRegistered(@NotNull FirebaseUser firebaseUser){
-            if(userDataStore.userExists(firebaseUser.getUid())){
+/*    public boolean isUserRegistered(@NotNull FirebaseUser firebaseUser){
+            if(userDataStore.userExists(firebaseUser.getUid().replace(".","_"))){
                 this.user = userDataStore.getUser();
                 return true;
             }
@@ -95,9 +96,19 @@ public class Repository {
                 return  false;
             }
     }
+    */
+    LoginListener loginListener;
+    FirebaseUser firebaseUser;
+    public void handleLoginSuccess(LoginListener listener, FirebaseUser firebaseUser){
+        loginListener=listener;
+        this.firebaseUser=firebaseUser;
+        userDataStore.userExists(firebaseUser.getUid().replace(".","_"));
+    }
+
+
 
     public List<Contact> getContactList() {
-        userDataStore.getContact();
+        return userDataStore.getContact();
     }
 
     public List<CommonMessage> getCommonMessages(User user) {
@@ -107,10 +118,35 @@ public class Repository {
 
 
     public List<Message> getMessages(Conversation c){
-
+        return userDataStore.getMessages(c.getConvoID());
     }
 
     public List<Contact> getParticipants(Conversation c){
-
+        /*TODO: Write Logic for this....*/
+        return null;
     }
+
+    @Override
+    public void registered() {
+        loginListener.updateUI();
+    }
+
+    @Override
+    public void notRegistered() {
+        loginListener.showRegistrationForm(firebaseUser);
+    }
+
+    GoogleSignInClient googleSignInClient;
+    public void saveGoogleClient(GoogleSignInClient mGoogleSignInClient) {
+        this.googleSignInClient=mGoogleSignInClient;
+    }
+
+    public GoogleSignInClient getGoogleSignInClient(){
+        return googleSignInClient;
+    }
+}
+
+interface RepositoryListener{
+    void registered();
+    void notRegistered();
 }

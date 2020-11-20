@@ -20,7 +20,6 @@ public class LoginFragment extends Fragment {
 
     public LoginFragment(LoginListener loginListener) {
         this.loginListener=loginListener;
-        // Required empty public constructor
     }
 
 

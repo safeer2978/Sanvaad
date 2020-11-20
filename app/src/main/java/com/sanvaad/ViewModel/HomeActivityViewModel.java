@@ -20,14 +20,14 @@ public class HomeActivityViewModel {
 
     Application application;
 
-    public LiveData<List<Conversation>> getConversationList(){
+/*    public LiveData<List<Conversation>> getConversationList(){
         return repository.getAllConversationList();
-    }
+    }*/
 
-    public LiveData<List<Contact>> getAllContactsList(){
+ /*   public LiveData<List<Contact>> getAllContactsList(){
         return repository.getAllConstacts();
     }
-
+*/
     public Contact getUserProfileData(){
         return repository.getUserAsContact();
     }

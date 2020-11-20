@@ -55,22 +55,31 @@ public class UserDataStore {
         Dao.deleteAllUser();
         Dao.insertUser(user);
         this.user = user;
+        listener.registered();
     }
 
-    public boolean userExists(String uid){
+    RepositoryListener listener;
+
+    public void setListener(RepositoryListener repositoryListener){
+        listener = repositoryListener;
+    }
+
+    public void userExists(String uid){
         isUserSet=false;
         databaseUsers.child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = (User) snapshot.getValue();
-                setCurrentUser(user);
+                User user = snapshot.getValue(User.class);
+                if (user != null)
+                    setCurrentUser(user);
+                else
+                    listener.notRegistered();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        return isUserSet;
     }
 
 
@@ -97,6 +106,9 @@ public class UserDataStore {
     }
 
     public User getUser(){
+        List<User> users = Dao.getUser();
+        if(users.size()==0)
+            return null;
         return user==null?Dao.getUser().get(0):user;
     }
 
@@ -108,7 +120,7 @@ public class UserDataStore {
         return Dao.getCommonMessageList(userID);
     }
 
-    public LiveData<List<Message>> getMessages(long convID){
+    public List<Message> getMessages(long convID){
         return Dao.getMessages(convID);
     }
 

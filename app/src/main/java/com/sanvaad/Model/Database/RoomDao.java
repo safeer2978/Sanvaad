@@ -47,8 +47,6 @@ public interface RoomDao {
     @Query("select * from commonMessage where userID like '%' || :userID || '%'")
     List<CommonMessage> getCommonMessageList(long userID);
 
-
-
     @Query("select * from conversation where convcreatorID like '%' || :userID || '%'")
     LiveData<List<Conversation>> getConversation(long userID);
 
@@ -60,7 +58,7 @@ public interface RoomDao {
     void deleteAllAdminMessages();
 
     @Query("select * from message where convID like '%' || :convID ||'%'")
-    LiveData<List<Message>> getMessages(long convID);
+    List<Message> getMessages(long convID);
 
     @Insert
     void insertAdminMessages(List<CommonMessage> adminMessages);

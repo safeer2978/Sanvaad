@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -22,11 +24,10 @@ import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
 import com.sanvaad.View.Login.LoginListener;
 
-public class LoginActivityViewModel {
+public class LoginActivityViewModel extends ViewModel {
     public static FirebaseAuth mAuth;
     public static FirebaseUser firebaseUser;
-    private GoogleSignInClient mGoogleSignInClient;
-    int RC_SIGN_IN;
+
     final String TAG = "LoginActivityViewModel";
 
     LoginListener loginListener;
@@ -34,16 +35,20 @@ public class LoginActivityViewModel {
 
     Application application;
 
-    LoginActivityViewModel(LoginListener listener, Application application){
+    public LoginActivityViewModel(){}
+
+    public void init(Application application){
+
+        mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         this.application=application;
-        loginListener = listener;
         repository = Repository.getInstance(application);
-
-        SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
-        if(sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false))
-            listener.updateUI();
     }
+
+    public void setListener(LoginListener listener){
+        loginListener = listener;
+    }
+
 
     public FirebaseUser getFireBaseUser(){
         return firebaseUser;
@@ -64,13 +69,14 @@ public class LoginActivityViewModel {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             assert firebaseUser != null;
                             SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
-                            sharedPreferences.edit().putBoolean(Constants.LOGIN_STATUS,false).apply();
+                            sharedPreferences.edit().putBoolean(Constants.LOGIN_STATUS,true).apply();
                             //loginListener.updateUI(firebaseUser);
-                            if(repository.isUserRegistered(firebaseUser)){
+                            repository.handleLoginSuccess(loginListener, firebaseUser);
+                            /*if(repository.isUserRegistered(firebaseUser)){
                                 loginListener.updateUI();
                             }else{
-                                loginListener.showRegistrationForm();
-                            }
+                                loginListener.showRegistrationForm(firebaseUser);
+                            }*/
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -82,10 +88,14 @@ public class LoginActivityViewModel {
                     }
                 });
     }
-    public Intent getSignInIntent(){return mGoogleSignInClient.getSignInIntent();}
+
 
     public void registerUser(User user){
         repository.registerNewUser(user);
         loginListener.updateUI();
+    }
+
+    public void saveGoogleClient(GoogleSignInClient mGoogleSignInClient) {
+        repository.saveGoogleClient(mGoogleSignInClient);
     }
 }

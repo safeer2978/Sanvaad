@@ -54,8 +54,6 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
 
     }
 
-
-
     RecyclerView commonMessageRecyclerView, chatRecyclerView, participantsRecyclerViews, contactsRecyclerViews;
     ConstraintLayout mainChatContainer;
     ChatMessagesAdapter messagesAdapter;
@@ -108,6 +106,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         chatRecyclerView = findViewById(R.id.ca_chat_rv);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         messagesAdapter= new ChatMessagesAdapter(this, viewModel);
+
         chatRecyclerView.setAdapter(messagesAdapter);
         viewModel.getMessagesLiveData().observe(this, new Observer<List<Message>>() {
             @Override
@@ -228,6 +227,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
     }
     @Override
     public void onBackPressed() {
+        //TODO FIX BACK PRESS, ADD Dialog
         toggleContactRecyclerView();
         participantsAdapter.notifyDataSetChanged();
         messagesAdapter.notifyDataSetChanged();

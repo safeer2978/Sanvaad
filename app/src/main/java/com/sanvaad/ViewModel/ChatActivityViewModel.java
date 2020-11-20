@@ -46,6 +46,18 @@ public class ChatActivityViewModel extends AndroidViewModel {
 
     MutableLiveData<List<Contact>> participantsLiveData = new MutableLiveData<>();
 
+
+    public ChatActivityViewModel(Application application) {
+        super(application);
+        this.repository = Repository.getInstance(application);
+        conversation = new Conversation(repository.getUser());
+        participantsLiveData.postValue(participants);
+        messagesLiveData.postValue(messages);
+
+        user = repository.getUser();
+    }
+
+
     public MutableLiveData<List<Message>> getMessagesLiveData() {
         return messagesLiveData;
     }
@@ -61,17 +73,10 @@ public class ChatActivityViewModel extends AndroidViewModel {
     }
 
     private boolean textToSpeechToggle=false;
-public LiveData<TextData> getTextLiveData(){
+
+    public LiveData<TextData> getTextLiveData(){
     return repository.getTextData();
 }
-
-    public ChatActivityViewModel(Application application) {
-        super(application);
-        this.repository = Repository.getInstance(application);
-        conversation = new Conversation(repository.getUser());
-        participantsLiveData.postValue(participants);
-        messagesLiveData.postValue(messages);
-    }
 
     Message speakerMessage;
     public void handleSpeakerMessages(TextData textData){

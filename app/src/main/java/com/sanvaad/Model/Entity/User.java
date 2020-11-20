@@ -20,7 +20,7 @@ public class User {
         this.age = age;
     }
 
-    public void setPhoneNo(long phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
@@ -34,7 +34,7 @@ public class User {
 
     private int age;
 
-    private long phoneNo;
+    private String phoneNo;
 
     private String status;
 
@@ -52,7 +52,7 @@ public class User {
 
     }
 
-    public User(String name, String email, int age, long phoneNo, String status) {
+    public User(String name, String email, int age, String phoneNo, String status) {
         this.name = name;
         this.email = email;
         this.age = age;
@@ -80,7 +80,7 @@ public class User {
         return age;
     }
 
-    public long getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 

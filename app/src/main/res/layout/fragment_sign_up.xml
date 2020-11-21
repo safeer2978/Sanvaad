@@ -29,13 +29,14 @@
             android:paddingEnd="20dp"
             android:paddingBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/lf_et_name"
-            tools:layout_editor_absoluteX="28dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/lf_et_name"
             android:layout_width="365dp"
             android:layout_height="53dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="20dp"
             android:alpha="1"
             android:background="@drawable/comn_msg_individual"
             android:ems="10"
@@ -46,7 +47,8 @@
             android:paddingEnd="20dp"
             android:paddingBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/lf_et_phone"
-            tools:layout_editor_absoluteX="28dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/lf_et_phone"
@@ -63,7 +65,8 @@
             android:paddingEnd="20dp"
             android:paddingBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/lf_et_age"
-            tools:layout_editor_absoluteX="28dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/lf_et_age"
@@ -73,14 +76,15 @@
             android:alpha="1"
             android:background="@drawable/comn_msg_individual"
             android:ems="10"
-            android:hint="DOB"
+            android:hint="Age"
             android:inputType="number"
             android:paddingStart="20dp"
             android:paddingTop="8dp"
             android:paddingEnd="20dp"
             android:paddingBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/lf_btn_continue"
-            tools:layout_editor_absoluteX="28dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/lf_btn_continue"
@@ -92,15 +96,21 @@
             android:text="Continue"
             android:textColor="@color/beige"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="61dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="292dp"
             android:layout_height="191dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/logo_white"
-            tools:layout_editor_absoluteX="64dp"
-            tools:layout_editor_absoluteY="49dp" />
+            app:layout_constraintBottom_toTopOf="@+id/lf_et_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

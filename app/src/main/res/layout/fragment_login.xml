@@ -21,7 +21,7 @@
         android:visibility="gone"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/fl_btn"
         android:layout_width="299dp"
         android:layout_height="53dp"
         android:layout_marginBottom="76dp"
@@ -30,7 +30,8 @@
         android:textColor="@color/beige"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="56dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -38,8 +39,10 @@
         android:layout_height="191dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/logo_white"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        tools:layout_editor_absoluteX="59dp" />
+        app:layout_constraintBottom_toTopOf="@+id/fl_btn"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="@+id/imageView4" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -48,6 +51,8 @@
         android:layout_marginBottom="68dp"
         android:src="@drawable/group_77"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        tools:layout_editor_absoluteX="70dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

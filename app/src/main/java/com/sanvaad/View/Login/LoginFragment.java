@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.common.SignInButton;
 import com.sanvaad.R;
 
 public class LoginFragment extends Fragment {
 
-    SignInButton signInButton;
+    Button signInButton;
     LoginListener loginListener;
 
     public LoginFragment(LoginListener loginListener) {
@@ -38,8 +39,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        signInButton = view.findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        signInButton = view.findViewById(R.id.fl_btn);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

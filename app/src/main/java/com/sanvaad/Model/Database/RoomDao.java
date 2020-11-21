@@ -72,4 +72,9 @@ public interface RoomDao {
     @Query("DELETE from user")
     void deleteAllUser();
 
+    @Query("select * from contact")
+    LiveData<List<Contact>> getContactsLiveData();
+
+    @Delete
+    void deleteContact(Contact contact);
 }

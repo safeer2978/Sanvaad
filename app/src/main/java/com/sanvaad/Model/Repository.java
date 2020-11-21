@@ -111,6 +111,10 @@ public class Repository implements RepositoryListener{
         return userDataStore.getContact();
     }
 
+    public LiveData<List<Contact>> getContactLiveData() {
+        return userDataStore.getContactsLiveData();
+    }
+
     public List<CommonMessage> getCommonMessages(User user) {
         return userDataStore.getCommonMessagesOfUser(user.getUserID());
     }
@@ -143,6 +147,18 @@ public class Repository implements RepositoryListener{
 
     public GoogleSignInClient getGoogleSignInClient(){
         return googleSignInClient;
+    }
+
+    public void updateContact(Contact contact) {
+        userDataStore.updateContact(contact);
+    }
+
+    public void saveContact(Contact contact) {
+        userDataStore.createContact(contact);
+    }
+
+    public void deleteContact(Contact contact) {
+        userDataStore.deleteContact(contact);
     }
 }
 

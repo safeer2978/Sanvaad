@@ -3,7 +3,12 @@ package com.sanvaad.View.Home;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +33,8 @@ import com.sanvaad.Model.UserDataStore;
 import com.sanvaad.R;
 import com.sanvaad.View.Chat.ChatActivity;
 import com.sanvaad.View.Login.LoginActivity;
+import com.sanvaad.View.Login.LoginFragment;
+import com.sanvaad.ViewModel.HomeActivityViewModel;
 
 import java.util.Calendar;
 import java.util.List;
@@ -59,10 +66,19 @@ public class HomeActivity extends AppCompatActivity {
         //userDataStore.createFeedback(new Feedback(0,"Hi", Calendar.getInstance().getTimeInMillis()));
 
         //userDataStore.createConversation(new Conversation(Calendar.getInstance().getTimeInMillis(),1));
-        //userDataStore.createMessage(new Message("Message1",1,1));
+        //userDataStore.createMessage(new Message("Message1"
+        //,1,1));
 
 
+        HomeActivityViewModel viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
+        viewModel.init(getApplication());
+        FragmentManager fragmentManager=this.getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
 
+        /*Setting Login Fragment as initial View*/
+        Fragment fragment = new ContactsFragment(viewModel);
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.commit();
 
 
     }

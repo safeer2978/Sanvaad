@@ -41,9 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
-        if(sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false))
-            updateUI();
+
 
 
         constraintLayout = findViewById(R.id.la_cl);
@@ -69,6 +67,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
         viewModel = new ViewModelProvider(this).get(LoginActivityViewModel.class);
         viewModel.init(getApplication());
         viewModel.setListener(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false))
+            updateUI();
     }
 
     public void updateUI(){

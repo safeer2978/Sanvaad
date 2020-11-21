@@ -169,4 +169,12 @@ public class UserDataStore {
         for(Message message: messages)
             Dao.insertMessage(message);
     }
+
+    public LiveData<List<Contact>> getContactsLiveData() {
+        return Dao.getContactsLiveData();
+    }
+
+    public void deleteContact(Contact contact) {
+        Dao.deleteContact(contact);
+    }
 }

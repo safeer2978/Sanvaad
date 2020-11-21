@@ -8,16 +8,16 @@ import com.sanvaad.Model.Constants;
 @Entity(tableName = "contact")
 public class Contact {
     @PrimaryKey(autoGenerate = true)
-    private long conID;
+    private long contactID;
 
     private String name;
 
-    public long getConID() {
-        return conID;
+    public long getContactID() {
+        return contactID;
     }
 
-    public void setConID(long conID) {
-        this.conID = conID;
+    public void setContactID(long contactID) {
+        this.contactID = contactID;
     }
 
     public void setName(String name) {
@@ -44,17 +44,17 @@ public class Contact {
     public Contact(String name, long id){
         this.name = name;
         this.imglink= Constants.DUMMY_CONTACT_IMAGE_LINK;
-this.conID=id;
+this.contactID =id;
     }
 
     public Contact(){}
 
     public void setId(long conID) {
-        this.conID = conID;
+        this.contactID = conID;
     }
 
     public long getId() {
-        return conID;
+        return contactID;
     }
 
     public String getName() {

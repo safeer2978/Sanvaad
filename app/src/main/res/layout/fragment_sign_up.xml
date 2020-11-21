@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,54 +8,100 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/iphone_x__xs__11_pro__34"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SignUp Fragment" />
 
         <EditText
             android:id="@+id/lf_et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="365dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="28dp"
+            android:alpha="1"
+            android:background="@drawable/comn_msg_individual"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/lf_et_name"
+            tools:layout_editor_absoluteX="28dp" />
 
         <EditText
             android:id="@+id/lf_et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="365dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="28dp"
+            android:alpha="1"
+            android:background="@drawable/comn_msg_individual"
             android:ems="10"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/lf_et_phone"
+            tools:layout_editor_absoluteX="28dp" />
 
         <EditText
             android:id="@+id/lf_et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="365dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="28dp"
+            android:alpha="1"
+            android:background="@drawable/comn_msg_individual"
             android:ems="10"
             android:hint="Phonne"
-            android:inputType="textPersonName|phone" />
+            android:inputType="textPersonName|phone"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/lf_et_age"
+            tools:layout_editor_absoluteX="28dp" />
 
         <EditText
             android:id="@+id/lf_et_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="365dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="64dp"
+            android:alpha="1"
+            android:background="@drawable/comn_msg_individual"
             android:ems="10"
             android:hint="DOB"
-            android:inputType="number" />
+            android:inputType="number"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/lf_btn_continue"
+            tools:layout_editor_absoluteX="28dp" />
 
         <Button
             android:id="@+id/lf_btn_continue"
             style="@android:style/Widget.DeviceDefault.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Continue" />
-    </LinearLayout>
+            android:layout_width="299dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/text_input"
+            android:text="Continue"
+            android:textColor="@color/beige"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="61dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="292dp"
+            android:layout_height="191dp"
+            android:src="@drawable/logo_white"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="49dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

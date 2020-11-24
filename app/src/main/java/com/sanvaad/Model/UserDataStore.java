@@ -177,4 +177,8 @@ public class UserDataStore {
     public void deleteContact(Contact contact) {
         Dao.deleteContact(contact);
     }
+
+    public LiveData<List<Conversation>> getConversationsLiveData() {
+        return Dao.getConversations();
+    }
 }

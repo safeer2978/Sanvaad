@@ -160,6 +160,15 @@ public class Repository implements RepositoryListener{
     public void deleteContact(Contact contact) {
         userDataStore.deleteContact(contact);
     }
+
+    public LiveData<List<Conversation>> getConversationsLiveData() {
+        return userDataStore.getConversationsLiveData();
+    }
+
+    public void endConversation(List<Message> messages, Conversation conversation) {
+        userDataStore.saveMessages(messages);
+        userDataStore.createConversation(conversation);
+    }
 }
 
 interface RepositoryListener{

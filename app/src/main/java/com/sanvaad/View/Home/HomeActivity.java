@@ -2,48 +2,34 @@ package com.sanvaad.View.Home;
 // nachiket
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.sanvaad.Model.Constants;
-import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Conversation;
-import com.sanvaad.Model.Entity.Feedback;
-import com.sanvaad.Model.Entity.Message;
-import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
 import com.sanvaad.Model.UserDataStore;
 import com.sanvaad.R;
 import com.sanvaad.View.Chat.ChatActivity;
 import com.sanvaad.View.Login.LoginActivity;
-import com.sanvaad.View.Login.LoginFragment;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.TooManyListenersException;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements BrowseChatsListener{
     UserDataStore userDataStore;
 
-
+    HomeActivityViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +56,13 @@ public class HomeActivity extends AppCompatActivity {
         //,1,1));
 
 
-        HomeActivityViewModel viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
         viewModel.init(getApplication());
         FragmentManager fragmentManager=this.getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
 
         /*Setting Login Fragment as initial View*/
-        Fragment fragment = new ContactsFragment(viewModel);
+        Fragment fragment = new BrowseChatsFragment(this, viewModel);
         transaction.replace(R.id.fragment_container,fragment);
         transaction.commit();
 
@@ -108,4 +94,19 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void openChat(Conversation conversation) {
+        FragmentManager fragmentManager=this.getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        /*Setting Login Fragment as initial View*/
+        Fragment fragment = new ViewChatFragment(conversation,viewModel);
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.commit();
+    }
+}
+
+interface BrowseChatsListener{
+
+    void openChat(Conversation conversation);
 }

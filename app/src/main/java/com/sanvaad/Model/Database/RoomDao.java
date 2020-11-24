@@ -77,4 +77,7 @@ public interface RoomDao {
 
     @Delete
     void deleteContact(Contact contact);
+
+    @Query("select * from conversation")
+    LiveData<List<Conversation>> getConversations();
 }

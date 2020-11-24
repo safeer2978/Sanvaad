@@ -17,6 +17,16 @@ public class Conversation {
 
     private long messageID;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    String title;
+
     public int getTop() {
         return top;
     }

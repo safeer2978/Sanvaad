@@ -227,10 +227,13 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
     }
     @Override
     public void onBackPressed() {
+        viewModel.end();
         //TODO FIX BACK PRESS, ADD Dialog
-        toggleContactRecyclerView();
+        super.onBackPressed();
+
+    /*    toggleContactRecyclerView();
         participantsAdapter.notifyDataSetChanged();
-        messagesAdapter.notifyDataSetChanged();
+        messagesAdapter.notifyDataSetChanged();*/
 
     }
 

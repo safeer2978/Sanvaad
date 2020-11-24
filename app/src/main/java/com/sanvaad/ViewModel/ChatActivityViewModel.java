@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.sanvaad.CommonParticipantsViewModel;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ChatActivityViewModel extends AndroidViewModel {
+public class ChatActivityViewModel extends AndroidViewModel implements CommonParticipantsViewModel {
     Repository repository;
 
     boolean triggerState = false;
@@ -51,6 +52,8 @@ public class ChatActivityViewModel extends AndroidViewModel {
         super(application);
         this.repository = Repository.getInstance(application);
         conversation = new Conversation(repository.getUser());
+        conversation.setConvoID(34);    ///TODO FIx this
+        conversation.setTitle("Conversation");
         participantsLiveData.postValue(participants);
         messagesLiveData.postValue(messages);
 
@@ -81,6 +84,7 @@ public class ChatActivityViewModel extends AndroidViewModel {
     Message speakerMessage;
     public void handleSpeakerMessages(TextData textData){
         speakerMessage = new Message("Listening to Speaker...",conversation);
+
         messages.add(speakerMessage);
             /*if(textData.isFinal()) {
                 speakerMessage=new Message("",conversation);
@@ -195,12 +199,17 @@ public class ChatActivityViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        repository.saveMessages(messages);
-
     }
+
+    public void end(){
+        repository.endConversation(messages,conversation);
+        //repository.saveMessages(messages);
+    }
+
 
     Map<Contact,Integer> colorMap = new HashMap<>();
 
+    @Override
     public int getColorInteger(Contact contact) {
         if(colorMap.get(contact)==null){
         Random rnd = new Random();

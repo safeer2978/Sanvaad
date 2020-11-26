@@ -15,6 +15,7 @@ import com.sanvaad.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class BrowseChatAdapter extends RecyclerView.Adapter<BrowseChatAdapter.Vi
         this.conversationList = conversationList;
     }
 
-    List<Conversation> conversationList;
+    List<Conversation> conversationList = new ArrayList<>();
 
 
     @NonNull

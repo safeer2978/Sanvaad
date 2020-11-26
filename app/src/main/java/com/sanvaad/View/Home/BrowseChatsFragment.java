@@ -43,7 +43,7 @@ public class BrowseChatsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        viewModel.getConversations().observe(getActivity(), new Observer<List<Conversation>>() {
+        viewModel.getConversations().observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
             @Override
             public void onChanged(List<Conversation> conversations) {
                 adapter.setConversationList(conversations);

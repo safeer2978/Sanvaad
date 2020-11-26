@@ -8,4 +8,7 @@ public class Constants {
     public static final long USER_ID = 0 ;
     public static final String SHARED_PREF = "SANVAAD_PREFERENCES";
     public static final String LOGIN_STATUS = "LOGIN_STATUS";
+    public static final int TAB_CHAT = 0;
+    public static final int TAB_CONTACTS = 1;
+    public static final int TAB_PROFILE = 2;
 }

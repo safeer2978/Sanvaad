@@ -58,7 +58,7 @@
             android:alpha="1"
             android:background="@drawable/comn_msg_individual"
             android:ems="10"
-            android:hint="Phonne"
+            android:hint="Phone"
             android:inputType="textPersonName|phone"
             android:paddingStart="20dp"
             android:paddingTop="8dp"

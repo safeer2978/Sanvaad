@@ -13,6 +13,7 @@ import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Message;
+import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
 
 import java.util.ArrayList;
@@ -115,5 +116,9 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
                 list.add(contact);
         }
         return list;
+    }
+
+    public User getUser() {
+        return repository.getUser();
     }
 }

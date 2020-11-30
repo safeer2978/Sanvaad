@@ -21,19 +21,13 @@ import com.sanvaad.R;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ContactsFragment extends Fragment {
 
     HomeActivityViewModel viewModel;
-
     public ContactsFragment(HomeActivityViewModel viewModel) {
-        // Required empty public constructor
         this.viewModel = viewModel;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -53,7 +47,7 @@ public class ContactsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewModel.getContacts().observe(getActivity(), new Observer<List<Contact>>() {
+        viewModel.getContacts().observe(Objects.requireNonNull(getActivity()), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 adapter.setList(contacts);

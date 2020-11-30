@@ -1,5 +1,6 @@
 package com.sanvaad.View.Chat;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +31,7 @@ import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.TextData;
 import com.sanvaad.R;
+import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
 import com.sanvaad.messageListener;
 
@@ -227,14 +231,40 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
     }
     @Override
     public void onBackPressed() {
-        viewModel.end();
-        //TODO FIX BACK PRESS, ADD Dialog
-        super.onBackPressed();
 
-    /*    toggleContactRecyclerView();
-        participantsAdapter.notifyDataSetChanged();
-        messagesAdapter.notifyDataSetChanged();*/
+        //Building Dialog for ending the conversation
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are You sure you want to Save This Conversation?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        viewModel.end();
+                        startActivity(new Intent(ChatActivity.this, HomeActivity.class));
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(ChatActivity.this, HomeActivity.class));
+                        finish();
+                    }
+                })
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
 
+        if(mainChatContainer.getVisibility()==View.VISIBLE){
+            dialog.show();
+        }else{
+            toggleContactRecyclerView();
+            participantsAdapter.notifyDataSetChanged();
+            messagesAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

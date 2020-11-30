@@ -54,8 +54,8 @@ public class ViewChatFragment extends Fragment {
         ParticipantsAdapter participantsAdapter = new ParticipantsAdapter(getContext(),viewModel);
         RecyclerView participants = view.findViewById(R.id.vcf_participants_rv);
         participants.setAdapter(participantsAdapter);
-        participantsAdapter.setList(lists.get(1));
-
+        participants.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false));
+        participantsAdapter.setList(viewModel.getParticipants(conversation));
         participantsAdapter.notifyDataSetChanged();
 
         RecyclerView messages = view.findViewById(R.id.vcf_messages_rv);
@@ -64,7 +64,7 @@ public class ViewChatFragment extends Fragment {
         chatMessagesAdapter.setMessagesList(viewModel.getMessages(conversation));
         chatMessagesAdapter.notifyDataSetChanged();
         messages.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.w("MESSAGES", lists.get(0).toString());
+
 
 
     }

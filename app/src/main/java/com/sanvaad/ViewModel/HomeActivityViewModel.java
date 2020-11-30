@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.provider.ContactsContract;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -27,6 +26,8 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
     Repository repository;
 
     Application application;
+
+
 
 /*    public LiveData<List<Conversation>> getConversationList(){
         return repository.getAllConversationList();
@@ -102,5 +103,17 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
                 return c;
 
             return null;
+    }
+
+    public List<Contact> getParticipants(Conversation conversation) {
+        List<Contact> list = new ArrayList<>();
+        for(Message message: repository.getMessages(conversation)){
+            Contact contact = repository.getUserDataStore().getContact(message.getContactID());
+            if(contact==null)
+                continue;
+            if(!list.contains(contact) && contact.getId()!=-1)
+                list.add(contact);
+        }
+        return list;
     }
 }

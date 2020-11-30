@@ -44,6 +44,9 @@ public interface RoomDao {
     @Query("select * from contact")
    List<Contact> getContact();
 
+    @Query("select * from contact where contactID like '%' || :id || '%'")
+    Contact getContact(long id);
+
     @Query("select * from commonMessage where userID like '%' || :userID || '%'")
     List<CommonMessage> getCommonMessageList(long userID);
 

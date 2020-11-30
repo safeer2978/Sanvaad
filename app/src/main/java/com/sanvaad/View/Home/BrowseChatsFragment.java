@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.R;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
@@ -22,9 +23,10 @@ import java.util.List;
 
 public class BrowseChatsFragment extends Fragment {
 
+    @NotNull
     HomeActivityViewModel viewModel;
+
     public BrowseChatsFragment(BrowseChatsListener listener, HomeActivityViewModel viewModel) {
-        // Required empty public constructor
         this.viewModel=viewModel;
     }
 
@@ -43,7 +45,8 @@ public class BrowseChatsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        viewModel.getConversations().observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
+        if(viewModel!=null)
+            viewModel.getConversations().observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
             @Override
             public void onChanged(List<Conversation> conversations) {
                 adapter.setConversationList(conversations);

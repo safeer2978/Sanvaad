@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
@@ -18,7 +17,6 @@ import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
 import com.sanvaad.View.Login.LoginListener;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class Repository implements RepositoryListener{
@@ -28,6 +26,9 @@ public class Repository implements RepositoryListener{
     UserDataStore userDataStore;
     User user;
 
+public     UserDataStore getUserDataStore(){
+        return userDataStore;
+    }
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
         userDataStore = new UserDataStore(application);
@@ -79,7 +80,7 @@ public class Repository implements RepositoryListener{
     }
 
     public Contact getUserAsContact() {
-        return userDataStore.getContact().get(0);
+        return userDataStore.getContactList().get(0);
     }
 
     public void registerNewUser(User user){
@@ -108,7 +109,7 @@ public class Repository implements RepositoryListener{
 
 
     public List<Contact> getContactList() {
-        return userDataStore.getContact();
+        return userDataStore.getContactList();
     }
 
     public LiveData<List<Contact>> getContactLiveData() {

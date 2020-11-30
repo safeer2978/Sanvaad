@@ -2,6 +2,7 @@
 package com.sanvaad.View.Chat;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapter.ViewHolder> {
 
     Context context;
+    List<Contact> list;
 
     CommonParticipantsViewModel viewModel;
     public ParticipantsAdapter(Context context, CommonParticipantsViewModel viewModel) {
@@ -34,7 +36,7 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
         this.list = list;
     }
 
-    List<Contact> list;
+
 
     @NonNull
     @Override
@@ -48,16 +50,18 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact= list.get(position);
-        holder.textView.setText(contact.getName());
-         int color = viewModel.getColorInteger(contact);
-        // int color = Color.argb(255, rnd.nextInt(128), rnd.nextInt(128), rnd.nextInt(128));
-        holder.textView.setTextColor(color);
-
+        if(contact!=null) {
+            holder.textView.setText(contact.getName());
+            Log.w("Participant Set", contact.getName());
+            int color = viewModel.getColorInteger(contact);
+            // int color = Color.argb(255, rnd.nextInt(128), rnd.nextInt(128), rnd.nextInt(128));
+            holder.textView.setTextColor(color);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list==null?0:list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

@@ -22,8 +22,10 @@ import com.sanvaad.Model.Repository;
 import com.sanvaad.Model.TextData;
 import com.sanvaad.messageListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,11 +54,13 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         super(application);
         this.repository = Repository.getInstance(application);
         conversation = new Conversation(repository.getUser());
-        conversation.setConvoID(34);    ///TODO FIx this
-        conversation.setTitle("Conversation");
+        //D simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+        conversation.setConvoID(Calendar.getInstance().getTimeInMillis());
+        Date date = new Date(conversation.getConvoID());
+        Calendar calendar = Calendar.getInstance();
+        conversation.setTitle("Conversation at "+date.getHours()+":"+date.getMinutes());
         participantsLiveData.postValue(participants);
         messagesLiveData.postValue(messages);
-
         user = repository.getUser();
     }
 

@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,57 +38,31 @@ import com.sanvaad.ViewModel.HomeActivityViewModel;
 public class HomeActivity extends AppCompatActivity implements BrowseChatsListener{
     UserDataStore userDataStore;
 
+    Button button;
+    ConstraintLayout constraintLayout;
     HomeActivityViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
+        viewModel.init(getApplication());
+        constraintLayout= findViewById(R.id.fragment_container);
+        button = findViewById(R.id.button);
 
-        userDataStore = new UserDataStore(getApplication());
         Toolbar toolbar;
         toolbar=findViewById(R.id.ha_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-/*        User user= new User();
-        user.setEmail("334");
-        user.setName("Safeer");
-        user.setAge(4);
-        user.setStatus("M");
-        user.setUserID(9999);
-        user.setPhoneNo(323232);
-        userDataStore.createUser(user,"as");*/
-/*        User user = new User();
-        user.setName("Admin");*/
-/*        userDataStore.createUser(user,"");*/
-        //userDataStore.createCommonmessage(new CommonMessage(user.getUserID(),0,"Hello", Calendar.getInstance().getTimeInMillis()));
-        //userDataStore.createFeedback(new Feedback(0,"Hi", Calendar.getInstance().getTimeInMillis()));
 
-        //userDataStore.createConversation(new Conversation(Calendar.getInstance().getTimeInMillis(),1));
-        //userDataStore.createMessage(new Message("Message1"
-        //,1,1));
-
-
-/*        viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
-        viewModel.init(getApplication());
-        FragmentManager fragmentManager=this.getSupportFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-
-        *//*Setting Login Fragment as initial View*//*
-        Fragment fragment = new BrowseChatsFragment(this, viewModel);
-        transaction.replace(R.id.fragment_container,fragment);
-        transaction.commit();*/
-        viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
-        viewModel.init(getApplication());
         ViewPager2 viewPager = findViewById(R.id.ha_viewpager);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle());
         adapter.setInstance(this);
         adapter.setViewModel(viewModel);
         viewPager.setAdapter(adapter);
-
         TabLayout tabLayout = findViewById(R.id.ha_tablayout);
-
         new TabLayoutMediator(tabLayout,viewPager,(tab,position)->tab.setText(getTabTitle(position))).attach();
-        //new TabLayoutMediator(tabLayout,viewPager,true,true,(tab, position)->tab.setText(tab.getText())).attach();
 
 
     }
@@ -111,6 +86,7 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
 
     public void onClick(View view){
         startActivity(new Intent(HomeActivity.this, ChatActivity.class));
+        onPause();
     }
 
     public void logout(){
@@ -136,14 +112,13 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
 
     @Override
     public void openChat(Conversation conversation) {
-        ConstraintLayout constraintLayout = findViewById(R.id.fragment_container);
-        constraintLayout.setVisibility(View.VISIBLE);
         FragmentManager fragmentManager=this.getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         /*Setting Login Fragment as initial View*/
         Fragment fragment = new ViewChatFragment(conversation,viewModel);
         transaction.replace(R.id.fragment_container,fragment);
         transaction.commit();
+        constraintLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -161,6 +136,12 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(constraintLayout.getVisibility()==View.VISIBLE)
+            constraintLayout.setVisibility(View.GONE);
     }
 }
 

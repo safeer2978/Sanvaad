@@ -146,7 +146,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             }
         });
 
-
+        commonMessageRecyclerView.setVisibility(View.GONE);
         textView=findViewById(R.id.toggle_rv);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

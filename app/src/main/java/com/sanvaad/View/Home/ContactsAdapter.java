@@ -1,5 +1,6 @@
 package com.sanvaad.View.Home;
 
+import android.app.usage.ConfigurationStats;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sanvaad.CircleTransform;
+import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
@@ -85,8 +87,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
         holder.textView.setText(contact.getName());
         Picasso.get()
-                .load(contact.getImglink())
-                //.resize(30,30)
+                .load(Constants.DUMMY_CONTACT_IMAGE_LINK)
                 .transform(new CircleTransform())
                 .into(holder.imageView);
 

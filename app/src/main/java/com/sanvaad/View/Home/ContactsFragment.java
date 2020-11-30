@@ -16,12 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.sanvaad.CircleTransform;
+import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
+
+import io.grpc.netty.shaded.io.netty.util.Constant;
 
 public class ContactsFragment extends Fragment {
 
@@ -60,12 +65,18 @@ public class ContactsFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.ha_cf_iv);
         Button button = view.findViewById(R.id.ha_cf_btn);
 
+        Picasso.get()
+                .load(Constants.DUMMY_CONTACT_IMAGE_LINK)
+                .transform(new CircleTransform())
+                .into(imageView);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Contact contact = new Contact();
                 contact.setName(editText.getText().toString());
                 viewModel.saveContact(contact);
+                editText.setText("");
             }
         });
     }

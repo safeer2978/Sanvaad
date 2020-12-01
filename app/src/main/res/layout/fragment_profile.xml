@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+
     tools:context=".View.Home.ProfileFragment">
 
 
@@ -24,18 +25,20 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="35dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ha_pf_progileimg">
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imageView7"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            app:srcCompat="@drawable/group_79" />
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/icon_material_person" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,17 +63,20 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="27dp"
             android:layout_weight="0"
-            app:srcCompat="@drawable/group_79" />
+            android:src="@drawable/icon_material_mail" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -94,18 +100,20 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <ImageView
-
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            app:srcCompat="@drawable/group_79" />
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/icon_feather_phone" />
 
         <LinearLayout
             android:layout_width="wrap_content"

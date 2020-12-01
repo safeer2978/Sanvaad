@@ -31,8 +31,8 @@ public class CommonMessage {
 
     private long mdate;
 
-    public CommonMessage(String message, User user) {
-        this.userID = user.getUserID();
+    public CommonMessage(String message, long user) {
+        this.userID = user;
         this.message = message;
         this.mdate = Calendar.getInstance().getTimeInMillis();
     }

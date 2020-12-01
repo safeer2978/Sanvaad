@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sanvaad.CircleTransform;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
@@ -52,7 +53,8 @@ public class ContactsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewModel.getContacts().observe(Objects.requireNonNull(getActivity()), new Observer<List<Contact>>() {
+        viewModel.getContacts(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .observe(Objects.requireNonNull(getActivity()), new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 adapter.setList(contacts);
@@ -75,6 +77,8 @@ public class ContactsFragment extends Fragment {
             public void onClick(View v) {
                 Contact contact = new Contact();
                 contact.setName(editText.getText().toString());
+                contact.setFirebaseUserID(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+                contact.setImglink(Constants.DUMMY_CONTACT_IMAGE_LINK);
                 viewModel.saveContact(contact);
                 editText.setText("");
             }

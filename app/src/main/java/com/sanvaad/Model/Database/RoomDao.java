@@ -55,7 +55,7 @@ public interface RoomDao {
 
 
     @Query("select * from commonMessage where userID like '%' || "+Constants.ADMIN_ID+"|| '%'")
-    LiveData<List<CommonMessage>> getAdminCommonMessageList();
+    List<CommonMessage> getAdminCommonMessageList();
 
     @Query("delete from commonMessage where userID like '%' || "+Constants.ADMIN_ID+"|| '%' ")
     void deleteAllAdminMessages();
@@ -75,8 +75,8 @@ public interface RoomDao {
     @Query("DELETE from user")
     void deleteAllUser();
 
-    @Query("select * from contact")
-    LiveData<List<Contact>> getContactsLiveData();
+    @Query("select * from contact where firebaseUserID like '%' || :userID ||'%'")
+    LiveData<List<Contact>> getContactsLiveData(String userID);
 
     @Delete
     void deleteContact(Contact contact);

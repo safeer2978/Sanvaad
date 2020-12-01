@@ -44,7 +44,7 @@ public class Contact {
     public Contact(String name, long id){
         this.name = name;
         this.imglink= Constants.DUMMY_CONTACT_IMAGE_LINK;
-this.contactID =id;
+        this.contactID =id;
     }
 
     public Contact(){}
@@ -64,4 +64,15 @@ this.contactID =id;
     public String getImglink() {
         return imglink;
     }
+
+    String firebaseUserID;
+
+    public String getFirebaseUserID() {
+        return firebaseUserID;
+    }
+
+    public void setFirebaseUserID(String firebaseUserID) {
+        this.firebaseUserID = firebaseUserID;
+    }
+
 }

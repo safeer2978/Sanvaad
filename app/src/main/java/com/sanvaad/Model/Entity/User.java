@@ -8,6 +8,7 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private long userID;
 
+
     public void setName(String name) {
         this.name = name;
     }

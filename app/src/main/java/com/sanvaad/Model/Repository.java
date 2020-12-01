@@ -26,17 +26,14 @@ public class Repository implements RepositoryListener{
     UserDataStore userDataStore;
     User user;
 
-public     UserDataStore getUserDataStore(){
+    public UserDataStore getUserDataStore(){
         return userDataStore;
     }
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
         userDataStore = new UserDataStore(application);
         userDataStore.setListener(this);
-        SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false);
-        if(isLoggedIn)
-            user=userDataStore.getUser();
+        updateUser(application);
     }
 
     private static Repository INSTANCE;
@@ -112,12 +109,15 @@ public     UserDataStore getUserDataStore(){
         return userDataStore.getContactList();
     }
 
-    public LiveData<List<Contact>> getContactLiveData() {
-        return userDataStore.getContactsLiveData();
+    public LiveData<List<Contact>> getContactLiveData(String userID) {
+        return userDataStore.getContactsLiveData(userID);
     }
 
     public List<CommonMessage> getCommonMessages(User user) {
-        return userDataStore.getCommonMessagesOfUser(user.getUserID());
+        List<CommonMessage> list;
+        list = userDataStore.getCommonMessagesOfUser(user.getUserID());
+        list.addAll(userDataStore.getAdminCommonMessage());
+        return list;
     }
 
 
@@ -170,6 +170,14 @@ public     UserDataStore getUserDataStore(){
         userDataStore.saveMessages(messages);
         userDataStore.createConversation(conversation);
     }
+
+    public void updateUser(Application application){
+        SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean(Constants.LOGIN_STATUS,false);
+        if(isLoggedIn)
+            user=userDataStore.getUser();
+    }
+
 }
 
 interface RepositoryListener{

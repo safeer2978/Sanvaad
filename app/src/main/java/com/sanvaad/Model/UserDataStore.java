@@ -1,6 +1,7 @@
 package com.sanvaad.Model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -21,6 +22,7 @@ import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -37,9 +39,9 @@ public class UserDataStore {
         databaseFeedbacks = FirebaseDatabase.getInstance().getReference("Feedbacks");
         databaseCommonMessages = FirebaseDatabase.getInstance().getReference("CommonMessages");
         Dao = Database.getDatabase(application).dao();
-
         user = getUser();
 
+        updateAdminMessages();
     }
 
 
@@ -136,18 +138,39 @@ public class UserDataStore {
         Dao.updateUser(user);
     }
 
-    public void updateAdminMessages(){
-        final List<CommonMessage>[] list = new List[]{new ArrayList<>()};
-        DatabaseReference reference = databaseCommonMessages;
-        reference.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                GenericTypeIndicator<ArrayList<CommonMessage>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<CommonMessage>>() {
-                                                };
-                                                list[0] = snapshot.child("1").getValue(genericTypeIndicator);
+    private void updateAdminMessages(){
+        databaseCommonMessages
+                .child("ADMIN")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<CommonMessage> commonMessages = new ArrayList<>();
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    CommonMessage commonMessage = new CommonMessage(ds.child("message").getValue(String.class),-1);
+                    commonMessages.add(commonMessage);
+                    Log.w("UserDataStore", "Admin Message Recievec:"+commonMessage.getMessage());
+                }
+                Dao.deleteAllAdminMessages();
+                Dao.insertAdminMessages(commonMessages);
+                Log.w("UserDataStore", "Admin messages Updated");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        /*DatabaseReference reference = databaseCommonMessages;
+        reference.addValueEventListener(
+                new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        GenericTypeIndicator<ArrayList<CommonMessage>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<CommonMessage>>();
+                                                List<CommonMessage> commonMessages = snapshot.child("ADMIN").getValue(genericTypeIndicator);
                                                 System.out.println("DATA:"+list[0]);
                                                 Dao.deleteAllAdminMessages();
-                                                for(CommonMessage message:list[0]){
+                                                for(CommonMessage message:commonMessages){
                                                     Dao.insertCommonMessage(message);
                                                     System.out.println("DATA:"+message.getMessage());
                                                 }
@@ -158,15 +181,11 @@ public class UserDataStore {
 
                                             }
                                         }
-        );
-
-
-
-       // Dao.insertAdminMessages(list[0]);
+        );*/
 
     }
 
-    public LiveData<List<CommonMessage>> getAdminCommonMessage(){
+    public List<CommonMessage> getAdminCommonMessage(){
         return Dao.getAdminCommonMessageList();
     }
 
@@ -175,8 +194,8 @@ public class UserDataStore {
             Dao.insertMessage(message);
     }
 
-    public LiveData<List<Contact>> getContactsLiveData() {
-        return Dao.getContactsLiveData();
+    public LiveData<List<Contact>> getContactsLiveData(String userID) {
+        return Dao.getContactsLiveData(userID);
     }
 
     public void deleteContact(Contact contact) {

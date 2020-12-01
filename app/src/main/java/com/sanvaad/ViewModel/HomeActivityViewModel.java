@@ -73,8 +73,8 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
         repository.updateContact(contact);
     }
 
-    public LiveData<List<Contact>> getContacts() {
-        return repository.getContactLiveData();
+    public LiveData<List<Contact>> getContacts(String userID) {
+        return repository.getContactLiveData(userID);
     }
 
     public void deleteContact(Contact contact) {

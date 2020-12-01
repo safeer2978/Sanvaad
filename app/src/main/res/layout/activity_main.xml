@@ -12,7 +12,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/background"
         android:minHeight="?attr/actionBarSize"
-        app:title="@string/app_name"
         app:titleTextColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +25,7 @@
         android:layout_height="60dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/send_button"
+        android:background="@drawable/group_81"
         android:onClick="onClick"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,5 +68,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="147dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo_nobg_white_text_"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,8 @@
     android:id="@+id/ha_cf_cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Home.ContactsFragment">
+    tools:context=".View.Home.ContactsFragment"
+    android:layout_marginTop="5dp">
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -19,7 +20,11 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add New Contact" />
+            android:text="Add New Contact"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:textAllCaps="true"
+            android:textColor="@color/background" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -50,8 +55,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Name"
+                android:textColorHint="@color/grey1"
                 android:inputType="textPersonName"
-                android:textColor="@color/grey1" />
+                android:textColor="@color/grey" />
 
             <Button
                 android:id="@+id/ha_cf_btn"

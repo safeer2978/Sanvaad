@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="#FFFF00"
+        app:tabSelectedTextColor="@color/beige"
         app:tabTextColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

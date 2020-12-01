@@ -140,7 +140,7 @@
                 android:layout_weight="0"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
+                android:paddingHorizontal="8dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="8dp">
 
@@ -148,16 +148,17 @@
                     android:id="@+id/editTextTextPersonName"
                     android:layout_width="337dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+
                     android:background="@drawable/text_input"
                     android:ems="10"
+                    android:hint="Type a message"
                     android:inputType="textPersonName"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:hint="Type a message"
-                    android:textColorHint="#9FFFFFFF"
-                    android:textColor="#fff" />
+                    android:textColor="#fff"
+                    android:textColorHint="#9FFFFFFF" />
 
                 <Button
                     android:id="@+id/ca_send_btn"

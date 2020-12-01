@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_ap_cl"
-    android:layout_width="30dp"
+    android:layout_width="25dp"
     android:layout_height="25dp"
     android:padding="6dp"
-    android:layout_margin="4dp">
-
+    android:layout_margin="4dp"
+    android:background="@drawable/part_indicator">
+<!--  above is changed-->
 </androidx.constraintlayout.widget.ConstraintLayout>
+

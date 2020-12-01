@@ -140,49 +140,15 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
 
 
     public void assignContactToMessage(int pos, Contact contact){
-      /*  int i=0;
-        for(Message m:messages){
-            if(m.getID()==message.getID())
-                break;
-            i++;
-        }*/
         Log.w("CHAT_VIEWMODEL","Message found at:"+pos);
 
         messages.get(pos).setContact(contact);
     }
 
-    /** DUMMY DATA //TODO Change this later
-     * */
     public List<Contact> getContactList(){
-        /*List<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact("Safeer",2));
-        contacts.add(new Contact("Priyanshu",3));
-        contacts.add(new Contact("Nachi",4));
-        contacts.add(new Contact("Ritvik",5));
-        contacts.add(new Contact("Daryl",6));
-        contacts.add(new Contact("Shreyum",7));
-        contacts.add(new Contact("Daksh",8));
-        contacts.add(new Contact("Madhul",9));
-        contacts.add(new Contact("Karthik",10));
-        contacts.add(new Contact("Usman",11));
-        return contacts;*/
-
         return repository.getContactList();
     }
-
-    /** DUMMY DATA //TODO Change this later
-     * */
     public List<CommonMessage> getCommonMessageList(){
-/*        List<CommonMessage> commonMessages = new ArrayList<>();
-        commonMessages.add(new CommonMessage("Hello There",repository.getUser()));
-        commonMessages.add(new CommonMessage("Alright",repository.getUser()));
-        commonMessages.add(new CommonMessage("Thank You",repository.getUser()));
-        commonMessages.add(new CommonMessage("Sorry!",repository.getUser()));
-        commonMessages.add(new CommonMessage("Please!",repository.getUser()));
-        commonMessages.add(new CommonMessage("You're Welcome",repository.getUser()));
-        commonMessages.add(new CommonMessage("Could you please speak near the phone",repository.getUser()));
-        return commonMessages;*/
-
         return repository.getCommonMessages(user);
     }
 

@@ -12,6 +12,7 @@ import com.sanvaad.CommonParticipantsViewModel;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
+import com.sanvaad.Model.Entity.Feedback;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Repository;
@@ -120,5 +121,9 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
 
     public User getUser() {
         return repository.getUser();
+    }
+
+    public void sendFeedBack(Feedback feedback) {
+        repository.sendFeedBack(feedback);
     }
 }

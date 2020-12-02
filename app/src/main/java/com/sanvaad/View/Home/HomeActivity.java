@@ -133,9 +133,22 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
             case R.id.ha_toolbar_logout:
                 logout();
                 return true;
+            case R.id.ha_toolbar_feedback:
+                switchToFeedback();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void switchToFeedback() {
+        FragmentManager fragmentManager=this.getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        /*Setting Login Fragment as initial View*/
+        Fragment fragment = new FeedBackFragment(viewModel);
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.commit();
+        constraintLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

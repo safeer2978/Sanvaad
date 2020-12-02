@@ -88,7 +88,7 @@ public class UserDataStore {
     public void createFeedback(Feedback feedback){
         //com.sanvaad.Model.Entity.Feedback roomFeedback = new com.sanvaad.Model.Entity.Feedback(feedback.getFdate(),feedback.getUserID(),feedback.getComment());
         Dao.insertFeedback(feedback);
-        databaseFeedbacks.child(String.valueOf(user.getUserID())).child(String.valueOf(feedback.getFid())).setValue(feedback);       //.child(feedback));
+        databaseFeedbacks.child(feedback.getUserID()).child(String.valueOf(feedback.getFid())).setValue(feedback);       //.child(feedback));
 
     }
 
@@ -208,5 +208,9 @@ public class UserDataStore {
 
     public Contact getContact(long contactID) {
         return Dao.getContact(contactID);
+    }
+
+    public void sendFeedback(Feedback feedback) {
+        createFeedback(feedback);
     }
 }

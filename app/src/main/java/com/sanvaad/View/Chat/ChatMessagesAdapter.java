@@ -37,11 +37,16 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
 
     ChatActivityViewModel viewModel;
 
+
+
     public ChatMessagesAdapter(Context context, ChatActivityViewModel viewModel) {
         this.context = context;
         this.viewModel = viewModel;
         messageList = new ArrayList<>();
+
     }
+
+
 
     public void setContactList(List<Contact> contacts) {
         this.contactList = contacts;
@@ -57,17 +62,18 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
     @NonNull
     @Override
     public com.sanvaad.View.Chat.ChatMessagesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_messagebubble, parent, false);
-        return new com.sanvaad.View.Chat.ChatMessagesAdapter.ViewHolder(view);
+        return new com.sanvaad.View.Chat.ChatMessagesAdapter.ViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.item_messagebubble, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Message message = messageList.get(position);
-
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) holder.cardView.getLayoutParams();
+
+        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+
 
         if(message.getContactID() == Constants.USER_ID){
             holder.speakerLinerLayout.setVisibility(View.GONE);
@@ -78,8 +84,9 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
                 }
             });
             layoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
-        }else {
-            holder.textViewSpeaker.setText("Speaker");
+        }
+        else {
+            holder.speakerLinerLayout.setVisibility(View.VISIBLE);
             List<Contact> contacts = viewModel.getParticipantsList();
             for (Contact c : contacts) {
                 if (message.getContactID() == c.getId()) {
@@ -88,7 +95,16 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
                     holder.recyclerView.setVisibility(View.GONE);
                     break;
                 }
-
+                else{
+                    holder.textViewSpeaker.setText("Speaker");
+                    holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,true));
+                    AssignParticipantAdapter adapter = new AssignParticipantAdapter(context,viewModel);
+                    adapter.setMessagePosition(position);
+                    holder.recyclerView.setAdapter(adapter);
+                    adapter.setList(contactList);
+                    adapter.notifyDataSetChanged();
+                    holder.recyclerView.setVisibility(View.VISIBLE);
+                }
             }
             layoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
         }
@@ -97,13 +113,6 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<com.sanvaad.View.C
         Date date = new Date(message.getMessageDate());
         holder.textViewTime.setText(date.getHours()+":"+date.getMinutes());
 
-
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,true));
-        AssignParticipantAdapter adapter = new AssignParticipantAdapter(context,viewModel);
-        adapter.setMessagePosition(position);
-        holder.recyclerView.setAdapter(adapter);
-        adapter.setList(contactList);
-        adapter.notifyDataSetChanged();
     }
 
 /*

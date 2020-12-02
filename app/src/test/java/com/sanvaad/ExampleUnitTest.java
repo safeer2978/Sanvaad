@@ -1,5 +1,6 @@
 package com.sanvaad;
 
+import com.sanvaad.Model.Repository;
 import com.sanvaad.Model.UserDataStore;
 
 import org.junit.Test;
@@ -12,9 +13,19 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
+
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+
+    @Test
+    public void getAdminCommonMessages(){
+
+    }
+
+
 
 }

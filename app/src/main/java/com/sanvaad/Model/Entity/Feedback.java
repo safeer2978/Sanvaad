@@ -8,9 +8,15 @@ public class Feedback {
     @PrimaryKey(autoGenerate = true)
     private long fid;
 
-    public void setUserID(long userID) {
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    String userID;
 
     public void setComment(String comment) {
         this.comment = comment;
@@ -20,13 +26,12 @@ public class Feedback {
         this.fdate = fdate;
     }
 
-    private long userID;
 
     private String comment;
 
     private long fdate;
 
-    public Feedback(long userID, String comment, long fdate) {
+    public Feedback(String userID, String comment, long fdate) {
         this.comment = comment;
         this.fdate = fdate;
         this.userID = userID;
@@ -40,9 +45,6 @@ public class Feedback {
         return fid;
     }
 
-    public long getUserID() {
-        return userID;
-    }
 
     public String getComment() {
         return comment;

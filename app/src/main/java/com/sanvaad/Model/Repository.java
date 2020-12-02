@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
+import com.sanvaad.Model.Entity.Feedback;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.Entity.User;
 import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
@@ -49,6 +50,9 @@ public class Repository implements RepositoryListener{
         return speechFunctionDataStore.getTextData();
     }
 
+    public void stopListening(){
+        speechFunctionDataStore.onStop();
+    }
 
     public void triggerListening(boolean isListening){
         if (isListening)
@@ -178,6 +182,9 @@ public class Repository implements RepositoryListener{
             user=userDataStore.getUser();
     }
 
+    public void sendFeedBack(Feedback feedback) {
+        userDataStore.createFeedback(feedback);
+    }
 }
 
 interface RepositoryListener{

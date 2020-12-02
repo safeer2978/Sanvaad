@@ -145,6 +145,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.1'
 }
 
 

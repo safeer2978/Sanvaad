@@ -73,6 +73,7 @@ public class SpeechToText {
         @Override
         public void onTranscriptionUpdate(Spanned formattedResult, UpdateType updateType) {
             setTextData(formattedResult.toString(),updateType);
+            Log.w(TAG,"Running");
         }
     };
 
@@ -126,6 +127,7 @@ public class SpeechToText {
 
 
     public void onStop() {
+        Log.w(TAG,"Stopped");
         if (audioRecord != null) {
             audioRecord.stop();
         }

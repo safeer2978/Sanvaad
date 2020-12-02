@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,8 +40,11 @@ import com.sanvaad.messageListener;
 import java.util.Calendar;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 public class ChatActivity extends AppCompatActivity implements messageListener {
 
+    private static final String TAG = "Chat_Activity";
     TextView textView;
     EditText editText;
     Button speakBtn, triggerBtn;
@@ -121,6 +125,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             }
         });
 
+        chatRecyclerView.setItemAnimator(new SlideInUpAnimator());
 
 
         participantsRecyclerViews.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
@@ -163,9 +168,14 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         userSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.onUserText(userEditText.getText().toString());
-                messagesAdapter.notifyDataSetChanged();
-                userEditText.setText("");
+                if(!userEditText.getText().toString().equals(""))
+                {
+                    viewModel.onUserText(userEditText.getText().toString());
+                    messagesAdapter.notifyDataSetChanged();
+                    userEditText.setText("");
+                    chatRecyclerView.scrollToPosition(messagesAdapter.getItemCount());
+                }
+
             }
         });
 
@@ -207,16 +217,26 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewModel.getTriggerListeningState()){
-                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
-                    //TODO Recording animation here...
-                }else{
-                    button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.group_57));
-                }
                 viewModel.triggerListening();
+                viewModel.getListeningStateLiveData().observe(ChatActivity.this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        Log.d(TAG, "onChanged:"+aBoolean);
+                        if(aBoolean){
+                            button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.group_57));
+                            //TODO Recording animation here...
+                        }else{
+                            button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
+                        }
+                    }
+                });
             }
         });
-        button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
+
+
+
+
+        //button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
         return true;
     }
 
@@ -229,6 +249,13 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             mainChatContainer.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    protected void onPause() {
+        viewModel.stopApi();
+        super.onPause();
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -263,18 +290,26 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         }else{
             toggleContactRecyclerView();
             participantsAdapter.notifyDataSetChanged();
-            messagesAdapter.notifyDataSetChanged();
+            refreshMessage();
         }
     }
 
     @Override
     public void refreshMessage() {
         messagesAdapter.notifyDataSetChanged();
+        chatRecyclerView.smoothScrollToPosition(messagesAdapter.getItemCount());
     }
 
     @Override
     public void hideContactScreen() {
         toggleContactRecyclerView();
         participantsAdapter.notifyDataSetChanged();
+        refreshMessage();
+    }
+
+    @Override
+    public void hideCommonMessageScreen() {
+        commonMessageRecyclerView.setVisibility(View.GONE);
+        refreshMessage();
     }
 }

@@ -119,22 +119,22 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ca_common_message_rv"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
+                android:background="@drawable/common_message_bubble"
                 android:padding="6dp"
                 android:scrollbars="vertical"
-                android:background="@drawable/common_message_bubble"
-                tools:listitem="@layout/item_commonmessages"
-                android:visibility="visible">
+                android:visibility="visible"
+                tools:listitem="@layout/item_commonmessages">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -148,8 +148,6 @@
                     android:id="@+id/editTextTextPersonName"
                     android:layout_width="337dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="8dp"
 
                     android:background="@drawable/text_input"
                     android:ems="10"
@@ -158,15 +156,20 @@
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
                     android:textColor="#fff"
-                    android:textColorHint="#9FFFFFFF" />
+                    android:textColorHint="#9FFFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ca_send_btn"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/ca_send_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="0"
-                    android:background="@drawable/send_button" />
-            </LinearLayout>
+                    android:background="@drawable/send_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

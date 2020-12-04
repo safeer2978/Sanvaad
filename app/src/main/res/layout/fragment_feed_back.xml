@@ -8,10 +8,11 @@
     android:background="#FFFFFF"
     tools:context=".View.Home.FeedBackFragment" >
 
+
     <EditText
         android:id="@+id/ha_fb_et"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="343dp"
+        android:layout_height="325dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -21,16 +22,57 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/ha_fb_send"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.915" />
 
     <Button
         android:id="@+id/ha_fb_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="204dp"
+        android:layout_width="297dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/text_input"
         android:text="Send"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="303dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Feedback"
+        android:textColor="@color/background"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/ha_fb_et"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:rotation="180"
+        android:src="@drawable/icon_awesome_arrow_alt_circle_right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="141dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/logo_nobg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ public class Conversation {
 
     private long cdate;
 
-    private long convcreatorID;
+    private String convcreatorID;
 
     private long messageID;
 
@@ -37,9 +37,9 @@ public class Conversation {
 
     private int top=0;
 
-    public Conversation(User user) {
+    public Conversation(String userID) {
         this.cdate = Calendar.getInstance().getTimeInMillis();
-        this.convcreatorID = user.getUserID();
+        this.convcreatorID = userID;
     }
 
     public Conversation(){
@@ -51,11 +51,11 @@ public class Conversation {
         this.cdate = cdate;
     }
 
-    public long getConvcreatorID() {
+    public String getConvcreatorID() {
         return convcreatorID;
     }
 
-    public void setConvcreatorID(long convcreatorID) {
+    public void setConvcreatorID(String convcreatorID) {
         this.convcreatorID = convcreatorID;
     }
 

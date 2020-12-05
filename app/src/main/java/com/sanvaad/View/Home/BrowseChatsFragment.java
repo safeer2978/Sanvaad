@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.R;
@@ -48,7 +49,7 @@ public class BrowseChatsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         if(viewModel!=null)
-            viewModel.getConversations().observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
+            viewModel.getConversations(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
             @Override
             public void onChanged(List<Conversation> conversations) {
                 adapter.setConversationList(conversations);

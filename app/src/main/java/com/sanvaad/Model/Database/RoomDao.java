@@ -81,6 +81,6 @@ public interface RoomDao {
     @Delete
     void deleteContact(Contact contact);
 
-    @Query("select * from conversation where firebaseUserID like '%' || :userID ||'%'")
+    @Query("select * from conversation where convcreatorID like '%' || :userID ||'%'")
     LiveData<List<Conversation>> getConversations(String userID);
 }

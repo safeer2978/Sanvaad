@@ -26,6 +26,8 @@ public class BrowseChatsFragment extends Fragment {
     @NotNull
     HomeActivityViewModel viewModel;
 
+    public BrowseChatsFragment(){}
+
     public BrowseChatsFragment(BrowseChatsListener listener, HomeActivityViewModel viewModel) {
         this.viewModel=viewModel;
     }

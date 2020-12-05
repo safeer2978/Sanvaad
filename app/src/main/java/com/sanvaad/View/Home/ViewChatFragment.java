@@ -1,5 +1,6 @@
 package com.sanvaad.View.Home;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Message;
@@ -28,9 +30,11 @@ public class ViewChatFragment extends Fragment {
 
     Conversation conversation;
 
-    ViewChatFragment(Conversation conversation, HomeActivityViewModel homeActivityViewModel){
+    BackListener listener;
+    ViewChatFragment(Conversation conversation, HomeActivityViewModel homeActivityViewModel,BackListener listener){
         this.conversation=conversation;
         viewModel=homeActivityViewModel;
+        this.listener=listener;
     }
 
     @Override
@@ -65,6 +69,14 @@ public class ViewChatFragment extends Fragment {
         chatMessagesAdapter.notifyDataSetChanged();
         messages.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        ImageView back = view.findViewById(R.id.vcf_back_iv);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onBack();
+            }
+        });
 
 
     }

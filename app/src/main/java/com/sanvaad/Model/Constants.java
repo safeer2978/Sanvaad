@@ -11,4 +11,6 @@ public class Constants {
     public static final int TAB_CHAT = 0;
     public static final int TAB_CONTACTS = 1;
     public static final int TAB_PROFILE = 2;
+    public static final int CHAT_VIEWMODEL = 1;
+    public static final int HOME_VIEWMODEL = 0;
 }

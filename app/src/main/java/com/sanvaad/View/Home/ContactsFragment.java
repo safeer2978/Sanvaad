@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.sanvaad.CircleTransform;
+import com.sanvaad.ContactsViewModel;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.R;
@@ -31,8 +32,9 @@ import io.grpc.netty.shaded.io.netty.util.Constant;
 
 public class ContactsFragment extends Fragment {
 
-    HomeActivityViewModel viewModel;
-    public ContactsFragment(HomeActivityViewModel viewModel) {
+    ContactsViewModel viewModel;
+
+    public ContactsFragment(ContactsViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

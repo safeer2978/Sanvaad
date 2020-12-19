@@ -35,7 +35,7 @@ import com.sanvaad.View.Chat.ChatActivity;
 import com.sanvaad.View.Login.LoginActivity;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
-public class HomeActivity extends AppCompatActivity implements BrowseChatsListener{
+public class HomeActivity extends AppCompatActivity implements BrowseChatsListener, BackListener{
     UserDataStore userDataStore;
 
     Button button;
@@ -90,7 +90,6 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
     }
 
     public void logout(){
-        //TODO: FIND A BETTER WAY TO DO THIS!!!
         Repository repository = Repository.getInstance(getApplication());
         GoogleSignInClient client=repository.getGoogleSignInClient();
         client.signOut().addOnCompleteListener(
@@ -115,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
         FragmentManager fragmentManager=this.getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         /*Setting Login Fragment as initial View*/
-        Fragment fragment = new ViewChatFragment(conversation,viewModel);
+        Fragment fragment = new ViewChatFragment(conversation,viewModel, this);
         transaction.replace(R.id.fragment_container,fragment);
         transaction.commit();
         constraintLayout.setVisibility(View.VISIBLE);
@@ -156,9 +155,19 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
         if(constraintLayout.getVisibility()==View.VISIBLE)
             constraintLayout.setVisibility(View.GONE);
     }
+
+
+    @Override
+    public void onBack() {
+        onBackPressed();
+    }
 }
 
 interface BrowseChatsListener{
 
     void openChat(Conversation conversation);
+}
+
+interface BackListener{
+    void onBack();
 }

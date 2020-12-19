@@ -27,7 +27,6 @@ import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.ViewModel.LoginActivityViewModel;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener{
-
     ConstraintLayout constraintLayout;
     FragmentTransaction transaction;
     FragmentManager fragmentManager;
@@ -35,22 +34,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
     LoginActivityViewModel viewModel;
     int RC_SIGN_IN;
     final String TAG = "LoginActivity";
-    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
-
         constraintLayout = findViewById(R.id.la_cl);
-
-        /*Initializing FragmentTransaction to enable viewing Fragments*/
         fragmentManager=this.getSupportFragmentManager();
         transaction=fragmentManager.beginTransaction();
-
-        /*Setting Login Fragment as initial View*/
         Fragment fragment = new LoginFragment(this);
         transaction.replace(R.id.la_cl,fragment);
         transaction.commit();
@@ -61,9 +51,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-        /*Initializing ViewModel and passing Listener instance*/
         viewModel = new ViewModelProvider(this).get(LoginActivityViewModel.class);
         viewModel.init(getApplication());
         viewModel.setListener(this);

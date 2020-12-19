@@ -32,11 +32,9 @@ public class LoginActivityViewModel extends ViewModel {
 
     LoginListener loginListener;
     Repository repository;
-
     Application application;
 
     public LoginActivityViewModel(){}
-
     public void init(Application application){
 
         mAuth = FirebaseAuth.getInstance();
@@ -44,16 +42,9 @@ public class LoginActivityViewModel extends ViewModel {
         this.application=application;
         repository = Repository.getInstance(application);
     }
-
     public void setListener(LoginListener listener){
         loginListener = listener;
     }
-
-
-    public FirebaseUser getFireBaseUser(){
-        return firebaseUser;
-    }
-
 
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -70,13 +61,7 @@ public class LoginActivityViewModel extends ViewModel {
                             assert firebaseUser != null;
                             SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
                             sharedPreferences.edit().putBoolean(Constants.LOGIN_STATUS,true).apply();
-                            //loginListener.updateUI(firebaseUser);
                             repository.handleLoginSuccess(loginListener, firebaseUser);
-                            /*if(repository.isUserRegistered(firebaseUser)){
-                                loginListener.updateUI();
-                            }else{
-                                loginListener.showRegistrationForm(firebaseUser);
-                            }*/
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

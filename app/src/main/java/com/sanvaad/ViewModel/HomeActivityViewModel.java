@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.sanvaad.CommonParticipantsViewModel;
+import com.sanvaad.ContactsViewModel;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
@@ -23,25 +24,49 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class HomeActivityViewModel extends ViewModel implements CommonParticipantsViewModel {
-
+public class HomeActivityViewModel extends ViewModel implements CommonParticipantsViewModel, ContactsViewModel {
     Repository repository;
-
     Application application;
-
-
-
-/*    public LiveData<List<Conversation>> getConversationList(){
-        return repository.getAllConversationList();
-    }*/
-
- /*   public LiveData<List<Contact>> getAllContactsList(){
-        return repository.getAllConstacts();
-    }
-*/
-
     public void init(Application application){
         repository = Repository.getInstance(application);
+    }
+
+    @Override
+    public int getColorInteger(Contact contact) {
+        if(colorMap.get(contact)==null){
+            Random rnd = new Random();
+            int newColor = Color.argb(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+            colorMap.put(contact,newColor);
+        }
+        return colorMap.get(contact);
+    }
+
+    public Contact getContact(long contactID) {
+        List<Contact> contacts = repository.getContactList();
+        for(Contact c : contacts)
+            if(contactID==c.getId())
+                return c;
+
+        return null;
+    }
+
+    public List<Contact> getParticipants(Conversation conversation) {
+        List<Contact> list = new ArrayList<>();
+        for(Message message: repository.getMessages(conversation)){
+            Contact contact = repository.getUserDataStore().getContact(message.getContactID());
+            if(contact==null)
+                continue;
+            if(!check(list,contact) && contact.getId()!=-1)
+                list.add(contact);
+        }
+        return list;
+    }
+
+    private boolean check(List<Contact> list, Contact contact){
+        for(Contact c: list)
+            if(c.getName().equals(contact.getName()))
+                return true;
+        return false;
     }
 
     public Contact getUserProfileData(){
@@ -82,42 +107,22 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
         repository.deleteContact(contact);
     }
 
-    public LiveData<List<Conversation>> getConversations() {
-        return repository.getConversationsLiveData();
+    @Override
+    public void addParticipant(Contact contact) {
+
+    }
+
+    @Override
+    public int parent() {
+        return Constants.HOME_VIEWMODEL;
+    }
+
+    public LiveData<List<Conversation>> getConversations(String uid) {
+        return repository.getConversationsLiveData(uid);
     }
 
     Map<Contact,Integer> colorMap = new HashMap<>();
 
-    @Override
-    public int getColorInteger(Contact contact) {
-        if(colorMap.get(contact)==null){
-            Random rnd = new Random();
-            int newColor = Color.argb(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
-            colorMap.put(contact,newColor);
-        }
-        return colorMap.get(contact);
-    }
-
-    public Contact getContact(long contactID) {
-        List<Contact> contacts = repository.getContactList();
-        for(Contact c : contacts)
-            if(contactID==c.getId())
-                return c;
-
-            return null;
-    }
-
-    public List<Contact> getParticipants(Conversation conversation) {
-        List<Contact> list = new ArrayList<>();
-        for(Message message: repository.getMessages(conversation)){
-            Contact contact = repository.getUserDataStore().getContact(message.getContactID());
-            if(contact==null)
-                continue;
-            if(!list.contains(contact) && contact.getId()!=-1)
-                list.add(contact);
-        }
-        return list;
-    }
 
     public User getUser() {
         return repository.getUser();
@@ -126,4 +131,5 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
     public void sendFeedBack(Feedback feedback) {
         repository.sendFeedBack(feedback);
     }
+
 }

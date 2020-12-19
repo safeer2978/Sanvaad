@@ -7,7 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.Model.TextData;
 import com.sanvaad.R;
+import com.sanvaad.View.Home.ContactsFragment;
 import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
 import com.sanvaad.messageListener;
@@ -62,7 +64,8 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
 
     }
 
-    RecyclerView commonMessageRecyclerView, chatRecyclerView, participantsRecyclerViews, contactsRecyclerViews;
+    RecyclerView commonMessageRecyclerView, chatRecyclerView, participantsRecyclerViews;
+    ConstraintLayout contactsFragmentContainer;
     ConstraintLayout mainChatContainer;
     ChatMessagesAdapter messagesAdapter;
     ChatActivityViewModel viewModel;
@@ -94,7 +97,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         commonMessageRecyclerView = findViewById(R.id.ca_common_message_rv);
         chatRecyclerView = findViewById(R.id.ca_chat_rv);
         participantsRecyclerViews = findViewById(R.id.ca_participants_rv);
-        contactsRecyclerViews = findViewById(R.id.ca_contact_rv);
+        contactsFragmentContainer = findViewById(R.id.ca_contact_cl);
         mainChatContainer = findViewById(R.id.ca_mainchatcontainer_cl);
 
 
@@ -103,12 +106,19 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         commonMessageAdapter.setList(viewModel.getCommonMessageList());
         commonMessageRecyclerView.setAdapter(commonMessageAdapter);
 
+/*
 
         contactsRecyclerViews.setLayoutManager(new LinearLayoutManager(this));
         ChooseContactAdapter contactAdapter =new ChooseContactAdapter(this,viewModel);
         contactAdapter.setList(viewModel.getContactList());
         contactsRecyclerViews.setAdapter(contactAdapter);
+*/
 
+        ContactsFragment contactsFragment = new ContactsFragment(viewModel);
+        FragmentManager fragmentManager= getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(contactsFragmentContainer.getId() ,contactsFragment);
+        transaction.commit();
 
 
         chatRecyclerView = findViewById(R.id.ca_chat_rv);
@@ -241,11 +251,11 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
     }
 
     public void toggleContactRecyclerView(){
-        if(contactsRecyclerViews.getVisibility()==View.GONE){
-            contactsRecyclerViews.setVisibility(View.VISIBLE);
+        if(contactsFragmentContainer.getVisibility()==View.GONE){
+            contactsFragmentContainer.setVisibility(View.VISIBLE);
             mainChatContainer.setVisibility(View.GONE);
         }else{
-            contactsRecyclerViews.setVisibility(View.GONE);
+            contactsFragmentContainer.setVisibility(View.GONE);
             mainChatContainer.setVisibility(View.VISIBLE);
         }
     }

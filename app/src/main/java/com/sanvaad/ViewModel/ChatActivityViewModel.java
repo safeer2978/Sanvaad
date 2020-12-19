@@ -13,7 +13,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.sanvaad.CommonParticipantsViewModel;
+import com.sanvaad.ContactsViewModel;
 import com.sanvaad.Model.Constants;
 import com.sanvaad.Model.Entity.CommonMessage;
 import com.sanvaad.Model.Entity.Contact;
@@ -33,7 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ChatActivityViewModel extends AndroidViewModel implements CommonParticipantsViewModel {
+
+public class ChatActivityViewModel extends AndroidViewModel implements CommonParticipantsViewModel, ContactsViewModel {
 
     String TAG= "CHAT_ACTIVITY_VIEW_MODEL";
     Repository repository;
@@ -43,84 +46,31 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     List<Message> messages;
     List<Contact> participants = new ArrayList<>();
     messageListener listener;
-
-    final Handler handler = new Handler(Looper.getMainLooper());
-
-    public void setListener(messageListener listener) {
-        this.listener = listener;
-    }
-
-    User user;
-    int index=0;
-
     MutableLiveData<List<Contact>> participantsLiveData = new MutableLiveData<>();
-
-Runnable timeout;
-
-    public MutableLiveData<Boolean> getListeningStateLiveData() {
-        return listeningStateLiveData;
-    }
-
-    MutableLiveData<Boolean> listeningStateLiveData = new MutableLiveData<>();
+    Runnable timeout;
+    User user;
+    final Handler handler = new Handler(Looper.getMainLooper());
+    private boolean textToSpeechToggle=false;
 
     public ChatActivityViewModel(Application application) {
         super(application);
         messages= new ArrayList<>();
         this.repository = Repository.getInstance(application);
-        conversation = new Conversation(repository.getUser());
-        //D simpleDateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+        conversation = new Conversation(FirebaseAuth.getInstance().getCurrentUser().getUid());
         conversation.setConvoID(Calendar.getInstance().getTimeInMillis());
         Date date = new Date(conversation.getConvoID());
-        Calendar calendar = Calendar.getInstance();
         conversation.setTitle("Conversation at "+date.getHours()+":"+date.getMinutes());
         participantsLiveData.postValue(participants);
-
         listeningStateLiveData.setValue(triggerState);
-
         messagesLiveData.postValue(messages);
         user = repository.getUser();
-
     }
-
-
-    public MutableLiveData<List<Message>> getMessagesLiveData() {
-        return messagesLiveData;
-    }
-
-    MutableLiveData<List<Message>> messagesLiveData = new MutableLiveData<>();
-
-    public boolean getTextToSpeechToggle() {
-        return textToSpeechToggle;
-    }
-
-    public void setTextToSpeechToggle() {
-        textToSpeechToggle = !textToSpeechToggle;
-    }
-
-    private boolean textToSpeechToggle=false;
-
-    public LiveData<TextData> getTextLiveData(){
-    return repository.getTextData();
-}
-
-    Message speakerMessage;
     public void handleSpeakerMessages(TextData textData){
         speakerMessage = new Message("Listening to Speaker...",conversation);
-
         messages.add(speakerMessage);
-            /*if(textData.isFinal()) {
-                speakerMessage=new Message("",conversation);
-                messages.add(0,speakerMessage);
-            }*/
         messages.get(messages.size()-1).setMessage(textData.getText());
-/*        textDataLiveData.observe(this, new Observer<TextData>() {
-            @Override
-            public void onChanged(TextData textData) {
-
-            }
-        });*/
-
         handler.removeCallbacks(timeout);
+        handler.removeCallbacksAndMessages(null);
         Log.d(TAG, "handleSpeakerMessages: Old Callback Removed");
         timeout = new Runnable() {
             @Override
@@ -130,9 +80,30 @@ Runnable timeout;
         };
         handler.postDelayed(timeout,10000);
         Log.d(TAG, "handleSpeakerMessages: New Callback Added");
-
-
     }
+    public void setListener(messageListener listener) {
+        this.listener = listener;
+    }
+    public MutableLiveData<Boolean> getListeningStateLiveData() {
+        return listeningStateLiveData;
+    }
+    MutableLiveData<Boolean> listeningStateLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Message>> getMessagesLiveData() {
+        return messagesLiveData;
+    }
+    MutableLiveData<List<Message>> messagesLiveData = new MutableLiveData<>();
+    public boolean getTextToSpeechToggle() {
+        return textToSpeechToggle;
+    }
+    public void setTextToSpeechToggle() {
+        textToSpeechToggle = !textToSpeechToggle;
+    }
+    public LiveData<TextData> getTextLiveData(){
+    return repository.getTextData();
+}
+
+    Message speakerMessage;
+
 
     public LiveData<List<Contact>> getParticipantsLiveData(){
         return participantsLiveData;
@@ -143,6 +114,11 @@ Runnable timeout;
             return;
         this.participants.add(contact);
         listener.hideContactScreen();
+    }
+
+    @Override
+    public int parent() {
+        return Constants.CHAT_VIEWMODEL;
     }
 
 
@@ -261,4 +237,23 @@ Runnable timeout;
     }
 
 
+    @Override
+    public LiveData<List<Contact>> getContacts(String uid) {
+        return repository.getContactLiveData(uid);
+    }
+
+    @Override
+    public void saveContact(Contact contact) {
+        repository.saveContact(contact);
+    }
+
+    @Override
+    public void updateContact(Contact contact) {
+
+    }
+
+    @Override
+    public void deleteContact(Contact contact) {
+
+    }
 }

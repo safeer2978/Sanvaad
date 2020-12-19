@@ -79,34 +79,42 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
 
 
     public void handleSpeakerMessages(TextData textData){
-        speakerMessage = new Message("Listening to Speaker...",conversation);
+        speakerMessage = new Message("Listening to Speaker...", conversation);
         messages.add(speakerMessage);
-        messages.get(messages.size()-1).setMessage(textData.getText());
+        if(!textData.getText().equals("")) {
+            messagesLiveData.postValue(messages);
+            messages.get(messages.size() - 1).setMessage(textData.getText());
+            messagesLiveData.postValue(messages);
 
 
+            handler.removeCallbacks(timeout);
+            handler.removeCallbacksAndMessages(null);
+            Log.d(TAG, "handleSpeakerMessages: Old Callback Removed");
+            timeout = new Runnable() {
+                @Override
+                public void run() {
+                    stopApi();
+                }
+            };
+            handler.postDelayed(timeout, 10000);
+            Log.d(TAG, "handleSpeakerMessages: New Callback Added");
+        }
+    }
+    public void onUserText(String messageText){
+        Message message = new Message(messageText,conversation);
+        //message.setContact(repository.getUserAsContact());
+        message.setContactID(Constants.USER_ID);
+        message.setMessage(messageText);
+        messages.add(message);
+        messagesLiveData.postValue(messages);
+        listener.refreshMessage();
 
-        handler.removeCallbacks(timeout);
-        handler.removeCallbacksAndMessages(null);
-        Log.d(TAG, "handleSpeakerMessages: Old Callback Removed");
-        timeout = new Runnable() {
-            @Override
-            public void run() {
-                stopApi();
-            }
-        };
-        handler.postDelayed(timeout,10000);
-        Log.d(TAG, "handleSpeakerMessages: New Callback Added");
-    }
-    public void setListener(messageListener listener) {
-        this.listener = listener;
-    }
-    public MutableLiveData<Boolean> getListeningStateLiveData() {
-        return listeningStateLiveData;
+        if(textToSpeechToggle) //TODO fix performance issue, make this async
+            speakText(messageText);
+        listener.hideCommonMessageScreen();
     }
 
-    public MutableLiveData<List<Message>> getMessagesLiveData() {
-        return messagesLiveData;
-    }
+
 
     public boolean getTextToSpeechToggle() {
         return textToSpeechToggle;
@@ -114,9 +122,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     public void setTextToSpeechToggle() {
         textToSpeechToggle = !textToSpeechToggle;
     }
-    public LiveData<TextData> getTextLiveData(){
-    return repository.getTextData();
-}
+
 
 
 
@@ -137,7 +143,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         triggerState = !triggerState;
         listeningStateLiveData.setValue(triggerState);
         Log.d(TAG, "handleSpeakerMessages: triggerstate:"+triggerState);
-        Message message = new Message();
+/*        Message message = new Message();
         message.setMessageDate(Calendar.getInstance().getTimeInMillis());
         message.setContactID(Constants.USER_ID);
         if(triggerState){
@@ -146,7 +152,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
             message.setMessage("Recording has stopped!");
         }
         messages.add(message);
-        listener.refreshMessage();
+        listener.refreshMessage();*/
         timeout = new Runnable() {
             @Override
             public void run() {
@@ -183,18 +189,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     }
 
 
-    public void onUserText(String messageText){
-        Message message = new Message(messageText,conversation);
-        //message.setContact(repository.getUserAsContact());
-        message.setContactID(Constants.USER_ID);
-        message.setMessage(messageText);
-        messages.add(message);
-        listener.refreshMessage();
-        if(textToSpeechToggle) //TODO fix performance issue, make this async
-            speakText(messageText);
-        listener.hideCommonMessageScreen();
 
-    }
 
 
     @Override
@@ -202,10 +197,9 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         super.onCleared();
     }
 
-    public void end(){
+    public void saveConversation(){
         repository.endConversation(messages,conversation);
-        stopApi();
-        setupConversation();
+
         //repository.saveMessages(messages);
     }
 
@@ -215,7 +209,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         listeningStateLiveData.setValue(triggerState);
         repository.stopListening();
 
-        Message message = new Message();
+        /*Message message = new Message();
         message.setMessageDate(Calendar.getInstance().getTimeInMillis());
         message.setContactID(Constants.USER_ID);
         if(triggerState){
@@ -223,10 +217,28 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         }else{
             message.setMessage("Recording has stopped!");
         }
-        messages.add(message);
+        messages.add(message);*/
         listener.refreshMessage();
     }
 
+    public void endConversation(){
+        stopApi();
+        setupConversation();
+    }
+
+    public MutableLiveData<Boolean> getListeningStateLiveData() {
+        return listeningStateLiveData;
+    }
+    public MutableLiveData<List<Message>> getMessagesLiveData() {
+        return messagesLiveData;
+    }
+    public LiveData<TextData> getTextLiveData(){
+        return repository.getTextData();
+    }
+
+    public void setListener(messageListener listener) {
+        this.listener = listener;
+    }
 
     Map<Contact,Integer> colorMap = new HashMap<>();
 

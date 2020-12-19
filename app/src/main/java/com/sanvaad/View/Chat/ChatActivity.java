@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -78,6 +80,8 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         setContentView(R.layout.activity_chat);
 
         viewModel = new ViewModelProvider(this).get(ChatActivityViewModel.class);
+        viewModel.setListener(this);
+
 
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,7 +95,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             }
         });
 
-        viewModel.setListener(this);
+
 
         addParticipantButton = findViewById(R.id.ca_addparticipant_btn);
         commonMessageRecyclerView = findViewById(R.id.ca_common_message_rv);
@@ -221,9 +225,11 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
             }
         });
 
+
         MenuItem btnItem = (MenuItem) menu.findItem(R.id.show_toggle_speech);
         btnItem.setActionView(R.layout.show_chat_start_button);
         Button button = btnItem.getActionView().findViewById(R.id.speech_button);
+        TextView recordingTextView = btnItem.getActionView().findViewById(R.id.speech_record_tv);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,10 +239,18 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
                     public void onChanged(Boolean aBoolean) {
                         Log.d(TAG, "onChanged:"+aBoolean);
                         if(aBoolean){
+                            recordingTextView.setText("Recording!");
                             button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.group_57));
-                            //TODO Recording animation here...
+                            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+                            anim.setDuration(850); //You can manage the blinking time with this parameter
+                            anim.setStartOffset(20);
+                            anim.setRepeatMode(Animation.REVERSE);
+                            anim.setRepeatCount(Animation.INFINITE);
+                            button.startAnimation(anim);
                         }else{
+                            recordingTextView.setText("Stopped");
                             button.setBackground(ContextCompat.getDrawable(ChatActivity.this,R.drawable.rec_start_button));
+                            button.clearAnimation();
                         }
                     }
                 });
@@ -275,7 +289,8 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        viewModel.end();
+                        viewModel.saveConversation();
+                        viewModel.endConversation();
                         startActivity(new Intent(ChatActivity.this, HomeActivity.class));
                         finish();
                     }
@@ -285,6 +300,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(ChatActivity.this, HomeActivity.class));
                         finish();
+                        viewModel.endConversation();
                     }
                 })
                 .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

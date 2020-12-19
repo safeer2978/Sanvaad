@@ -17,6 +17,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
+        android:gravity="top"
         android:ems="10"
         android:hint="Type Feedback Here"
         android:inputType="textPersonName"
@@ -62,6 +63,8 @@
         android:layout_marginTop="16dp"
         android:rotation="180"
         android:src="@drawable/icon_awesome_arrow_alt_circle_right"
+        android:clickable="true"
+        android:onClick="onClickBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

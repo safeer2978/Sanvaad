@@ -156,6 +156,9 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
             constraintLayout.setVisibility(View.GONE);
     }
 
+    public void onClickBack(View v){
+        onBackPressed();
+    }
 
     @Override
     public void onBack() {

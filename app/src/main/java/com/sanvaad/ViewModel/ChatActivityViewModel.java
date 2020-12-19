@@ -40,13 +40,17 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
 
     String TAG= "CHAT_ACTIVITY_VIEW_MODEL";
     Repository repository;
-
+    Message speakerMessage;
     boolean triggerState = false;
-    private final Conversation conversation;
+    private static Conversation conversation;
     List<Message> messages;
     List<Contact> participants = new ArrayList<>();
     messageListener listener;
+
+    MutableLiveData<Boolean> listeningStateLiveData = new MutableLiveData<>();
     MutableLiveData<List<Contact>> participantsLiveData = new MutableLiveData<>();
+    MutableLiveData<List<Message>> messagesLiveData = new MutableLiveData<>();
+
     Runnable timeout;
     User user;
     final Handler handler = new Handler(Looper.getMainLooper());
@@ -54,21 +58,33 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
 
     public ChatActivityViewModel(Application application) {
         super(application);
-        messages= new ArrayList<>();
         this.repository = Repository.getInstance(application);
-        conversation = new Conversation(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        conversation.setConvoID(Calendar.getInstance().getTimeInMillis());
-        Date date = new Date(conversation.getConvoID());
-        conversation.setTitle("Conversation at "+date.getHours()+":"+date.getMinutes());
+
+        setupConversation();
         participantsLiveData.postValue(participants);
         listeningStateLiveData.setValue(triggerState);
         messagesLiveData.postValue(messages);
         user = repository.getUser();
     }
+
+    private void setupConversation(){
+        messages = new ArrayList<>();
+        conversation = new Conversation(FirebaseAuth.getInstance()
+                        .getCurrentUser()
+                        .getUid());
+        conversation.setConvoID(Calendar.getInstance().getTimeInMillis());
+        Date date = new Date(conversation.getConvoID());
+        conversation.setTitle("Conversation at "+date.getHours()+":"+date.getMinutes());
+    }
+
+
     public void handleSpeakerMessages(TextData textData){
         speakerMessage = new Message("Listening to Speaker...",conversation);
         messages.add(speakerMessage);
         messages.get(messages.size()-1).setMessage(textData.getText());
+
+
+
         handler.removeCallbacks(timeout);
         handler.removeCallbacksAndMessages(null);
         Log.d(TAG, "handleSpeakerMessages: Old Callback Removed");
@@ -87,11 +103,11 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     public MutableLiveData<Boolean> getListeningStateLiveData() {
         return listeningStateLiveData;
     }
-    MutableLiveData<Boolean> listeningStateLiveData = new MutableLiveData<>();
+
     public MutableLiveData<List<Message>> getMessagesLiveData() {
         return messagesLiveData;
     }
-    MutableLiveData<List<Message>> messagesLiveData = new MutableLiveData<>();
+
     public boolean getTextToSpeechToggle() {
         return textToSpeechToggle;
     }
@@ -102,7 +118,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     return repository.getTextData();
 }
 
-    Message speakerMessage;
+
 
 
     public LiveData<List<Contact>> getParticipantsLiveData(){
@@ -115,12 +131,6 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         this.participants.add(contact);
         listener.hideContactScreen();
     }
-
-    @Override
-    public int parent() {
-        return Constants.CHAT_VIEWMODEL;
-    }
-
 
     public void triggerListening(){
         repository.triggerListening(triggerState);
@@ -194,6 +204,8 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
 
     public void end(){
         repository.endConversation(messages,conversation);
+        stopApi();
+        setupConversation();
         //repository.saveMessages(messages);
     }
 
@@ -236,7 +248,6 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         listener.refreshMessage();
     }
 
-
     @Override
     public LiveData<List<Contact>> getContacts(String uid) {
         return repository.getContactLiveData(uid);
@@ -256,4 +267,10 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     public void deleteContact(Contact contact) {
 
     }
+
+    @Override
+    public int parent() {
+        return Constants.CHAT_VIEWMODEL;
+    }
+
 }

@@ -52,6 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="onClickBack"
         android:src="@drawable/icon_ionic_md_arrow_round_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

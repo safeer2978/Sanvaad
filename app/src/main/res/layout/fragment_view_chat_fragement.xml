@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
-    android:background="@color/background"
+    android:background="@color/grey"
     android:layout_height="match_parent"
     tools:context=".View.Home.ViewChatFragment">
 
@@ -22,6 +22,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/vcf_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="View Conversation"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vcf_back_iv"
+        app:layout_constraintStart_toEndOf="@+id/vcf_back_iv"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vcf_messages_rv"
         android:layout_width="0dp"
@@ -37,13 +50,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vcf_participants_rv"
         android:layout_width="0dp"
+        android:minHeight="40dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:itemCount="1"
-        android:background="@color/grey1"
+        android:layout_margin="10dp"
+        android:padding="1dp"
+        android:background="@drawable/text_input"
         tools:listitem="@layout/recycler_view_item" />
 
     <ImageView

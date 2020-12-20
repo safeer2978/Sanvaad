@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.sanvaad.Model.Entity.Contact;
 import com.sanvaad.Model.Entity.Conversation;
 import com.sanvaad.Model.Entity.Message;
 import com.sanvaad.R;
@@ -22,6 +24,9 @@ import com.sanvaad.View.Chat.ChatMessagesAdapter;
 import com.sanvaad.View.Chat.ParticipantsAdapter;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewChatFragment extends Fragment {
@@ -59,7 +64,15 @@ public class ViewChatFragment extends Fragment {
         RecyclerView participants = view.findViewById(R.id.vcf_participants_rv);
         participants.setAdapter(participantsAdapter);
         participants.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false));
-        participantsAdapter.setList(viewModel.getParticipants(conversation));
+        List<Contact> contactList =  viewModel.getParticipants(conversation);
+        if(contactList.isEmpty()){
+            contactList = new ArrayList<>();
+            contactList.add(new Contact("No Participants"));
+            participantsAdapter.setList(contactList);
+        }else{
+            participantsAdapter.setList(contactList);
+        }
+
         participantsAdapter.notifyDataSetChanged();
 
         RecyclerView messages = view.findViewById(R.id.vcf_messages_rv);
@@ -68,6 +81,9 @@ public class ViewChatFragment extends Fragment {
         chatMessagesAdapter.setMessagesList(viewModel.getMessages(conversation));
         chatMessagesAdapter.notifyDataSetChanged();
         messages.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        TextView titleTextView= view.findViewById(R.id.vcf_title_tv);
+        titleTextView.setText(conversation.getTitle());
 
 
         ImageView back = view.findViewById(R.id.vcf_back_iv);

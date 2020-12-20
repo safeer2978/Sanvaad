@@ -47,7 +47,7 @@ public class BrowseChatsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.bcf_rv);
 
         BrowseChatAdapter adapter = new BrowseChatAdapter((HomeActivity) getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,true));
         recyclerView.setAdapter(adapter);
 
         if(viewModel!=null)

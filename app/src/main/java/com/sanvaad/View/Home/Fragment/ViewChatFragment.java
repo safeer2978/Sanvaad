@@ -32,7 +32,7 @@ public class ViewChatFragment extends Fragment {
     Conversation conversation;
 
     BackListener listener;
-    ViewChatFragment(Conversation conversation, HomeActivityViewModel homeActivityViewModel,BackListener listener){
+    public ViewChatFragment(Conversation conversation, HomeActivityViewModel homeActivityViewModel, BackListener listener){
         this.conversation=conversation;
         viewModel=homeActivityViewModel;
         this.listener=listener;

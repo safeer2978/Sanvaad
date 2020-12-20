@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 public class FeedBackFragment extends Fragment {
 
-    FeedBackFragment(HomeActivityViewModel viewModel){
+    public FeedBackFragment(HomeActivityViewModel viewModel){
         this.viewModel=viewModel;
     }
 

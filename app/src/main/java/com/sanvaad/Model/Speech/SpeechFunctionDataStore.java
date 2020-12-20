@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.sanvaad.Model.TextData;
 import java.io.IOException;
 import java.util.Calendar;
@@ -17,25 +19,23 @@ public class SpeechFunctionDataStore {
     Context context;
     public SpeechFunctionDataStore(Context context){
         this.context=context;
+        speechToText = new SpeechToText(context);
         this.textToSpeech = new TextToSpeech(context);
 
     }
     public void onStart(){
-        speechToText = new SpeechToText(context);
         speechToText.onStart();
     }
     public void onStop(){
-        if(speechToText!=null){
             speechToText.onStop();
-            speechToText = null;
-        }
     }
     public LiveData<TextData> getTextData(){
-        return speechToText.getTextData();
+            return speechToText.getTextData();
     }
     public void playTextToSpeech(String text){
         speechToText.onPause();
         textToSpeech.playText(text);
+        speechToText.onResume();
     }
     String TAG="SpeechModelTest:";
     void TextToSpeechTest(){

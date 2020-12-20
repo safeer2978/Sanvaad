@@ -44,7 +44,7 @@ public class Repository implements RepositoryListener{
         return INSTANCE;
     }
     public LiveData<TextData> getTextData(){
-        triggerListening(false);
+        //triggerListening(false);
         return speechFunctionDataStore.getTextData();
     }
 

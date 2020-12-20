@@ -120,9 +120,7 @@ public class SpeechToText {
     }
 
     public void onResume(){
-        if (audioRecord != null) {
-            audioRecord.startRecording();
-        }
+        onStart();
     }
 
 
@@ -209,6 +207,6 @@ public class SpeechToText {
     }
 
     private static String getApiKey() {
-        return "";
+        return "AIzaSyBALKVH6jkgstOFN5h03ur50c_DvHWhaTw";
     }
 }

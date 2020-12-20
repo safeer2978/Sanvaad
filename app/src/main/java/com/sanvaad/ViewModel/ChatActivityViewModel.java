@@ -38,6 +38,7 @@ import java.util.Random;
 
 public class ChatActivityViewModel extends AndroidViewModel implements CommonParticipantsViewModel, ContactsViewModel {
 
+    final int TIMEOUT= 75000;
     String TAG= "CHAT_ACTIVITY_VIEW_MODEL";
     Repository repository;
     Message speakerMessage;
@@ -96,7 +97,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
                     stopApi();
                 }
             };
-            handler.postDelayed(timeout, 10000);
+            handler.postDelayed(timeout, TIMEOUT);
             Log.d(TAG, "handleSpeakerMessages: New Callback Added");
         }
     }
@@ -159,7 +160,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
                 stopApi();
             }
         };
-        handler.postDelayed(timeout,10000);
+        handler.postDelayed(timeout,TIMEOUT);
         Log.d(TAG, "handleSpeakerMessages: Callback Added");
     }
 

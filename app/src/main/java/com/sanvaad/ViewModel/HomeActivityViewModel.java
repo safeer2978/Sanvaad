@@ -26,12 +26,22 @@ import java.util.Random;
 public class HomeActivityViewModel extends ViewModel implements CommonParticipantsViewModel, ContactsViewModel {
     Repository repository;
     Application application;
+    Map<Long,Integer> colorMap;
+
+
+
+    public Contact getContact(long contactID) {
+        List<Contact> contacts = repository.getContactList();
+        for(Contact c : contacts)
+            if(contactID==c.getId())
+                return c;
+
+        return null;
+    }
     public void init(Application application){
         repository = Repository.getInstance(application);
         colorMap = new HashMap<>();
     }
-
-    Map<Long,Integer> colorMap;
 
     @Override
     public int getColorInteger(Contact contact) {
@@ -43,15 +53,6 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
             colorMap.put(contact.getContactID(),newColor);
         }
         return colorMap.get(contact.getContactID());
-    }
-
-    public Contact getContact(long contactID) {
-        List<Contact> contacts = repository.getContactList();
-        for(Contact c : contacts)
-            if(contactID==c.getId())
-                return c;
-
-        return null;
     }
 
     public List<Contact> getParticipants(Conversation conversation) {
@@ -84,7 +85,6 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
         return chatDataLists;
     }
 
-
     public List<Message> getMessages(Conversation c){
         return repository.getMessages(c);
     }
@@ -93,7 +93,6 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
         SharedPreferences sharedPreferences = application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(Constants.LOGIN_STATUS,false).apply();
     }
-
 
     public void saveContact(Contact contact) {
         repository.saveContact(contact);

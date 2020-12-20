@@ -96,6 +96,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
             Log.d(TAG, "handleSpeakerMessages: New Callback Added");
         }
     }
+
     public void onUserText(String messageText){
         Message message = new Message(messageText,conversation);
         //message.setContact(repository.getUserAsContact());
@@ -111,17 +112,13 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     }
 
 
-
     public boolean getTextToSpeechToggle() {
         return textToSpeechToggle;
     }
+
     public void setTextToSpeechToggle() {
         textToSpeechToggle = !textToSpeechToggle;
     }
-
-
-
-
 
     public LiveData<List<Contact>> getParticipantsLiveData(){
         return participantsLiveData;
@@ -139,17 +136,6 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         triggerState = !triggerState;
         listeningStateLiveData.setValue(triggerState);
         Log.d(TAG, "handleSpeakerMessages: triggerstate:"+triggerState);
-/*        Message message = new Message();
-        message.setMessageDate(Calendar.getInstance().getTimeInMillis());
-        message.setContactID(Constants.USER_ID);
-        if(triggerState){
-            message.setMessage("Recording has Started!");
-        }else{
-            message.setMessage("Recording has stopped!");
-        }
-        messages.add(message);
-        listener.refreshMessage();*/
-
         handler.removeCallbacks(timeout);
         handler.removeCallbacksAndMessages(null);
         timeout = new Runnable() {

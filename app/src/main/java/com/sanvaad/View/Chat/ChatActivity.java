@@ -53,11 +53,19 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class ChatActivity extends AppCompatActivity implements messageListener {
 
     private static final String TAG = "Chat_Activity";
-    TextView textView;
-    EditText editText;
-    Button speakBtn, triggerBtn;
+
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
+
     Toolbar toolbar;
+    RecyclerView commonMessageRecyclerView, chatRecyclerView, participantsRecyclerViews;
+    ConstraintLayout contactsFragmentContainer;
+    ConstraintLayout mainChatContainer;
+    ChatMessagesAdapter messagesAdapter;
+    ChatActivityViewModel viewModel;
+    ParticipantsAdapter participantsAdapter;
+    Button addParticipantButton, userSendButton;
+    TextView commonMessageTab;
+
 
     @Override
     protected void onStart() {
@@ -69,14 +77,6 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         }
 
     }
-
-    RecyclerView commonMessageRecyclerView, chatRecyclerView, participantsRecyclerViews;
-    ConstraintLayout contactsFragmentContainer;
-    ConstraintLayout mainChatContainer;
-    ChatMessagesAdapter messagesAdapter;
-    ChatActivityViewModel viewModel;
-    ParticipantsAdapter participantsAdapter;
-    Button addParticipantButton, userSendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,8 +170,8 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         });
 
         commonMessageRecyclerView.setVisibility(View.GONE);
-        textView=findViewById(R.id.toggle_rv);
-        textView.setOnClickListener(new View.OnClickListener() {
+        commonMessageTab = findViewById(R.id.toggle_rv);
+        commonMessageTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(commonMessageRecyclerView.getVisibility()==View.GONE)

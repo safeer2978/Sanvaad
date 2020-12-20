@@ -53,8 +53,6 @@ ChatActivityViewModel viewModel;
             }
         });
         holder.textView.setText(commonMessage.getMessage());
-
-
     }
 
     @Override

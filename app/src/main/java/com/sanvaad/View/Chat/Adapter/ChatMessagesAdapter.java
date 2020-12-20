@@ -30,16 +30,12 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
 
     ChatActivityViewModel viewModel;
 
-
-
     public ChatMessagesAdapter(Context context, ChatActivityViewModel viewModel) {
         this.context = context;
         this.viewModel = viewModel;
         messageList = new ArrayList<>();
 
     }
-
-
 
     public void setContactList(List<Contact> contacts) {
         this.contactList = contacts;
@@ -107,27 +103,6 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
         holder.textViewTime.setText(date.getHours()+":"+date.getMinutes());
 
     }
-
-/*
-    @Override
-    public void onBindViewHolder(@NonNull com.sanvaad.View.Chat.Adapter.ChatMessagesAdapter.ViewHolder holder, int messagePosition, int contactPosition) {
-        //Message messsage= messageList.get(messagePosition);
-        Contact contact = contactList.get(contactPosition);
-
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
-/*        holder.textView.setText(messsage.getMessage());
-        holder.textViewSpeaker.setText(contact.getName());
-        holder.textViewTime.setText(messsage.getMessageDate());*//*
-
-
-    }
-*/
 
     @Override
     public int getItemCount() {

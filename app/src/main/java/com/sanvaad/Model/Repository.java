@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +37,9 @@ public class Repository implements RepositoryListener {
 
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
-        speechFunctionDataStore.setGender(application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).getBoolean(Constants.GENDER, true));
+        speechFunctionDataStore.setGender(application
+                .getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
+                .getBoolean(Constants.GENDER, true));
         userDataStore = new UserDataStore(application);
         userDataStore.setListener(this);
         updateUser(application);
@@ -83,16 +86,6 @@ public class Repository implements RepositoryListener {
         userDataStore.createUser(user);
         this.user = user;
     }
-/*    public boolean isUserRegistered(@NotNull FirebaseUser firebaseUser){
-            if(userDataStore.userExists(firebaseUser.getUid().replace(".","_"))){
-                this.user = userDataStore.getUser();
-                return true;
-            }
-            else{
-                return  false;
-            }
-    }
-    */
     LoginListener loginListener;
     FirebaseUser firebaseUser;
     public void handleLoginSuccess(LoginListener listener, FirebaseUser firebaseUser){
@@ -138,6 +131,9 @@ public class Repository implements RepositoryListener {
         userDataStore.updateContact(contact);
     }
     public void saveContact(Contact contact) {
+        for(Contact c: userDataStore.getContactList())
+            if(c.getFirebaseUserID().equals(contact.getFirebaseUserID()) && c.getName().equals(contact.getName()))
+                return;
         userDataStore.createContact(contact);
     }
     public void deleteContact(Contact contact) {

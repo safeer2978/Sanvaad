@@ -149,6 +149,9 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         }
         messages.add(message);
         listener.refreshMessage();*/
+
+        handler.removeCallbacks(timeout);
+        handler.removeCallbacksAndMessages(null);
         timeout = new Runnable() {
             @Override
             public void run() {
@@ -204,7 +207,7 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
         triggerState=false;
         listeningStateLiveData.setValue(triggerState);
         repository.stopListening();
-
+        handler.removeCallbacksAndMessages(null);
         /*Message message = new Message();
         message.setMessageDate(Calendar.getInstance().getTimeInMillis());
         message.setContactID(Constants.USER_ID);

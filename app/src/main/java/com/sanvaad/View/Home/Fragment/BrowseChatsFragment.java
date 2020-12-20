@@ -22,6 +22,7 @@ import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.View.Home.Listener.BrowseChatsListener;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class BrowseChatsFragment extends Fragment {
@@ -47,13 +48,14 @@ public class BrowseChatsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.bcf_rv);
 
         BrowseChatAdapter adapter = new BrowseChatAdapter((HomeActivity) getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,true));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         if(viewModel!=null)
             viewModel.getConversations(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
             @Override
             public void onChanged(List<Conversation> conversations) {
+                Collections.reverse(conversations);
                 adapter.setConversationList(conversations);
                 adapter.notifyDataSetChanged();
             }

@@ -75,12 +75,14 @@ public class ContactsFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!editText.getText().toString().equals("")){
                 Contact contact = new Contact();
                 contact.setName(editText.getText().toString());
                 contact.setFirebaseUserID(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                 contact.setImglink(Constants.DUMMY_CONTACT_IMAGE_LINK);
                 viewModel.saveContact(contact);
                 editText.setText("");
+                }
             }
         });
     }

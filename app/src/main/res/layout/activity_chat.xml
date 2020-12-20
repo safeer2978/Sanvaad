@@ -146,7 +146,7 @@
 
                 <EditText
                     android:id="@+id/editTextTextPersonName"
-                    android:layout_width="337dp"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
 
                     android:background="@drawable/text_input"

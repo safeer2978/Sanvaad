@@ -133,4 +133,7 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
         repository.sendFeedBack(feedback);
     }
 
+    public void updateGenderPref() {
+        repository.updateGenderPref();
+    }
 }

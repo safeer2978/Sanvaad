@@ -25,15 +25,18 @@ public class Repository implements RepositoryListener{
     SpeechFunctionDataStore speechFunctionDataStore;
     UserDataStore userDataStore;
     User user;
+    Application application;
     public UserDataStore getUserDataStore(){
         return userDataStore;
     }
 
     Repository(Application application){
         speechFunctionDataStore = new SpeechFunctionDataStore(application.getApplicationContext());
+        speechFunctionDataStore.setGender(application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).getBoolean(Constants.GENDER, true));
         userDataStore = new UserDataStore(application);
         userDataStore.setListener(this);
         updateUser(application);
+        this.application=application;
     }
     private static Repository INSTANCE;
 
@@ -151,6 +154,10 @@ public class Repository implements RepositoryListener{
     }
     public void sendFeedBack(Feedback feedback) {
         userDataStore.createFeedback(feedback);
+    }
+
+    public void updateGenderPref() {
+        speechFunctionDataStore.setGender(application.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).getBoolean(Constants.GENDER, true));
     }
 }
 

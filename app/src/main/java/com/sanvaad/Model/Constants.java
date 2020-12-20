@@ -22,6 +22,8 @@ public class Constants {
     public static final int HOME_VIEWMODEL = 0;
 
     public static final List<Integer> colorSet = new ArrayList<>();
+    public static final String GENDER = "GENDER";
+
     static {
         colorSet.add(Color.parseColor("#FFCD95"));
         colorSet.add(Color.parseColor("#EECB3F"));

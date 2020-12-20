@@ -43,6 +43,7 @@ import com.sanvaad.messageListener;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
@@ -86,7 +87,7 @@ public class ChatActivity extends AppCompatActivity implements messageListener {
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_ionic_md_arrow_round_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

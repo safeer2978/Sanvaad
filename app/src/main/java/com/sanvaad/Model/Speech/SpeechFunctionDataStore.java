@@ -37,6 +37,11 @@ public class SpeechFunctionDataStore {
         textToSpeech.playText(text);
         speechToText.onResume();
     }
+
+
+    public void setGender(boolean gender){
+        textToSpeech.setVoiceGender(gender);
+    }
     String TAG="SpeechModelTest:";
     void TextToSpeechTest(){
         Log.w(TAG, "Testing Text to Speech");

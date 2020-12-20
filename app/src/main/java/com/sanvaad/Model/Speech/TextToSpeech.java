@@ -112,8 +112,8 @@ public class TextToSpeech {
      *  first character is compared, f or not
      *  not case sensitive
      * */
-    public void setVoiceGender(String gender){
-        if(gender.toLowerCase().charAt(0) == 'f')
+    public void setVoiceGender(boolean gender){
+        if(!gender)
             voiceName = "en-IN-Standard-D";
         else
             voiceName = "en-IN-Standard-C";

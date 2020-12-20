@@ -29,16 +29,21 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
     Application application;
     public void init(Application application){
         repository = Repository.getInstance(application);
+        colorMap = new HashMap<>();
     }
+
+    Map<Long,Integer> colorMap;
 
     @Override
     public int getColorInteger(Contact contact) {
-        if(colorMap.get(contact)==null){
+        if(!colorMap.containsKey(contact.getContactID())){
             Random rnd = new Random();
-            int newColor = Color.argb(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
-            colorMap.put(contact,newColor);
+            int newColor = Constants.colorSet.get(rnd.nextInt(5));
+            while(colorMap.size()<5 && colorMap.containsValue(newColor))
+                newColor = Constants.colorSet.get(rnd.nextInt(5));
+            colorMap.put(contact.getContactID(),newColor);
         }
-        return colorMap.get(contact);
+        return colorMap.get(contact.getContactID());
     }
 
     public Contact getContact(long contactID) {
@@ -120,10 +125,6 @@ public class HomeActivityViewModel extends ViewModel implements CommonParticipan
     public LiveData<List<Conversation>> getConversations(String uid) {
         return repository.getConversationsLiveData(uid);
     }
-
-    Map<Contact,Integer> colorMap = new HashMap<>();
-
-
     public User getUser() {
         return repository.getUser();
     }

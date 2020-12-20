@@ -246,7 +246,9 @@ public class ChatActivityViewModel extends AndroidViewModel implements CommonPar
     public int getColorInteger(Contact contact) {
         if(colorMap.get(contact)==null){
         Random rnd = new Random();
-        int newColor = Color.argb(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+        int newColor = Constants.colorSet.get(rnd.nextInt(5));
+        while(colorMap.size()<5 && colorMap.containsValue(newColor))
+            newColor = Constants.colorSet.get(rnd.nextInt(5));
         colorMap.put(contact,newColor);
         }
         return colorMap.get(contact);

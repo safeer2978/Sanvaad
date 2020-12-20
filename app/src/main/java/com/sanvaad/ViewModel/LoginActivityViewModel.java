@@ -2,12 +2,10 @@ package com.sanvaad.ViewModel;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -19,8 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.sanvaad.Model.Constants;
-import com.sanvaad.Model.Entity.User;
+import com.sanvaad.Model.Util.Constants;
+import com.sanvaad.Model.UserData.db.Entity.User;
 import com.sanvaad.Model.Repository;
 import com.sanvaad.View.Login.LoginListener;
 

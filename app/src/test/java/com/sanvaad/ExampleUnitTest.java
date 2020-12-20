@@ -1,8 +1,5 @@
 package com.sanvaad;
 
-import com.sanvaad.Model.Repository;
-import com.sanvaad.Model.UserDataStore;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;

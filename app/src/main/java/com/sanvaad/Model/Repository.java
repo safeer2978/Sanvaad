@@ -8,19 +8,23 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
-import com.sanvaad.Model.Entity.CommonMessage;
-import com.sanvaad.Model.Entity.Contact;
-import com.sanvaad.Model.Entity.Conversation;
-import com.sanvaad.Model.Entity.Feedback;
-import com.sanvaad.Model.Entity.Message;
-import com.sanvaad.Model.Entity.User;
-import com.sanvaad.Model.Speech.SpeechFunctionDataStore;
+import com.sanvaad.Model.UserData.UserDataStore;
+import com.sanvaad.Model.UserData.db.Entity.CommonMessage;
+import com.sanvaad.Model.UserData.db.Entity.Contact;
+import com.sanvaad.Model.UserData.db.Entity.Conversation;
+import com.sanvaad.Model.UserData.db.Entity.Feedback;
+import com.sanvaad.Model.UserData.db.Entity.Message;
+import com.sanvaad.Model.UserData.db.Entity.User;
+import com.sanvaad.Model.SpeechData.SpeechFunctionDataStore;
+import com.sanvaad.Model.Util.Constants;
+import com.sanvaad.Model.Util.RepositoryListener;
+import com.sanvaad.Model.Util.TextData;
 import com.sanvaad.View.Login.LoginListener;
 
 import java.util.List;
 
 
-public class Repository implements RepositoryListener{
+public class Repository implements RepositoryListener {
 
     SpeechFunctionDataStore speechFunctionDataStore;
     UserDataStore userDataStore;
@@ -161,7 +165,3 @@ public class Repository implements RepositoryListener{
     }
 }
 
-interface RepositoryListener{
-    void registered();
-    void notRegistered();
-}

@@ -3,20 +3,19 @@ package com.sanvaad.ViewModel;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.sanvaad.CommonParticipantsViewModel;
-import com.sanvaad.ContactsViewModel;
-import com.sanvaad.Model.Constants;
-import com.sanvaad.Model.Entity.Contact;
-import com.sanvaad.Model.Entity.Conversation;
-import com.sanvaad.Model.Entity.Feedback;
-import com.sanvaad.Model.Entity.Message;
-import com.sanvaad.Model.Entity.User;
+import com.sanvaad.Model.Util.Constants;
+import com.sanvaad.Model.UserData.db.Entity.Contact;
+import com.sanvaad.Model.UserData.db.Entity.Conversation;
+import com.sanvaad.Model.UserData.db.Entity.Feedback;
+import com.sanvaad.Model.UserData.db.Entity.Message;
+import com.sanvaad.Model.UserData.db.Entity.User;
 import com.sanvaad.Model.Repository;
+import com.sanvaad.ViewModel.Interfaces.CommonParticipantsViewModel;
+import com.sanvaad.ViewModel.Interfaces.ContactsViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

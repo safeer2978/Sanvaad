@@ -1,32 +1,27 @@
 package com.sanvaad.ViewModel;
 
 import android.app.Application;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.CalendarContract;
 import android.util.Log;
 
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.sanvaad.CommonParticipantsViewModel;
-import com.sanvaad.ContactsViewModel;
-import com.sanvaad.Model.Constants;
-import com.sanvaad.Model.Entity.CommonMessage;
-import com.sanvaad.Model.Entity.Contact;
-import com.sanvaad.Model.Entity.Conversation;
-import com.sanvaad.Model.Entity.Message;
-import com.sanvaad.Model.Entity.User;
+import com.sanvaad.Model.Util.Constants;
+import com.sanvaad.Model.UserData.db.Entity.CommonMessage;
+import com.sanvaad.Model.UserData.db.Entity.Contact;
+import com.sanvaad.Model.UserData.db.Entity.Conversation;
+import com.sanvaad.Model.UserData.db.Entity.Message;
+import com.sanvaad.Model.UserData.db.Entity.User;
 import com.sanvaad.Model.Repository;
-import com.sanvaad.Model.TextData;
-import com.sanvaad.messageListener;
+import com.sanvaad.Model.Util.TextData;
+import com.sanvaad.View.Chat.Listener.messageListener;
+import com.sanvaad.ViewModel.Interfaces.CommonParticipantsViewModel;
+import com.sanvaad.ViewModel.Interfaces.ContactsViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

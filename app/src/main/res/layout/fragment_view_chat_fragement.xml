@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/grey"
     android:layout_height="match_parent"
-    tools:context=".View.Home.ViewChatFragment">
+    tools:context=".View.Home.Fragment.ViewChatFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

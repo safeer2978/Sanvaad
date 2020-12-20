@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.sanvaad.Model.Entity.User;
+import com.sanvaad.Model.UserData.db.Entity.User;
 import com.sanvaad.R;
-
-import java.sql.Date;
-import java.util.Calendar;
 
 public class SignUpFragment extends Fragment {
 

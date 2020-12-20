@@ -31,14 +31,17 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.sanvaad.Model.Entity.Contact;
-import com.sanvaad.Model.Entity.Message;
-import com.sanvaad.Model.TextData;
+import com.sanvaad.Model.UserData.db.Entity.Contact;
+import com.sanvaad.Model.UserData.db.Entity.Message;
+import com.sanvaad.Model.Util.TextData;
 import com.sanvaad.R;
-import com.sanvaad.View.Home.ContactsFragment;
+import com.sanvaad.View.Chat.Adapter.ChatMessagesAdapter;
+import com.sanvaad.View.Chat.Adapter.CommonMessageAdapter;
+import com.sanvaad.View.Chat.Adapter.ParticipantsAdapter;
+import com.sanvaad.View.Home.Fragment.ContactsFragment;
 import com.sanvaad.View.Home.HomeActivity;
 import com.sanvaad.ViewModel.ChatActivityViewModel;
-import com.sanvaad.messageListener;
+import com.sanvaad.View.Chat.Listener.messageListener;
 
 
 import java.util.Calendar;

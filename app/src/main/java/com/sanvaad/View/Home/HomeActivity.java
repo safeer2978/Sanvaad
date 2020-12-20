@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -26,16 +25,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
-import com.sanvaad.Model.Constants;
-import com.sanvaad.Model.Entity.Conversation;
+import com.sanvaad.Model.Util.Constants;
+import com.sanvaad.Model.UserData.db.Entity.Conversation;
 import com.sanvaad.Model.Repository;
-import com.sanvaad.Model.UserDataStore;
+import com.sanvaad.Model.UserData.UserDataStore;
 import com.sanvaad.R;
 import com.sanvaad.View.Chat.ChatActivity;
+import com.sanvaad.View.Home.Adapter.ViewPagerAdapter;
+import com.sanvaad.View.Home.Fragment.FeedBackFragment;
+import com.sanvaad.View.Home.Fragment.ViewChatFragment;
+import com.sanvaad.View.Home.Listener.BackListener;
+import com.sanvaad.View.Home.Listener.BrowseChatsListener;
 import com.sanvaad.View.Login.LoginActivity;
 import com.sanvaad.ViewModel.HomeActivityViewModel;
 
-public class HomeActivity extends AppCompatActivity implements BrowseChatsListener, BackListener{
+public class HomeActivity extends AppCompatActivity implements BrowseChatsListener, BackListener {
     UserDataStore userDataStore;
 
     Button button;
@@ -166,11 +170,3 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
     }
 }
 
-interface BrowseChatsListener{
-
-    void openChat(Conversation conversation);
-}
-
-interface BackListener{
-    void onBack();
-}

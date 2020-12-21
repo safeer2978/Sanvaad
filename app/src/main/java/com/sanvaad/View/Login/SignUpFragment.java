@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.sanvaad.Model.UserData.db.Entity.User;
@@ -77,7 +78,28 @@ public class SignUpFragment extends Fragment {
         user.setName(nameET.getText().toString());
         user.setEmail(emailET.getText().toString());
         user.setPhoneNo(phoneET.getText().toString());
+        if(phoneET.getText().toString().length()<10){
+            Toast.makeText(getContext(),"Invalid Phone Number",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(phoneET.getText().toString().matches(".*[a-zA-Z]+.*")) {
+            Toast.makeText(getContext(),"Invalid Phone Number",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         user.setAge(Integer.parseInt(ageET.getText().toString()));
+        if(ageET.getText().toString().length()>3){
+            Toast.makeText(getContext(),"Invalid Age",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(ageET.getText().toString().matches(".*[a-zA-Z]+.*")){
+            Toast.makeText(getContext(),"Invalid Age:Contains Characters",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(Integer.parseInt(ageET.getText().toString())<13){
+            Toast.makeText(getContext(),"Invalid Age: Need to be older",Toast.LENGTH_LONG).show();
+            return;
+        }
         user.setFirebaseId(firebaseUser.getUid());
         loginListener.registerUser(user);
     }

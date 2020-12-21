@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener{
     @Override
     public void showRegistrationForm(FirebaseUser user) {
         Fragment fragment = new SignUpFragment(this, user);
-
         transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.la_cl,fragment);
         transaction.commit();

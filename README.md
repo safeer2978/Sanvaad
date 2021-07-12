@@ -1,7 +1,9 @@
-![](https://github.com/safeer2978/Sanvaad/blob/main/Design/Logo/Logo.jpg)
+
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/Design/Logo/Logo.jpg" height="120">
+
 # _Sanvaad_ - Communicate Easy with Friends and Family
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/logo.png)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/logo.png"  width="120" height="120">
 
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/safeer2978/Sunno-backend/blob/master/LICENSE)
 
@@ -29,10 +31,7 @@ Besides persons-of-disabilities, this app can also be used for solving other com
  - add and send common messages 
 
 ## Screenshots
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/1.jpg)
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/2.jpg)
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/3.jpg)
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/4.jpg)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/1.jpg"  width="220"> <img src="https://github.com/safeer2978/Sanvaad/blob/main/images/2.jpg"  width="220"> <img src="https://github.com/safeer2978/Sanvaad/blob/main/images/3.jpg"  width="220"> <img src="https://github.com/safeer2978/Sanvaad/blob/main/images/4.jpg"  width="220">
 
 ## Scope/limitations/future work:
 The application is limited to the services offered by the third-party Speech APIs. The application does not have any Machine learning services built in. The application is limited to the use of open source libraries for voice functions and Google Cloud Speech API for transcription.
@@ -49,27 +48,24 @@ You can use this app as it is or you may choose to imporve on the application us
 
 ### Architecture:
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/arch.png)
-
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/arch.png"  width="820">
 The application makes use of MVVM architecture. We have Mutliple data store here as shown by the context diagram.
 
 ### Context Diagram:
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/context.png)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/context.png"  width="420">
 
 The databases are both designed using a relational schema illustrated by the following ER diagrams. 
 
 ### ER diagrams:
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/er1.png)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/er1.png"  width="420"> <img src="https://github.com/safeer2978/Sanvaad/blob/main/images/er2.png"  width="420">
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/er2.png)
 ### Use Case Diagram
-
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/usecase.png)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/usecase.png"  width="820">
 
 ### Class Diagram
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/classes.png"  width="820">
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/classes.png)
+<img src="https://github.com/safeer2978/Sanvaad/blob/main/images/5.png"  width="820">
 
-![](https://github.com/safeer2978/Sanvaad/blob/main/images/5.png)
 

@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.protobuf'
+apply plugin: 'kotlin-android'
 android {
-
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
-
+    namespace "com.sanvaad"
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.sanvaad"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -32,10 +31,11 @@ android {
                 srcDir 'src/main/proto'
             }
         }
+        main.java.srcDirs += 'src/main/kotlin'
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     packagingOptions {
         // Exclude file to avoid
@@ -96,6 +96,9 @@ protobuf {
 }
 
 dependencies {
+
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     /*debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'*/
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'

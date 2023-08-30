@@ -132,15 +132,15 @@ public class HomeActivity extends AppCompatActivity implements BrowseChatsListen
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ha_toolbar_logout:
-                logout();
-                return true;
-            case R.id.ha_toolbar_feedback:
-                switchToFeedback();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if(id == R.id.ha_toolbar_logout) {
+            logout();
+            return true;
+        } else if (id == R.id.ha_toolbar_feedback) {
+            switchToFeedback();
+            return true;
+        } else{
+            return super.onOptionsItemSelected(item);
         }
     }
 

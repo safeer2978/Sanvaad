@@ -105,18 +105,15 @@ public class ProfileFragment extends Fragment {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioButton_male:
-                    female.setChecked(false);
-                    male.setChecked(true);
-                    changeGenderPref(true);
-                    // Pirates are the best
-                    break;
-            case R.id.radioButton_female:
-                    female.setChecked(true);
-                    male.setChecked(false);
-                    changeGenderPref(false);
-                    break;
+        if (view.getId() == R.id.radioButton_male) {
+            female.setChecked(false);
+            male.setChecked(true);
+            changeGenderPref(true);
+            // Pirates are the best
+        } else {
+            female.setChecked(true);
+            male.setChecked(false);
+            changeGenderPref(false);
         }
     }
 }
